@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki źródłowe\items">
+      <UniqueIdentifier>{5248aa5b-7515-4dba-931d-9e52e07af669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\items\tools">
+      <UniqueIdentifier>{124af56c-a553-4294-a10f-e12b36da2d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\item">
+      <UniqueIdentifier>{1f888000-c08b-45b0-8af3-f22b0c117a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\item\tools">
+      <UniqueIdentifier>{868fc26b-13d7-4e1e-82ef-e8919fb0617e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\BasicStructures">
+      <UniqueIdentifier>{7ef2a007-6451-413c-bffe-b56d03c094ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\item\workStations">
+      <UniqueIdentifier>{e8353d55-9f29-4f02-9d63-f22f5c23de9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\items\workStations">
+      <UniqueIdentifier>{c11588ed-234a-4e2c-8df5-5676bc0d650a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMenu.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="StateSpawnPlace.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityPlayer.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipment.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="itemHoe.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>Pliki źródłowe\items</Filter>
+    </ClCompile>
+    <ClCompile Include="itemTool.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="itemPickaxe.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="itemWateringCan.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="itemAxe.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="itemSword.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="itemShovel.cpp">
+      <Filter>Pliki źródłowe\items\tools</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="mouseButton.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="TilesOnMap.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrownItems.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemConstructor.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="ThrowedItem.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraSprite.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="TilesManagement.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="TilesByItemsManagement.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="HoveringWithMouse.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentAreas.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentStorageArea.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="itemAndItsPosition.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Crafting.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="Workstation.cpp">
+      <Filter>Pliki źródłowe\items\workStations</Filter>
+    </ClCompile>
+    <ClCompile Include="itemChest.cpp">
+      <Filter>Pliki źródłowe\items\workStations</Filter>
+    </ClCompile>
+    <ClCompile Include="itemFurnace.cpp">
+      <Filter>Pliki źródłowe\items\workStations</Filter>
+    </ClCompile>
+    <ClCompile Include="TileConstructor.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="EquipmentAreasMenagement.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMenu.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSpawnPlace.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityPlayer.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Equipment.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>Pliki nagłówkowe\item</Filter>
+    </ClInclude>
+    <ClInclude Include="itemWateringCan.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemHoe.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemPickaxe.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemTool.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemAxe.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemSword.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="itemShovel.h">
+      <Filter>Pliki nagłówkowe\item\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="mouseButton.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesOnMap.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrownItems.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemConstructor.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Changelog.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="ThrowedItem.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraSprite.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesManagement.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TilesByItemsManagement.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="HoveringWithMouse.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentAreas.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentStorageArea.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="itemAndItsPosition.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="Crafting.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureData.h">
+      <Filter>Pliki nagłówkowe\BasicStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsData.h">
+      <Filter>Pliki nagłówkowe\BasicStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="StructuresOfData.h">
+      <Filter>Pliki nagłówkowe\BasicStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentData.h">
+      <Filter>Pliki nagłówkowe\BasicStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="itemChest.h">
+      <Filter>Pliki nagłówkowe\item\workStations</Filter>
+    </ClInclude>
+    <ClInclude Include="Workstation.h">
+      <Filter>Pliki nagłówkowe\item\workStations</Filter>
+    </ClInclude>
+    <ClInclude Include="itemFurnace.h">
+      <Filter>Pliki nagłówkowe\item\workStations</Filter>
+    </ClInclude>
+    <ClInclude Include="itemsData.h">
+      <Filter>Pliki nagłówkowe\BasicStructures</Filter>
+    </ClInclude>
+    <ClInclude Include="TileConstructor.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="EquipmentAreasMenagement.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
