@@ -224,20 +224,21 @@ bool ThrowedItem::checkDistanceItemToPlayer()
 
 void ThrowedItem::makeUnpickableItemsList()
 {
-	for (auto& row : *eq)
-		for (auto& elem : row)
-			if (elem.second->getItemPtr() == nullptr)
+	//BABOL do poprawienia liczby sk¹d siê bierze 3?   (wielkosc eq to 9na3 ale eq jest size 9x10 wiec trzeba to sprytnie wymysliæ 
+	for (int i=0;i<3;i++)
+		for (int j=0;j<eq->size();j++)
+			if (eq->at(j).at(i).second->getItemPtr() == nullptr)
 			{
 				this->equipmentData->IDofItemsWhichCantBeTaken.clear();
 				return;
 			}
-			else if (elem.second->getItemPtr()->checkIfAddable() == false)
+			else if (eq->at(j).at(i).second->getItemPtr()->checkIfAddable() == false)
 			{
-				this->TmpUnAddableList.push_back(elem.second->getItemPtr()->itemID);
+				this->TmpUnAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->itemID);
 			}
 			else
 			{
-				this->TmpAddableList.push_back(elem.second->getItemPtr()->itemID);
+				this->TmpAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->itemID);
 			}
 
 	compareAddableAndUnaddableList();
@@ -257,8 +258,11 @@ void ThrowedItem::setCatchedState(bool catched)
 bool ThrowedItem::checkIfCatched()
 {
 	if (this->catchedItem)
-		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->itemID) != this->equipmentData->IDofItemsWhichCantBeTaken.end())
+		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->itemID) != this->equipmentData->IDofItemsWhichCantBeTaken.end()) //zawsze puste hmm
+		{
 			this->catchedItem = 0;
+		}
+		
 
 	return this->catchedItem;
 }
