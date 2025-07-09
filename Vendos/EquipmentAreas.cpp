@@ -126,7 +126,7 @@ void EquipmentAreas::updatePositionsOfItems(const std::map<std::string, button*>
 	for (int y = 0; y < this->sizeOfArea.y; y++)
 		for (int x = 0; x < this->sizeOfArea.x; x++)
 			if (this->AllitemsArea->at(x).at(y).first == true)
-				if (this->AllitemsArea->at(x).at(y).second!=nullptr)
+				if (this->AllitemsArea->at(x).at(y).second->getItemPtr()!=nullptr)
 				this->AllitemsArea->at(x).at(y).second->setPosition({ (x * this->equipmentData->SizeOfItems) + this->realPosOfItems_0_0.x,this->realPosOfItems_0_0.y - (y * this->equipmentData->SizeOfItems) });
 	
 	if (this->itemGrabbed!= nullptr)
@@ -229,8 +229,23 @@ void EquipmentAreas::searchForPlaceForWholeStack(const std::map<std::string, but
 {
 	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
 	{
-		assignItemToArea(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr(), 0, AllitemsArea, { 0,1,2 });
+
+		assignItemToAreaInEquipment(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y), AllitemsArea, decideWhichOrder(this->SquareHovered.y));
 	}
+}
+
+std::vector<int> EquipmentAreas::decideWhichOrder(int hoveredRow)
+{
+	switch (hoveredRow)
+	{
+	case 0:
+		return { 2,1,0 };
+	case 1:
+		return { 0,2,1 };
+	case 2:
+		return { 0,2,1 };
+	}
+	return { 0,2,1 };
 }
 
 void EquipmentAreas::stackItems_TrueIfRestEqual0(item** ItemFrom, item** ItemTo)

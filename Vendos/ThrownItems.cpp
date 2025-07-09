@@ -82,14 +82,21 @@ void ThrownItems::update(const float& dt)
 				{
 					ItemsThrownVec->update(dt);
 
+					//if (ItemsThrownVec->checkIfPossibleItemPlacement(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))
+					//	ItemsThrownVec->setCatchedState(false);
+
+					//item nie goni jak siê zrobi miejsce w eq tylko od razu wpada do eq 
+
 					if (ItemsThrownVec->checkIfCatched())
 					{
-						if (ItemsThrownVec->assignItemToArea(ItemsThrownVec->getItem(), 0, this->eq, OrderOfSearch))
+						if (ItemsThrownVec->assignItemToAreaFromTiles(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))
 						{
 							this->SprToDeleteVec.push_back(&ItemsThrownVec->getItem()->itemSprite);
-							this->itemToDeleteFound = 1;
+							this->itemToDeleteFound = true;
 							return true;
 						}
+
+
 						else return false;
 					}
 					
@@ -121,17 +128,14 @@ void ThrownItems::update(const float& dt)
 
 		this->graphicsData->ItemsThrownSpriteMapped->shrink_to_fit();
 
-		this->equipmentData->needToUpdateCameraAllSpr = 1;
+		this->equipmentData->needToUpdateCameraAllSpr = true;
 
 		for (auto elem : SprToDeleteVec)
 			elem=nullptr;
 		SprToDeleteVec.clear();
 
 
-		this->itemToDeleteFound = 0;
-
-		for (auto* elem : *ItemsThrownVec)
-			elem->resetData();
+		this->itemToDeleteFound = false;
 	}
 }
 

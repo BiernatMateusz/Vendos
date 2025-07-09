@@ -40,6 +40,8 @@ void Equipment::initEquipment()
 	items->at(0).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 10));
 	items->at(0).at(2).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(101, 10));
 	items->at(0).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
+	items->at(1).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
+	items->at(2).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
 	items->at(2).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(22, 1));
 	items->at(3).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(21, 1));
 	items->at(4).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(105, 1));

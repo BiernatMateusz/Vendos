@@ -249,6 +249,11 @@ item* ThrowedItem::getItem()
 	return this->Item;
 }
 
+void ThrowedItem::setCatchedState(bool catched)
+{
+	this->catchedItem = catched;
+}
+
 bool ThrowedItem::checkIfCatched()
 {
 	if (this->catchedItem)

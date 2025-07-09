@@ -19,12 +19,11 @@ public:
 	void getAndChangeDestinationOfItem(sf::Vector2f MoveValues);
 	item* getItem();
 
-	
+	void setCatchedState(bool catched);
 	
 private:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
-	std::vector<std::vector<item*>>* Eq{};
 	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq{};
 	std::vector<ThrowedItem*>* ItemsThrownVec{};
 	std::vector<std::vector<TilesOnMap*>>* tile;

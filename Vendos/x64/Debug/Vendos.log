@@ -1,6 +1,16 @@
-﻿  EquipmentAreasMenagement.cpp
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(48,30): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(49,23): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(62,29): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(63,22): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+﻿  ThrownItems.cpp
+C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(38,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrownItems.cpp”)
+  
+C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(39,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrownItems.cpp”)
+  
+C:\Users\mbiernat\source\repos\Vendos\Vendos\itemChest.h(10,12): warning C4584: „itemChest”: klasa bazowa „Workstation” jest już klasą bazową „EquipmentStorageArea”
+  (kompilowanie pliku źródłowego „ThrownItems.cpp”)
+      C:\Users\mbiernat\source\repos\Vendos\Vendos\Workstation.h(6,7):
+      zobacz deklarację „Workstation”
+      C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentStorageArea.h(7,7):
+      zobacz deklarację „EquipmentStorageArea”
+  
+C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrownItems.cpp(99,1): warning C4715: "`ThrownItems::update'::`5'::<lambda_1>::operator()<ThrowedItem *>”: niewszystkie ścieżki kodu zwracają wartość
   Vendos.vcxproj -> C:\Users\mbiernat\source\repos\Vendos\x64\Debug\Vendos.exe

@@ -1,117 +1,123 @@
 #include "EquipmentAreasMenagement.h"
 
+EquipmentAreasMenagement::EquipmentAreasMenagement()
+{
+	this->graphicsData = nullptr;
+	this->equipmentData=nullptr;
+}
+
 EquipmentAreasMenagement::EquipmentAreasMenagement(GraphicsData* graphicsData, EquipmentData* equipmentData)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
 }
 
-sf::Vector2i EquipmentAreasMenagement::WhereToPutItem(item* Item, bool recursion, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* items, std::vector<int> orderOfSearch)
+bool EquipmentAreasMenagement::assignItemToAreaFromTiles(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch)
 {
-	int x{};
-	int y{};
+	std::pair<bool, itemAndItsPosition*> slotOfItemToDelete;
+	slotOfItemToDelete.first = true;
+	slotOfItemToDelete.second = new itemAndItsPosition();
+	slotOfItemToDelete.second->setItemPtr(item);
 
-	bool PossibleSearch{ 1 };
-
-	if (recursion)
+	if (assignItemToAreaInEquipment(slotOfItemToDelete, itemsArea, orderOfSearch))
 	{
-		x = lastPlaceOfPuttingEq.x + 1;
-		y = lastPlaceOfPuttingEq.y;
-
-		if (y >= orderOfSearch.size())
-		{
-			x++;
-			y = 0;
-		}
-
-		if (x >= items->at(0).size())
-		{
-			PossibleSearch = 0;
-		}
-	}
-
-	bool foundPerf{};
-
-	if (PossibleSearch)
-	{
-		for (int i = y; i < orderOfSearch.size(); ++i)
-			for (int j = x; j < items->size(); ++j)
-			{
-				if (items->at(j).at(orderOfSearch[i]).second->getItemPtr() != nullptr)
-				{
-					if (items->at(j).at(orderOfSearch[i]).second->getItemPtr()->itemID == Item->itemID)
-					{
-						if (items->at(j).at(orderOfSearch[i]).second->getItemPtr()->getNumberOfItems() < items->at(j).at(orderOfSearch[i]).second->getItemPtr()->getNumberMax())
-						{
-							WhereToPut = { j,orderOfSearch[i] };
-
-							i = orderOfSearch.size();	//end of for
-							j = items->size();			//end of for
-							foundPerf = true;
-						}
-					}
-				}
-			}
-
-		if (not foundPerf)
-			for (int i = 0; i < orderOfSearch.size(); ++i)
-				for (int j = 0; j < items->size(); ++j)
-					if (items->at(j).at(orderOfSearch[i]).second->getItemPtr() == nullptr)
-					{
-						WhereToPut = { j,orderOfSearch[i] };
-						i = orderOfSearch.size();		//end of for
-						j = items->size();				//end of for
-					}
-
-	}
-	else WhereToPut = { 99,99 }; //It means there if no enough space for everything
-	return WhereToPut;
-}
-
-bool EquipmentAreasMenagement::assignItemToArea(item* item, bool recursion, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch)
-{
-	if (recursion == 0)
-		lastPlaceOfPuttingEq = {};
-
-	lastPlaceOfPuttingEq = WhereToPutItem(item, recursion, itemsArea, orderOfSearch); //it returns positions on Eq[][] where to put item, need to check if it is nullptr - then move item there, if there is something already need to stack it 
-
-	if (not(lastPlaceOfPuttingEq.x == 99 and lastPlaceOfPuttingEq.y == 99))
-	{
-		if (itemsArea->at(lastPlaceOfPuttingEq.x).at(lastPlaceOfPuttingEq.y).second->getItemPtr() == nullptr)
-		{
-			itemsArea->at(lastPlaceOfPuttingEq.x).at(lastPlaceOfPuttingEq.y).second->setItemPtr(item);
-
-		}
-		else if (itemsArea->at(lastPlaceOfPuttingEq.x).at(lastPlaceOfPuttingEq.y).second->getItemPtr() != nullptr)
-		{
-			this->overMax = itemsArea->at(lastPlaceOfPuttingEq.x).at(lastPlaceOfPuttingEq.y).second->getItemPtr()->addItemsReturn1IfOverMax(item);
-
-			if (this->overMax)
-			{
-				this->overMax = 0;
-				assignItemToArea(item, 1, itemsArea, orderOfSearch);
-			}
-		}
-
-		if (lastPlaceOfPuttingEq.x == 99 and lastPlaceOfPuttingEq.y == 99)
-		{
-			this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->itemID);
-			return false;
-		}
-
-		item->itemSprite.setOrigin(0, 0);
-		item->itemSprite.setScale(1, 1);
-
+		slotOfItemToDelete.second = nullptr;
 		return true;
 	}
-	else
-	{
-		this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->itemID);
-	}
+
+	slotOfItemToDelete.second = nullptr;
+	this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->itemID);
 	return false;
 }
 
-void EquipmentAreasMenagement::resetData()
+
+
+bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch)
 {
-	this->WhereToPut = { 99,99 };	//looks ugly but it needs to be this way
+	//look into all itemsArea for the same itemID which is not MAX
+	//if found and not max -> place as much as possible and go for next slot (if item still not emptied)
+
+	for (int i = 0; i<orderOfSearch.size();++i)
+		for (int j = 0; j < itemsArea->size(); ++j)
+			if (ifSameID(slotOfItemToDelete, itemsArea->at(j).at(orderOfSearch[i])))
+				if (not(itemsArea->at(j).at(orderOfSearch[i]).second->getItemPtr()->addItemsReturn1IfOverMax(slotOfItemToDelete.second->getItemPtr())))
+				{
+					i = orderOfSearch.size();
+					j = itemsArea->size();
+
+					slotOfItemToDelete.second->getItemPtr()->setNumberOfItems(0);
+				}
+
+	//if there was no matching item look for first empty slots or there is still something to put
+
+	if (slotOfItemToDelete.second->getItemPtr()->getNumberOfItems() != 0)
+		for (int i = 0; i < orderOfSearch.size(); ++i)
+			for (int j = 0; j < itemsArea->size(); ++j)
+				if (ifEmptySpot(itemsArea->at(j).at(orderOfSearch[i])))
+				{
+					
+					slotOfItemToDelete.second->itemPtr->itemSprite.setOrigin(0, 0);
+					slotOfItemToDelete.second->itemPtr->itemSprite.setScale(1, 1);
+					std::swap(slotOfItemToDelete.second->itemPtr, itemsArea->at(j).at(orderOfSearch[i]).second->itemPtr);
+
+					int tmpi = i;
+					int tmpj = j;
+
+					i = orderOfSearch.size();
+					j = itemsArea->size();
+
+					if (itemsArea->at(tmpj).at(orderOfSearch[tmpi]).second->itemPtr->getNumberOfItems() > 0)
+						return true;
+				}
+	
+	
+	
+	return false;
+}
+
+bool EquipmentAreasMenagement::checkIfPossibleItemPlacement(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> lineOfSearches)
+{
+	std::pair<bool, itemAndItsPosition*> slotOfItemToDelete;
+	slotOfItemToDelete.first = true;
+	slotOfItemToDelete.second = new itemAndItsPosition();
+	slotOfItemToDelete.second->setItemPtr(item);
+
+	for (int i = 0; i < lineOfSearches.size(); ++i)
+		for (int j = 0; j < itemsArea->size(); ++j)
+		{
+			if (ifEmptySpot(itemsArea->at(j).at(lineOfSearches[i])))
+			{
+				slotOfItemToDelete.second = nullptr;
+				return true;
+			}
+			if (ifSameID(slotOfItemToDelete, itemsArea->at(j).at(lineOfSearches[i])))
+				if (itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->getNumberOfItems() != itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->getNumberMax())
+				{
+					slotOfItemToDelete.second = nullptr;
+					return true;
+				}
+			
+		}
+	slotOfItemToDelete.second = nullptr;
+	return false;
+}
+
+bool EquipmentAreasMenagement::ifSameID(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::pair<bool, itemAndItsPosition*> slot)
+{
+	if (slot.first == true)
+		if (slot.second->getItemPtr() != nullptr)
+			if (slot.second->getItemPtr() != slotOfItemToDelete.second->getItemPtr())
+				if (slot.second->getItemPtr()->itemID == slotOfItemToDelete.second->getItemPtr()->itemID)
+					return true;
+
+	return false;
+
+}
+
+bool EquipmentAreasMenagement::ifEmptySpot(std::pair<bool, itemAndItsPosition*> slot)
+{
+	if (slot.first == true)
+		if (slot.second->getItemPtr() == nullptr)
+			return true;
+	return false;
 }

@@ -53,6 +53,8 @@ private:
 	void placeOneMoreItem(const std::map<std::string, button*>& AllKeys);
 	void searchForPlaceForWholeStack(const std::map<std::string, button*>& AllKeys);
 
+	std::vector<int> decideWhichOrder(int);
+
 	void stackItems_TrueIfRestEqual0(item** ItemFrom, item** ItemTo);
 	void throwItem(item* item, bool isThrowdAllStack);
 

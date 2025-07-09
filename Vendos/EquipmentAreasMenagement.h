@@ -10,21 +10,21 @@
 class EquipmentAreasMenagement
 {
 public:
-	EquipmentAreasMenagement() {};
+	EquipmentAreasMenagement();
 	EquipmentAreasMenagement(GraphicsData* graphicsData, EquipmentData* equipmentData);
 
-	bool assignItemToArea(item* item, bool recursion, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch);
-	void resetData();
+	bool assignItemToAreaFromTiles(item* item, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch);
+	bool assignItemToAreaInEquipment(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch);
+
+	bool checkIfPossibleItemPlacement(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> lineOfSearches);
+
 protected:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 
-	sf::Vector2i WhereToPutItem(item* Item, bool recursion, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* items, std::vector<int> orderOfSearch);
-
 private:
-	sf::Vector2i lastPlaceOfPuttingEq{};
-	sf::Vector2i WhereToPut{ 99,99 };
-	bool overMax{};
+	bool ifSameID(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::pair <bool, itemAndItsPosition*> slot);
+	bool ifEmptySpot(std::pair <bool, itemAndItsPosition*> slot);
 };
 
 #endif // !EQUIPMENTAREASMENAGEMENT
