@@ -82,11 +82,6 @@ void ThrownItems::update(const float& dt)
 				{
 					ItemsThrownVec->update(dt);
 
-					//if (ItemsThrownVec->checkIfPossibleItemPlacement(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))
-					//	ItemsThrownVec->setCatchedState(false);
-
-					//item nie goni jak siê zrobi miejsce w eq tylko od razu wpada do eq 
-
 					if (ItemsThrownVec->checkIfCatched())
 					{
 						if (ItemsThrownVec->assignItemToAreaFromTiles(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))

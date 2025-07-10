@@ -234,18 +234,69 @@ void EquipmentAreas::searchForPlaceForWholeStack(const std::map<std::string, but
 	}
 }
 
+std::vector<int> EquipmentAreas::makeVectorOfUsedRows()
+{
+	std::vector<int> tmpVec{};
+
+	for (int i = 0; i < AllitemsArea->at(0).size(); i++)
+		for (int j = 0; j < AllitemsArea->size(); j++)
+			if (AllitemsArea->at(j).at(i).first == true)
+				if (AllitemsArea->at(j).at(i).second->getType()==typeOfItemArea::PickAndPlace or AllitemsArea->at(j).at(i).second->getType() == typeOfItemArea::Place)
+				{
+					tmpVec.push_back(i);
+					j= AllitemsArea->size();
+				}
+	return tmpVec;
+}
+
+std::vector<int> EquipmentAreas::shrinkVectorToOnlyPlacableRows(std::vector<int> vec, int hoveredRow)
+{
+	int howMuch{};
+
+	for (auto& elem : vec)
+		if (elem >= this->equipmentData->sizeOfEq.y)
+			howMuch++;
+
+	if (howMuch == 0)
+	{
+		switch (hoveredRow)
+		{
+		case 0:
+			return { 2,1,0 };
+		case 1:
+			return { 0,2,1 };
+		case 2:
+			return { 0,2,1 };
+		}
+	}
+	else if (hoveredRow < this->equipmentData->sizeOfEq.y)
+	{
+			return makeSortedFromHighestVecBiggerThatHoveredRow(vec, hoveredRow);  //make decisions based on which hovered clicked
+	}
+	else
+		return { 0,2,1 };
+		
+	
+
+	return std::vector<int>();
+}
+
+std::vector<int> EquipmentAreas::makeSortedFromHighestVecBiggerThatHoveredRow(std::vector<int> vec, int hoveredRow)
+{
+	std::vector<int> tmpVec{};
+
+	for (auto elem : vec)
+		if (elem >= this->equipmentData->sizeOfEq.y)
+			tmpVec.push_back(elem);
+
+	std::reverse(tmpVec.begin(),tmpVec.end());
+
+	return tmpVec;
+}
+
 std::vector<int> EquipmentAreas::decideWhichOrder(int hoveredRow)
 {
-	switch (hoveredRow)
-	{
-	case 0:
-		return { 2,1,0 };
-	case 1:
-		return { 0,2,1 };
-	case 2:
-		return { 0,2,1 };
-	}
-	return { 0,2,1 };
+	return shrinkVectorToOnlyPlacableRows(makeVectorOfUsedRows(), hoveredRow);
 }
 
 void EquipmentAreas::stackItems_TrueIfRestEqual0(item** ItemFrom, item** ItemTo)
@@ -274,6 +325,8 @@ void EquipmentAreas::throwItem(item* item, bool isThrowdAllStack)
 
 	}
 }
+
+
 
 void EquipmentAreas::getAllItemsVecSize()
 {

@@ -58,6 +58,10 @@ private:
 	void stackItems_TrueIfRestEqual0(item** ItemFrom, item** ItemTo);
 	void throwItem(item* item, bool isThrowdAllStack);
 
+	std::vector<int> makeVectorOfUsedRows();
+	std::vector<int> shrinkVectorToOnlyPlacableRows(std::vector<int>vec, int hoveredRow);
+	std::vector<int> makeSortedFromHighestVecBiggerThatHoveredRow(std::vector<int>vec, int hoveredRow);
+
 public:
 
 	

@@ -224,8 +224,7 @@ bool ThrowedItem::checkDistanceItemToPlayer()
 
 void ThrowedItem::makeUnpickableItemsList(std::vector<int>orderOfSearch)
 {
-	//BABOL do poprawienia liczby sk¹d siê bierze 3?   (wielkosc eq to 9na3 ale eq jest size 9x10 wiec trzeba to sprytnie wymysliæ 
-	for (int i=0;i<3;i++)
+	for (int i=0;i<orderOfSearch.size();i++)
 		for (int j=0;j<eq->size();j++)
 			if (eq->at(j).at(i).second->getItemPtr() == nullptr)
 			{
