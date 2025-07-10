@@ -125,7 +125,7 @@ void ThrowedItem::update(const float& dt)
 			}
 	}
 
-	makeUnpickableItemsList();
+	makeUnpickableItemsList({0,2,1});
 }
 
 //Function in update
@@ -222,7 +222,7 @@ bool ThrowedItem::checkDistanceItemToPlayer()
 	return false;
 }
 
-void ThrowedItem::makeUnpickableItemsList()
+void ThrowedItem::makeUnpickableItemsList(std::vector<int>orderOfSearch)
 {
 	//BABOL do poprawienia liczby sk¹d siê bierze 3?   (wielkosc eq to 9na3 ale eq jest size 9x10 wiec trzeba to sprytnie wymysliæ 
 	for (int i=0;i<3;i++)

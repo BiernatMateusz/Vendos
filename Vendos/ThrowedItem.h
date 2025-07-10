@@ -72,7 +72,7 @@ private:
 	void setDistanceToMoveBasedOnDirection();
 	bool checkDistanceItemToPlayer();
 	
-	void makeUnpickableItemsList();
+	void makeUnpickableItemsList(std::vector<int>orderOfSearch);
 	void itemMovementTowardsDestination(const float& dt);
 	void accumulateTimeOfItemOnGround(const float& dt);
 
