@@ -3,7 +3,17 @@
 itemChest::itemChest(GraphicsData* graphicsData, EquipmentData* equipmentData)
 	:
 	item(graphicsData, TypeOfAction::Place),
-	EquipmentStorageArea(graphicsData, equipmentData, { 9,3 }, { 0,4 }, {}, {}, "BackgroundChest")
+	EquipmentStorageArea(graphicsData, equipmentData, { 9,3 }, { 0,4 }, {}, {}, "BackgroundChest"),
+	TilesOnMap(graphicsData)
+{
+	;
+}
+
+itemChest::itemChest(GraphicsData* graphicsData, EquipmentData* equipmentData, sf::Vector2i position2i, std::string NameOfTxt)
+	:
+	item(graphicsData, TypeOfAction::Place),
+	EquipmentStorageArea(graphicsData, equipmentData, { 9,3 }, { 0,4 }, {}, {}, "BackgroundChest"),
+	TilesOnMap(position2i, NameOfTxt, graphicsData)
 {
 	;
 }

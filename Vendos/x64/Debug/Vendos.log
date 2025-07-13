@@ -1,27 +1,2 @@
-﻿  EquipmentAreas.cpp
-C:\Users\mbiernat\source\repos\Vendos\Vendos\itemChest.h(10,12): warning C4584: „itemChest”: klasa bazowa „Workstation” jest już klasą bazową „EquipmentStorageArea”
-  (kompilowanie pliku źródłowego „EquipmentAreas.cpp”)
-      C:\Users\mbiernat\source\repos\Vendos\Vendos\Workstation.h(6,7):
-      zobacz deklarację „Workstation”
-      C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentStorageArea.h(7,7):
-      zobacz deklarację „EquipmentStorageArea”
-  
-C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(38,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
-  (kompilowanie pliku źródłowego „EquipmentAreas.cpp”)
-  
-C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(39,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
-  (kompilowanie pliku źródłowego „EquipmentAreas.cpp”)
-  
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(99,47): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(247,27): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(333,43): warning C4267: "=": konwersja z "size_t" do "T", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(333,43): warning C4267:         with
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(333,43): warning C4267:         [
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(333,43): warning C4267:             T=int
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(333,43): warning C4267:         ]
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(334,49): warning C4267: "=": konwersja z "size_t" do "T", możliwa utrata danych
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(334,49): warning C4267:         with
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(334,49): warning C4267:         [
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(334,49): warning C4267:             T=int
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp(334,49): warning C4267:         ]
+﻿  TilesManagement.cpp
   Vendos.vcxproj -> C:\Users\mbiernat\source\repos\Vendos\x64\Debug\Vendos.exe

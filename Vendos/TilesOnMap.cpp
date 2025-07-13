@@ -63,7 +63,7 @@ void TilesOnMap::update(const float& dt)
 	//animacja rozpadu tilesa
 
 	if (this->storageArea != nullptr)
-		; //std::cout << "Cos robi\n";
+		; // std::cout << "Cos robi\n";
 }
 
 tileType TilesOnMap::getTypeOfTile()

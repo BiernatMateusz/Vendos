@@ -228,10 +228,8 @@ void EquipmentAreas::placeOneMoreItem(const std::map<std::string, button*>& AllK
 void EquipmentAreas::searchForPlaceForWholeStack(const std::map<std::string, button*>& AllKeys)
 {
 	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
-	{
-
 		assignItemToAreaInEquipment(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y), AllitemsArea, decideWhichOrder(this->SquareHovered.y));
-	}
+
 }
 
 std::vector<int> EquipmentAreas::makeVectorOfUsedRows()
@@ -244,7 +242,7 @@ std::vector<int> EquipmentAreas::makeVectorOfUsedRows()
 				if (AllitemsArea->at(j).at(i).second->getType()==typeOfItemArea::PickAndPlace or AllitemsArea->at(j).at(i).second->getType() == typeOfItemArea::Place)
 				{
 					tmpVec.push_back(i);
-					j= AllitemsArea->size();
+					j = AllitemsArea->size();
 				}
 	return tmpVec;
 }

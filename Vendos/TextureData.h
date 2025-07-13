@@ -7,6 +7,41 @@
 
 #include <vector>
 
+
+enum class TileNames
+{
+	HoedNoWater,
+	HoedWatered,
+	Stone,
+	Copper,
+	Iron,
+	Tree1,
+	Tree2,
+	Tree3,
+	BushEmpty,
+	EmptyTile,
+	Furnace,
+	Chest
+};
+
+enum class ItemNames
+{
+	WoodenHoe,
+	WoodenPickaxe,
+	WoodenAxe,
+	WoodenSword,
+	WoodenShovel,
+	WoodenWateringCan,
+	StoneEq,
+	WoodEq,
+	Patyk,
+	CopperEq,
+	IronEq,
+	ChestEq,
+	FurnaceEq
+
+};
+
 enum class StorageAreas { Empty, Chest, Crafting, Furnace };
 enum class tileType { emptyField, crop, axableField, pickaxableField, hoedField, wateredField, emptyBlockade, chestField, player };
 

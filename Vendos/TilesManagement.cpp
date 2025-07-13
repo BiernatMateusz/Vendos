@@ -37,13 +37,21 @@ void TilesManagement::render()
 
 void TilesManagement::initTile(sf::Vector2i position2i, std::string NameOfTxt)
 {
-	this->Tile->at(position2i.x).at(position2i.y) = new TilesOnMap(position2i, NameOfTxt, graphicsData);
+	this->equipmentData->needToUpdateTilesSpriteVec = 1;
+	this->equipmentData->needToUpdateCameraAllSpr = 1;
+
+	if (NameOfTxt == "Furnace")
+		this->Tile->at(position2i.x).at(position2i.y) = new itemFurnace(graphicsData, equipmentData, position2i, NameOfTxt);
+	else if (NameOfTxt == "Skrzynia")
+		this->Tile->at(position2i.x).at(position2i.y) = new itemChest(graphicsData, equipmentData, position2i, NameOfTxt);
+	else
+		this->Tile->at(position2i.x).at(position2i.y) = new TilesOnMap(position2i, NameOfTxt, graphicsData);
+
 
 	if (this->graphicsData->TextureDataMap->at(NameOfTxt)->typeOfTile == tileType::chestField) //8 -> workstation
 		initStorageArea({ position2i.x,position2i.y }, this->graphicsData->TextureDataMap->at(NameOfTxt)->storageArea);
 
-	this->equipmentData->needToUpdateTilesSpriteVec = 1;
-	this->equipmentData->needToUpdateCameraAllSpr = 1;
+
 }
 
 ///PROTECTED

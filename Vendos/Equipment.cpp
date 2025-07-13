@@ -55,7 +55,7 @@ void Equipment::update(const float& dt, const std::map<std::string, button*>& Al
 	
 	if (secondEq != nullptr)
 		secondEq->update(dt, AllKeys);
-	
+
 	this->eqAreas->update(AllKeys);
 
 	this->itemsOnTheGround->update(dt);
@@ -102,7 +102,12 @@ void Equipment::openingEquipment(const std::map<std::string, button*>& AllKeys)
 		this->equipmentData->isChestOpened = false;
 		this->equipmentData->openedWorkstation = nullptr;
 		delete this->eqAreas;
-		delete this->crafting;
+
+		if (this->crafting != nullptr)
+		{
+			delete this->crafting;
+			this->crafting = nullptr;
+		}
 
 		this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, nullptr, this->itemsOnTheGround);
 		this->secondEq = nullptr;
@@ -129,7 +134,6 @@ void Equipment::openingChest(const std::map<std::string, button*>& AllKeys)
 				{
 					this->equipmentData->isEqOpened = true;
 					this->equipmentData->isChestOpened = true;
-					this->crafting = new Crafting(this->graphicsData, this->equipmentData, this->itemsOnTheGround); //??? need to delete this
 					this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, this->equipmentData->openedWorkstation->getItemsArea(), this->itemsOnTheGround);
 					this->secondEq = this->equipmentData->openedWorkstation;
 				}
