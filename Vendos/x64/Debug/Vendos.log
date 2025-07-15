@@ -1,2 +1,6 @@
-﻿  TilesManagement.cpp
+﻿  EquipmentAreasMenagement.cpp
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(46,28): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(47,25): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(70,28): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp(71,25): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
   Vendos.vcxproj -> C:\Users\mbiernat\source\repos\Vendos\x64\Debug\Vendos.exe

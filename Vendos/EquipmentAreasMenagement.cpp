@@ -27,6 +27,7 @@ bool EquipmentAreasMenagement::assignItemToAreaFromTiles(item* item, std::vector
 
 	slotOfItemToDelete.second = nullptr;
 	this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->itemID);
+
 	return false;
 }
 
@@ -46,16 +47,19 @@ bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemA
 					j = itemsArea->size();
 
 					slotOfItemToDelete.second->getItemPtr()->setNumberOfItems(0);
+					return true; //<-- przetestowaæ czy po dodaniu tego wszystko jest nadal gitem
 				}
 
+
 	//if there was no matching item look for first empty slots or there is still something to put
+	
 
 	if (slotOfItemToDelete.second->getItemPtr()->getNumberOfItems() != 0)
 		for (int i = 0; i < orderOfSearch.size(); ++i)
 			for (int j = 0; j < itemsArea->size(); ++j)
 				if (ifEmptySpot(itemsArea->at(j).at(orderOfSearch[i])))
 				{
-					
+
 					slotOfItemToDelete.second->itemPtr->itemSprite.setOrigin(0, 0);
 					slotOfItemToDelete.second->itemPtr->itemSprite.setScale(1, 1);
 					std::swap(slotOfItemToDelete.second->itemPtr, itemsArea->at(j).at(orderOfSearch[i]).second->itemPtr);
@@ -66,11 +70,12 @@ bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemA
 					i = orderOfSearch.size();
 					j = itemsArea->size();
 
+
+
+
 					if (itemsArea->at(tmpj).at(orderOfSearch[tmpi]).second->itemPtr->getNumberOfItems() > 0)
 						return true;
 				}
-	
-	
 	
 	return false;
 }

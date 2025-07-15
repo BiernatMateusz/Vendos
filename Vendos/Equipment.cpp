@@ -45,6 +45,8 @@ void Equipment::initEquipment()
 	items->at(2).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(22, 1));
 	items->at(3).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(21, 1));
 	items->at(4).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(105, 1));
+	items->at(6).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(20, 1));
+	items->at(7).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(25, 1));
 
 	calculatePositionOfFirstItemEqAndChest();
 }
