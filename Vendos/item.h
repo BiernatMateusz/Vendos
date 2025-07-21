@@ -33,6 +33,8 @@ protected:
 	
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
+
+	TextureNames nameOfTxtOfItem;
 	
 	//new things
 	std::vector<tileType>TypeOfBlockToInterract{}; //constructor needs to make vector with those numbers for every tool 
@@ -73,6 +75,8 @@ public:
 	virtual void render(); //for animations
 
 	void initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const int& itemSize, int OffsetYPositioning);
+	void initItemBasicData(EquipmentData* equipmentData, TextureNames nameOfTxt,int ammount, TypeOfAction actionType);
+	void initItemGraphicsData();
 	void initItemID(int ID);
 
 	void changeNumberOfItems(int newNumberOfItems);
@@ -106,7 +110,7 @@ public:
 	sf::Vector2i TileClicked{};
 	std::string nameOfTxtWhileReplacing{};
 
-	CameraSprite* cameraSprite{};
+	CameraSprite* cameraSpriteOfItem{};
 };
 
 #endif 

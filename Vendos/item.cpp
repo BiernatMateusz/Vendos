@@ -5,7 +5,7 @@ item::item(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
 
-	this->cameraSprite = new CameraSprite;
+	this->cameraSpriteOfItem = new CameraSprite; //delete it later
 
 	this->font.loadFromFile("Font/Rinnero.ttf");
 	this->numberOfItems.setFont(font);
@@ -21,7 +21,7 @@ item::item(GraphicsData* graphicsData, TypeOfAction actionType) : item(graphicsD
 item::item(GraphicsData* graphicsData, bool empty)
 	:item(graphicsData)
 {
-	this->cameraSprite = new CameraSprite(true);
+	this->cameraSpriteOfItem = new CameraSprite(true);
 }
 
 item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType)
@@ -73,6 +73,21 @@ void item::initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const in
 	this->itemSprite.setPosition(FirstItemPos.x + xyOfvec.x*itemSize, FirstItemPos.y- (-xyOfvec.y+2) * itemSize - OffsetYPositioning*itemSize);
 }
 
+void item::initItemBasicData(EquipmentData* equipmentData, TextureNames nameOfTxt, int ammount, TypeOfAction actionType)
+{
+	this->equipmentData = equipmentData;
+	this->numberOfItemsInStack = ammount;
+	this->typeOfAction = actionType;
+	this->nameOfTxtOfItem = nameOfTxt;
+}
+
+void item::initItemGraphicsData()
+{
+	this->cameraSpriteOfItem = new CameraSprite;
+	this->cameraSpriteOfItem->distance = this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfItem)->offsetForCamera;
+	this->cameraSpriteOfItem->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfItem)->texture);
+}
+
 void item::initItemID(int ID)
 {
 	this->itemID = ID;
@@ -80,8 +95,8 @@ void item::initItemID(int ID)
 
 void item::initGraphics(const std::string &name)
 {
-	this->cameraSprite->sprite = &itemSprite;
-	this->cameraSprite->distance = this->graphicsData->TextureDataMap->at(name)->offsetForCamera;
+	this->cameraSpriteOfItem->sprite = &itemSprite;
+	this->cameraSpriteOfItem->distance = this->graphicsData->TextureDataMap->at(name)->offsetForCamera;
 	this->itemSprite.setTexture(*this->graphicsData->TexturesMap->at(name));
 	this->itemID = this->graphicsData->TextureDataMap->at(name)->itemID;
 }
@@ -111,8 +126,8 @@ item& item::operator=(const item& model)
 		nameOfTxt = model.nameOfTxt;
 		itemID = model.itemID;
 		itemSprite = model.itemSprite;
-		cameraSprite = model.cameraSprite;
-		cameraSprite->sprite = &itemSprite;
+		cameraSpriteOfItem = model.cameraSpriteOfItem;
+		cameraSpriteOfItem->sprite = &itemSprite;
 	}
 	return *this;
 }

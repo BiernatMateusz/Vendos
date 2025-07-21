@@ -60,8 +60,14 @@ item* ItemConstructor::createItem(ItemNames nameOfItem)
 	switch (nameOfItem)
 	{
 	case ItemNames::HoedNoWater:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::HoedNoWater, tileType::hoedField, { 0 }, { 0 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, -44);
+		this->newItemToReturn->initItemID(3);
 		break;
 	case ItemNames::HoedWatered:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::HoedWatered, tileType::wateredField, { 0 }, { 0 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, -44);
+		this->newItemToReturn->initItemID(4);
 		break;
 	case ItemNames::Tree1:
 		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Tree1, tileType::axableField, { 101 }, { 5 });
@@ -106,14 +112,38 @@ item* ItemConstructor::createItem(ItemNames nameOfItem)
 	case ItemNames::WoodenWateringCan:
 		break;
 	case ItemNames::StoneEq:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Stone, tileType::pickaxableField, { 100 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, 40);
+		this->newItemToReturn->initTileBlockadeData({ 30,25 }, { 7,25 }, sf::FloatRect(0, 0, 30, 15));
+		this->newItemToReturn->initItemID(100);
+		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::StoneEq, 5, TypeOfAction::Hand);
+		this->newItemToReturn->initItemGraphicsData();
 		break;
 	case ItemNames::WoodEq:
+		this->newItemToReturn->initItemID(101);
+		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::WoodEq, 5, TypeOfAction::Hand);
+		this->newItemToReturn->initItemGraphicsData();
 		break;
 	case ItemNames::Patyk:
+		this->newItemToReturn->initItemID(102);
+		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::Patyk, 5, TypeOfAction::Hand);
+		this->newItemToReturn->initItemGraphicsData();
 		break;
 	case ItemNames::CopperEq:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Copper, tileType::pickaxableField, { 103 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, 40);
+		this->newItemToReturn->initTileBlockadeData({ 30,25 }, { 7,25 }, sf::FloatRect(0, 0, 30, 15));
+		this->newItemToReturn->initItemID(103);
+		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::CopperEq, 5, TypeOfAction::Hand);
+		this->newItemToReturn->initItemGraphicsData();
 		break;
 	case ItemNames::IronEq:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Iron, tileType::pickaxableField, { 104 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, 40);
+		this->newItemToReturn->initTileBlockadeData({ 30,25 }, { 7,25 }, sf::FloatRect(0, 0, 30, 15));
+		this->newItemToReturn->initItemID(104);
+		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::IronEq, 5, TypeOfAction::Hand);
+		this->newItemToReturn->initItemGraphicsData();
 		break;
 	case ItemNames::ChestEq:
 		break;
@@ -128,7 +158,7 @@ item* ItemConstructor::createItem(ItemNames nameOfItem)
 	return this->newItemToReturn;
 }
 
-item* ItemConstructor::createItem(TextureNames nameOfTxt, sf::Vector2i position2i)
+item* ItemConstructor::createItem(ItemNames nameOfTxt, sf::Vector2i position2i)
 {
 	this->newItemToReturn = createItem(nameOfTxt);
 	this->newItemToReturn->initPosition(position2i);

@@ -130,7 +130,7 @@ void EquipmentAreas::updatePositionsOfItems(const std::map<std::string, button*>
 				this->AllitemsArea->at(x).at(y).second->setPosition({ (x * this->equipmentData->SizeOfItems) + this->realPosOfItems_0_0.x,this->realPosOfItems_0_0.y - (y * this->equipmentData->SizeOfItems) });
 	
 	if (this->itemGrabbed!= nullptr)
-		this->itemGrabbed->cameraSprite->getSprite()->setPosition({AllKeys.at("LeftMouse")->mousePosGet().x - (float)(this->equipmentData->SizeOfItems / 2), AllKeys.at("LeftMouse")->mousePosGet().y - (float)(this->equipmentData->SizeOfItems / 2)});
+		this->itemGrabbed->cameraSpriteOfItem->getSprite()->setPosition({AllKeys.at("LeftMouse")->mousePosGet().x - (float)(this->equipmentData->SizeOfItems / 2), AllKeys.at("LeftMouse")->mousePosGet().y - (float)(this->equipmentData->SizeOfItems / 2)});
 
 }
 

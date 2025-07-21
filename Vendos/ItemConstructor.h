@@ -27,7 +27,7 @@ public:
 	item* creatorOfItemBasedOnID(int itemID, int ammount);
 
 	item* createItem(ItemNames nameOfItem);
-	item* createItem(TextureNames nameOfTxt, sf::Vector2i position2i);
+	item* createItem(ItemNames nameOfTxt, sf::Vector2i position2i);
 
 
 };

@@ -16,7 +16,7 @@ ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentDat
 	setItemDestination();
 
 	this->graphicsData->ItemsThrownSpriteMapped->push_back(new CameraSprite);
-	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSprite;
+	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSpriteOfItem;
 }
 
 ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq, item* item, std::vector<ThrowedItem*>* ItemsThrownVec, sf::Vector2i TileCords)
@@ -32,7 +32,7 @@ ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentDat
 	setItemDestinationFromTile();
 
 	this->graphicsData->ItemsThrownSpriteMapped->push_back(new CameraSprite);
-	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSprite;
+	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSpriteOfItem;
 }
 
 //Constructor functions
@@ -79,21 +79,21 @@ void ThrowedItem::setItemParametersFromPlayer()
 {
 	this->droppedFromPlayer = true;
 
-	this->Item->cameraSprite->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
-	this->Item->cameraSprite->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
+	this->Item->cameraSpriteOfItem->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
+	this->Item->cameraSpriteOfItem->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
 
-	this->Item->cameraSprite->getSprite()->setPosition({this->graphicsData->player->getPosition().x,this->graphicsData->player->getPosition().y - offsetYofDroppedItemFromPlayer});
-	this->initialPosition = this->Item->cameraSprite->getSprite()->getPosition();
+	this->Item->cameraSpriteOfItem->getSprite()->setPosition({this->graphicsData->player->getPosition().x,this->graphicsData->player->getPosition().y - offsetYofDroppedItemFromPlayer});
+	this->initialPosition = this->Item->cameraSpriteOfItem->getSprite()->getPosition();
 }
 
 void ThrowedItem::setItemParametersFromTile(sf::Vector2i tileCord)
 {
-	this->Item->cameraSprite->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
-	this->Item->cameraSprite->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
+	this->Item->cameraSpriteOfItem->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
+	this->Item->cameraSpriteOfItem->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
 
 	//to change below 
-	this->Item->cameraSprite->getSprite()->setPosition(this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().x+this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().y + this->graphicsData->tileSize );
-	this->initialPosition = this->Item->cameraSprite->getSprite()->getPosition();
+	this->Item->cameraSpriteOfItem->getSprite()->setPosition(this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().x+this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().y + this->graphicsData->tileSize );
+	this->initialPosition = this->Item->cameraSpriteOfItem->getSprite()->getPosition();
 }
 
 //Update function

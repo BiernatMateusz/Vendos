@@ -64,7 +64,7 @@ void itemAndItsPosition::setItemPtr(item* ItemPtr)
 void itemAndItsPosition::setPosition(sf::Vector2f pos)
 {
 	if (this->itemPtr!=nullptr)
-		this->itemPtr->cameraSprite->getSprite()->setPosition(pos);
+		this->itemPtr->cameraSpriteOfItem->getSprite()->setPosition(pos);
 }
 
 void itemAndItsPosition::setType(typeOfItemArea Type)
@@ -81,7 +81,7 @@ item* itemAndItsPosition::getItemPtr()
 
 const sf::Vector2f itemAndItsPosition::getPosition() const
 {
-	return this->itemPtr->cameraSprite->sprite->getPosition();
+	return this->itemPtr->cameraSpriteOfItem->sprite->getPosition();
 }
 
 const typeOfItemArea itemAndItsPosition::getType() const

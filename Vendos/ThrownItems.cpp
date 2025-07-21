@@ -14,7 +14,7 @@ void ThrownItems::updateItemsThrownSpriteVec()
 	this->graphicsData->ItemsThrownSpriteMapped->clear();
 
 	for (auto *elem : *ItemsThrownVec)
-		this->graphicsData->ItemsThrownSpriteMapped->push_back(elem->getItem()->cameraSprite);
+		this->graphicsData->ItemsThrownSpriteMapped->push_back(elem->getItem()->cameraSpriteOfItem);
 	
 	
 

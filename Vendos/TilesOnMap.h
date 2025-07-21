@@ -18,7 +18,7 @@ private:
 	int remainingDurability{100};
 	StorageAreas storageAreaType{};
 protected:
-	TextureNames nameOfTxt;
+	TextureNames nameOfTxtOfTile;
 
 public:
 	TilesOnMap() {};

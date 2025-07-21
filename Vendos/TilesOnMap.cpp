@@ -90,7 +90,7 @@ void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames name
 {
 	this->graphicsData = graphicsData;
 	this->storageArea = nullptr;
-	this->nameOfTxt = nameOfTxt;
+	this->nameOfTxtOfTile = nameOfTxt;
 	
 
 	this->typeOfTile = typeOfTile;
@@ -102,7 +102,7 @@ void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames name
 void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera)
 {
 	this->cameraSpriteOfTile = new CameraSprite;
-	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxt)->texture);
+	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfTile)->texture);
 	this->cameraSpriteOfTile->getSprite()->setOrigin(origin.x, origin.y);
 	this->cameraSpriteOfTile->distance = offsetYcamera;
 }
