@@ -4,7 +4,7 @@ TilesOnMap::TilesOnMap(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
 	this->storageArea = nullptr;
-	this->cameraSprite = nullptr;
+	this->cameraSpriteOfTile = nullptr;
 	this->typeOfTile = tileType::emptyBlockade; 
 	this->blokade = 1;
 	this->sizeOfBlockade = { 40,40 };
@@ -15,14 +15,14 @@ TilesOnMap::TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsD
 {
 	this->graphicsData = graphicsData;
 	this->storageArea = nullptr;
-	this->cameraSprite = new CameraSprite;
-	this->cameraSprite->setSpriteTexture(*this->graphicsData->TextureDataMap->at(NameOfTxt)->texture);
-	this->cameraSprite->getSprite()->setOrigin(this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.x, this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.y);
-	this->cameraSprite->getSprite()->setPosition((float)position2i.x * 44 + this->graphicsData->backGroundMapped->getSprite()->getPosition().x, ((float)position2i.y) * 44 - (this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height - this->graphicsData->backGroundMapped->getSprite()->getPosition().y));
+	this->cameraSpriteOfTile = new CameraSprite;
+	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMap->at(NameOfTxt)->texture);
+	this->cameraSpriteOfTile->getSprite()->setOrigin(this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.x, this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.y);
+	this->cameraSpriteOfTile->getSprite()->setPosition((float)position2i.x * 44 + this->graphicsData->backGroundMapped->getSprite()->getPosition().x, ((float)position2i.y) * 44 - (this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height - this->graphicsData->backGroundMapped->getSprite()->getPosition().y));
 	
 	this->blokade = this->graphicsData->TextureDataMap->at(NameOfTxt)->blockade;
 
-	this->cameraSprite->distance = this->graphicsData->TextureDataMap->at(NameOfTxt)->offsetForCamera;
+	this->cameraSpriteOfTile->distance = this->graphicsData->TextureDataMap->at(NameOfTxt)->offsetForCamera;
 
 	if (this->blokade == 1)
 	{
@@ -30,8 +30,8 @@ TilesOnMap::TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsD
 		this->blockadeOffset= this->graphicsData->TextureDataMap->at(NameOfTxt)->offsetForBlockade;
 		this->collisionBox = new sf::FloatRect;
 		*this->collisionBox = this->graphicsData->TextureDataMap->at(NameOfTxt)->blockadeRect;
-		this->collisionBox->left = this->cameraSprite->getSprite()->getPosition().x + this->blockadeOffset.x;
-		this->collisionBox->top = this->cameraSprite->getSprite()->getPosition().y + this->blockadeOffset.y;
+		this->collisionBox->left = this->cameraSpriteOfTile->getSprite()->getPosition().x + this->blockadeOffset.x;
+		this->collisionBox->top = this->cameraSpriteOfTile->getSprite()->getPosition().y + this->blockadeOffset.y;
 	}
 
 	this->typeOfTile = this->graphicsData->TextureDataMap->at(NameOfTxt)->typeOfTile;
@@ -42,7 +42,7 @@ TilesOnMap::TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsD
 
 TilesOnMap::~TilesOnMap()
 {
-	delete this->cameraSprite;
+	delete this->cameraSpriteOfTile;
 	delete this->collisionBox;
 
 	if (this->storageArea != nullptr)
@@ -52,8 +52,8 @@ TilesOnMap::~TilesOnMap()
 
 void TilesOnMap::updateCollisionBoxPos()
 {
-	this->collisionBox->left = cameraSprite->getSprite()->getPosition().x + this->blockadeOffset.x;
-	this->collisionBox->top = cameraSprite->getSprite()->getPosition().y + this->blockadeOffset.y;
+	this->collisionBox->left = cameraSpriteOfTile->getSprite()->getPosition().x + this->blockadeOffset.x;
+	this->collisionBox->top = cameraSpriteOfTile->getSprite()->getPosition().y + this->blockadeOffset.y;
 }
 
 void TilesOnMap::update(const float& dt)
@@ -84,6 +84,48 @@ const int& TilesOnMap::getMaxDurability() const
 const int& TilesOnMap::getRemainingDurability() const
 {
 	return this->remainingDurability;
+}
+
+void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile)
+{
+	this->graphicsData = graphicsData;
+	this->storageArea = nullptr;
+	this->nameOfTxt = nameOfTxt;
+	
+
+	this->typeOfTile = typeOfTile;
+	this->idOfBlocksThatDropsFromTile = IDOfBlocksThatDropsFromTile;
+	this->ammountOfItemsDroppedFromTile = AmmountOfItemsDroppedFromTile;
+
+}
+
+void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera)
+{
+	this->cameraSpriteOfTile = new CameraSprite;
+	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxt)->texture);
+	this->cameraSpriteOfTile->getSprite()->setOrigin(origin.x, origin.y);
+	this->cameraSpriteOfTile->distance = offsetYcamera;
+}
+
+void TilesOnMap::initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect)
+{
+	this->blokade = true;
+	this->sizeOfBlockade = SizeOfBlockade;
+	this->blockadeOffset = BlockadeOffset;
+	this->collisionBox = new sf::FloatRect;
+	*this->collisionBox = BlockadeRect;
+	
+}
+
+void TilesOnMap::initPosition(sf::Vector2i position2i)
+{
+	this->cameraSpriteOfTile->getSprite()->setPosition((float)position2i.x * 44 + this->graphicsData->backGroundMapped->getSprite()->getPosition().x, ((float)position2i.y) * 44 - (this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height - this->graphicsData->backGroundMapped->getSprite()->getPosition().y));
+
+	if (this->blokade == true)
+	{
+		this->collisionBox->left = this->cameraSpriteOfTile->getSprite()->getPosition().x + this->blockadeOffset.x;
+		this->collisionBox->top = this->cameraSpriteOfTile->getSprite()->getPosition().y + this->blockadeOffset.y;
+	}
 }
 
 void TilesOnMap::decreaseTicksToDisappear(int valueToDecrease)

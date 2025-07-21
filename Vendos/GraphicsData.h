@@ -36,6 +36,7 @@ struct GraphicsData
 	std::vector<sf::Texture*>* GraphicsTxtVec{};
 	std::map<std::string, sf::Texture*>* TexturesMap{};
 	std::map<std::string, TextureData*>* TextureDataMap{};
+	std::map<TextureNames, TextureData*>* TextureDataMapN{};
 
 	sf::Sprite* backGround{};
 	sf::Sprite* player{};

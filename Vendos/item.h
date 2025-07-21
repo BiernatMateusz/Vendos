@@ -11,8 +11,10 @@
 #include <String>
 #include "CameraSprite.h"
 #include "StructuresOfData.h"
+#include "TilesOnMap.h"
 
 class item
+	: public TilesOnMap
 {
 private:
 	sf::Font font{};
@@ -28,8 +30,6 @@ private:
 protected:
 	std::vector<std::string> StrType{ "Axe", "Pickaxe", "Hoe", "WateringCan", "Shovel", "Sword" };
 	std::vector<std::string> StrQuality{ "Wooden", "Stone", "Iron", "Golden", "Diamond" };
-
-	sf::RenderWindow* Window;
 	
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
@@ -61,7 +61,10 @@ public:
 	item(GraphicsData* graphicsData, bool empty);
 	item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType);
 	item(GraphicsData* graphicsData, EquipmentData* equipmentData, TypeOfTool typeOfTool, QualityOfTool qualityOfTool);
+	item(bool tileExist, bool equipmentStorageExist);
 
+
+	
 	//Assign operators
 	virtual item& operator=(const item& model);
 
@@ -70,7 +73,7 @@ public:
 	virtual void render(); //for animations
 
 	void initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const int& itemSize, int OffsetYPositioning);
-
+	void initItemID(int ID);
 
 	void changeNumberOfItems(int newNumberOfItems);
 	int getNumberOfItems();
@@ -101,9 +104,9 @@ public:
 	float distance{};
 	sf::Sprite itemSprite{};
 	sf::Vector2i TileClicked{};
-	CameraSprite *cameraSprite;
 	std::string nameOfTxtWhileReplacing{};
 
+	CameraSprite* cameraSprite{};
 };
 
 #endif 

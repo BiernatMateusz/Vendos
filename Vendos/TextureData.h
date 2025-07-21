@@ -7,9 +7,12 @@
 
 #include <vector>
 
-
-enum class TileNames
+//Name of every texture 
+enum class TextureNames
 {
+	Menu,
+	Mapka,
+	Abigail, 
 	HoedNoWater,
 	HoedWatered,
 	Stone,
@@ -21,11 +24,37 @@ enum class TileNames
 	BushEmpty,
 	EmptyTile,
 	Furnace,
-	Chest
+	Chest, 
+	WoodenHoe,
+	WoodenPickaxe,
+	WoodenAxe,
+	WoodenSword,
+	WoodenShovel,
+	WoodenWateringCan,
+	StoneEq,
+	WoodEq,
+	Patyk,
+	CopperEq,
+	IronEq,
+	ChestEq,
+	FurnaceEq,
+	ramka,
+	ramka1,
+	BackgroundCrafting,
+	BackgroundChest,
+	BackgroundFurnace
 };
 
+//list of every item (tileable only are items too)
 enum class ItemNames
 {
+	HoedNoWater,
+	HoedWatered,
+	Tree1,
+	Tree2,
+	Tree3,
+	BushEmpty,
+	EmptyTile,
 	WoodenHoe,
 	WoodenPickaxe,
 	WoodenAxe,

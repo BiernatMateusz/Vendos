@@ -19,11 +19,15 @@ private:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 
+	item* newItemToReturn{};
+
 public:
 	void init(GraphicsData* graphicsData, EquipmentData* equipmentData);
 	item* creatorOfItemBasedOnExample(item* example);
 	item* creatorOfItemBasedOnID(int itemID, int ammount);
 
+	item* createItem(ItemNames nameOfItem);
+	item* createItem(TextureNames nameOfTxt, sf::Vector2i position2i);
 
 
 };

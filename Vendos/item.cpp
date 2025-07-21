@@ -4,7 +4,6 @@
 item::item(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
-	this->Window = graphicsData->window;
 
 	this->cameraSprite = new CameraSprite;
 
@@ -46,9 +45,6 @@ item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, TypeOfTool 
 	initGraphics(this->nameOfTxt);
 }
 
-
-
-
 void item::updateAndRenderNumberOfItems()
 {
 	this->numberOfItems.setString(std::to_string(numberOfItemsInStack));
@@ -59,7 +55,7 @@ void item::updateAndRenderNumberOfItems()
 	this->numberOfItems.setPosition(
 		this->itemSprite.getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
 		this->itemSprite.getPosition().y + 62);
-	this->Window->draw(this->numberOfItems);
+	this->graphicsData->window->draw(this->numberOfItems);
 }
 
 const int& item::getBreakingDamage() const
@@ -75,6 +71,11 @@ void item::updateKeybinds(const float& dt, const std::map<std::string, button*>&
 void item::initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const int& itemSize, int OffsetYPositioning)
 {
 	this->itemSprite.setPosition(FirstItemPos.x + xyOfvec.x*itemSize, FirstItemPos.y- (-xyOfvec.y+2) * itemSize - OffsetYPositioning*itemSize);
+}
+
+void item::initItemID(int ID)
+{
+	this->itemID = ID;
 }
 
 void item::initGraphics(const std::string &name)
@@ -102,7 +103,6 @@ item& item::operator=(const item& model)
 		numberOfItems = model.numberOfItems;
 		maxStack = model.maxStack;
 		OverMax = model.OverMax;
-		Window = model.Window;
 		graphicsData = model.graphicsData;
 		equipmentData = model.equipmentData;
 		numberOfItemsInStack = 1; //model.numberOfItemsInStack 
@@ -220,7 +220,8 @@ void item::update(const float& dt, const std::map<std::string, button*>& AllKeys
 
 void item::render()
 {
-	this->Window->draw(this->itemSprite);
+	this->graphicsData->window->draw(this->itemSprite);
+	//this->Window->draw(this->itemSprite);
 	updateAndRenderNumberOfItems();
 }
 

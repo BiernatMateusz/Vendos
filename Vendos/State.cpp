@@ -142,8 +142,8 @@ void State::updateTilesSprite()
 	for (auto& row : Tile)
 		for (auto& elem : row)
 			if (elem != nullptr)
-				if (elem->cameraSprite != nullptr)
-					this->graphicsData->TilesSpriteMapped->push_back(elem->cameraSprite);
+				if (elem->cameraSpriteOfTile != nullptr)
+					this->graphicsData->TilesSpriteMapped->push_back(elem->cameraSpriteOfTile);
 			
 	this->equipmentData->needToUpdateTilesSpriteVec = 0;
 }

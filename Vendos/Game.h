@@ -34,8 +34,8 @@ public:
 	
 
 	//Graphics functions 
-	void LoadNewGraphic(const std::string& name, int itemID);
-	void LoadNewGraphic(const std::string& name, sf::Vector2i blockadeSize, sf::Vector2i origin, 
+	void LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, int itemID);
+	void LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, sf::Vector2i blockadeSize, sf::Vector2i origin,
 		sf::Vector2f blockadeOffset, bool blockade, tileType typeOfTile ,StorageAreas storageArea, int itemID, float offsetForCamera,
 		sf::FloatRect textRect, sf::FloatRect blockadeRect, 
 		std::vector<int>idOfItemsDroppedFromTile, std::vector<int>ammountOfDroppedItems);

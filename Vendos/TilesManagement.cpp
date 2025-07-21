@@ -40,12 +40,12 @@ void TilesManagement::initTile(sf::Vector2i position2i, std::string NameOfTxt)
 	this->equipmentData->needToUpdateTilesSpriteVec = 1;
 	this->equipmentData->needToUpdateCameraAllSpr = 1;
 
-	if (NameOfTxt == "Furnace")
+	/*if (NameOfTxt == "Furnace")
 		this->Tile->at(position2i.x).at(position2i.y) = new itemFurnace(graphicsData, equipmentData, position2i, NameOfTxt);
 	else if (NameOfTxt == "Skrzynia")
 		this->Tile->at(position2i.x).at(position2i.y) = new itemChest(graphicsData, equipmentData, position2i, NameOfTxt);
-	else
-		this->Tile->at(position2i.x).at(position2i.y) = new TilesOnMap(position2i, NameOfTxt, graphicsData);
+	else*/
+	this->Tile->at(position2i.x).at(position2i.y) = new TilesOnMap(position2i, NameOfTxt, graphicsData);
 
 
 	if (this->graphicsData->TextureDataMap->at(NameOfTxt)->typeOfTile == tileType::chestField) //8 -> workstation

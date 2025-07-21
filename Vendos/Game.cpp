@@ -157,66 +157,66 @@ void Game::initTextures()
 
 
 	//Main menu
-	LoadNewGraphic("Menu",0);
+	LoadNewGraphic("Menu",TextureNames::Menu,0);
 
 
 	//Terrain
-	LoadNewGraphic("Mapka", 1);
+	LoadNewGraphic("Mapka", TextureNames::Mapka, 1);
 
 	//Player
 	//LoadNewGraphic("Abigail", 2);
-	LoadNewGraphic("Abigail", { 30,15 }, { 7,78 }, { 0,-15 }, true, tileType::player, StorageAreas::Empty, 2, 0, sf::FloatRect(22, 20, 40, 85), sf::FloatRect(0, 0, 30, 15), {0}, { 0 });
+	LoadNewGraphic("Abigail", TextureNames::Abigail, { 30,15 }, { 7,78 }, { 0,-15 }, true, tileType::player, StorageAreas::Empty, 2, 0, sf::FloatRect(22, 20, 40, 85), sf::FloatRect(0, 0, 30, 15), {0}, { 0 });
 
 	//Field
-	LoadNewGraphic("PoDziabceSuche", { 0,0 }, { 0,0 }, { 0,0 }, false, tileType::hoedField, StorageAreas::Empty, 3, -44, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 0, 0), {0}, { 0 });
-	LoadNewGraphic("PoDziabceMokre", { 0,0 }, { 0,0 }, { 0,0 }, false, tileType::wateredField, StorageAreas::Empty, 4, -44, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 0, 0), {0}, { 0 });
+	LoadNewGraphic("PoDziabceSuche", TextureNames::HoedNoWater,{ 0,0 }, { 0,0 }, { 0,0 }, false, tileType::hoedField, StorageAreas::Empty, 3, -44, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 0, 0), {0}, { 0 });
+	LoadNewGraphic("PoDziabceMokre", TextureNames::HoedWatered, { 0,0 }, { 0,0 }, { 0,0 }, false, tileType::wateredField, StorageAreas::Empty, 4, -44, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 0, 0), {0}, { 0 });
 
 	//Pickaxable map
-	LoadNewGraphic("Stone", { 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 5, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), {100}, { 5 });
-	LoadNewGraphic("Copper", { 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 6, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 103 }, { 5 });
-	LoadNewGraphic("Iron", { 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 7, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 104 }, { 5 });
+	LoadNewGraphic("Stone", TextureNames::Stone,{ 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 5, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), {100}, { 5 });
+	LoadNewGraphic("Copper", TextureNames::Copper, { 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 6, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 103 }, { 5 });
+	LoadNewGraphic("Iron", TextureNames::Iron, { 30,25 }, { 0,0 }, { 7,25 }, true, tileType::pickaxableField, StorageAreas::Empty, 7, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 104 }, { 5 });
 
 	//Trees
-	LoadNewGraphic("Tree1", { 30,30 }, { 50,160 }, { 6,8 }, true, tileType::axableField, StorageAreas::Empty, 10, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 22), {101}, { 5 });
-	LoadNewGraphic("Tree2", { 30,18 }, { 68,162 }, { 8,19 }, true, tileType::axableField, StorageAreas::Empty, 11, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 18), {101}, { 5 });
-	LoadNewGraphic("Tree3", { 30,16 }, { 42,135 }, { 12,24 }, true, tileType::axableField, StorageAreas::Empty, 12, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 14), {101}, { 5 });
+	LoadNewGraphic("Tree1", TextureNames::Tree1, { 30,30 }, { 50,160 }, { 6,8 }, true, tileType::axableField, StorageAreas::Empty, 10, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 22), {101}, { 5 });
+	LoadNewGraphic("Tree2", TextureNames::Tree2, { 30,18 }, { 68,162 }, { 8,19 }, true, tileType::axableField, StorageAreas::Empty, 11, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 18), {101}, { 5 });
+	LoadNewGraphic("Tree3", TextureNames::Tree3, { 30,16 }, { 42,135 }, { 12,24 }, true, tileType::axableField, StorageAreas::Empty, 12, 33, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 14), {101}, { 5 });
 
 	//Bushes
-	LoadNewGraphic("Bush_empty", { 30,20 }, { 0,0 }, { 7,25 }, true, tileType::axableField, StorageAreas::Empty, 13, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 102 }, { 5 });
+	LoadNewGraphic("Bush_empty", TextureNames::BushEmpty, { 30,20 }, { 0,0 }, { 7,25 }, true, tileType::axableField, StorageAreas::Empty, 13, 40, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 30, 15), { 102 }, { 5 });
 
 	//Empty
-	LoadNewGraphic("EmptyTile", {29,29 }, { 0,0 }, { 0,0 }, true, tileType::emptyBlockade, StorageAreas::Empty, 0, 0, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 29, 29), { 0 }, { 0 });
+	LoadNewGraphic("EmptyTile", TextureNames::EmptyTile, {29,29 }, { 0,0 }, { 0,0 }, true, tileType::emptyBlockade, StorageAreas::Empty, 0, 0, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 29, 29), { 0 }, { 0 });
 
 
 	//Equipment
 	// 
 	//Nonstackable
-	LoadNewGraphic("WoodenHoe",20);
-	LoadNewGraphic("WoodenPickaxe",21);
-	LoadNewGraphic("WoodenAxe",22);
-	LoadNewGraphic("WoodenSword",23);
-	LoadNewGraphic("WoodenShovel",24);
-	LoadNewGraphic("WoodenWateringCan",25);
+	LoadNewGraphic("WoodenHoe", TextureNames::WoodenHoe,20);
+	LoadNewGraphic("WoodenPickaxe", TextureNames::WoodenPickaxe,21);
+	LoadNewGraphic("WoodenAxe", TextureNames::WoodenAxe,22);
+	LoadNewGraphic("WoodenSword", TextureNames::WoodenSword,23);
+	LoadNewGraphic("WoodenShovel", TextureNames::WoodenShovel,24);
+	LoadNewGraphic("WoodenWateringCan", TextureNames::WoodenWateringCan, 25);
 
 	//Chest
-	LoadNewGraphic("Skrzynia", { 32,20 }, { 0,0 }, { 5,15 }, true, tileType::chestField, StorageAreas::Chest, 26, 20, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 32, 20), {0}, { 0 });
-	LoadNewGraphic("Furnace", { 32,20 }, { 0,0 }, { 5,15 }, true, tileType::chestField, StorageAreas::Furnace, 27, 20, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 32, 20), { 0 }, { 0 });
+	LoadNewGraphic("Skrzynia", TextureNames::Chest,{ 32,20 }, { 0,0 }, { 5,15 }, true, tileType::chestField, StorageAreas::Chest, 26, 20, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 32, 20), {0}, { 0 });
+	LoadNewGraphic("Furnace", TextureNames::Furnace, { 32,20 }, { 0,0 }, { 5,15 }, true, tileType::chestField, StorageAreas::Furnace, 27, 20, sf::FloatRect(0, 0, 0, 0), sf::FloatRect(0, 0, 32, 20), { 0 }, { 0 });
 	//Stackable
 
-	LoadNewGraphic("StoneEq",100);
-	LoadNewGraphic("WoodEq", 101);
-	LoadNewGraphic("Patyk", 102);
-	LoadNewGraphic("CopperEq", 103);
-	LoadNewGraphic("IronEq", 104);
-	LoadNewGraphic("ChestEq", 105);
-	LoadNewGraphic("FurnaceEq", 106);
+	LoadNewGraphic("StoneEq", TextureNames::StoneEq,100);
+	LoadNewGraphic("WoodEq", TextureNames::WoodEq, 101);
+	LoadNewGraphic("Patyk", TextureNames::Patyk, 102);
+	LoadNewGraphic("CopperEq", TextureNames::CopperEq, 103);
+	LoadNewGraphic("IronEq", TextureNames::IronEq, 104);
+	LoadNewGraphic("ChestEq", TextureNames::ChestEq, 105);
+	LoadNewGraphic("FurnaceEq", TextureNames::FurnaceEq, 106);
 
 	//Eq_layout
-	LoadNewGraphic("ramka", 200);
-	LoadNewGraphic("ramka1", 201);
-	LoadNewGraphic("BackgroundCrafting", 202);
-	LoadNewGraphic("BackgroundChest", 203);
-	LoadNewGraphic("BackgroundFurnace", 204);
+	LoadNewGraphic("ramka", TextureNames::ramka, 200);
+	LoadNewGraphic("ramka1", TextureNames::ramka1, 201);
+	LoadNewGraphic("BackgroundCrafting", TextureNames::BackgroundCrafting, 202);
+	LoadNewGraphic("BackgroundChest", TextureNames::BackgroundChest, 203);
+	LoadNewGraphic("BackgroundFurnace", TextureNames::BackgroundFurnace, 204);
 }
 
 void Game::initGraphicsData()
@@ -224,6 +224,7 @@ void Game::initGraphicsData()
 	this->graphicsData = new GraphicsData;
 
 	this->graphicsData->TextureDataMap = new std::map<std::string, TextureData*>;
+	this->graphicsData->TextureDataMapN = new std::map<TextureNames, TextureData*>;
 	this->graphicsData->window = this->window;
 	this->graphicsData->TexturesMap = new std::map<std::string, sf::Texture*>;
 	this->graphicsData->GraphicsTxtVec = new std::vector<sf::Texture*>;
@@ -233,7 +234,7 @@ void Game::initGraphicsData()
 }
 
 //Graphics functions 
-void Game::LoadNewGraphic(const std::string& name, int itemID)
+void Game::LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, int itemID)
 {
 	this->graphicsData->GraphicsTxtVec->push_back(new sf::Texture);
 	this->graphicsData->GraphicsTxtVec->back()->loadFromFile("Texture/" + name + ".png");
@@ -243,16 +244,21 @@ void Game::LoadNewGraphic(const std::string& name, int itemID)
 	this->graphicsData->TextureDataMap->at(name)->texture = new sf::Texture;
 	this->graphicsData->TextureDataMap->at(name)->texture->loadFromFile("Texture/" + name + ".png");
 
+	this->graphicsData->TextureDataMapN->insert(std::pair<TextureNames, TextureData*>(nameOfTxt, new TextureData));
+	this->graphicsData->TextureDataMapN->at(nameOfTxt)->texture = new sf::Texture;
+	this->graphicsData->TextureDataMapN->at(nameOfTxt)->texture = this->graphicsData->TextureDataMap->at(name)->texture;
+
+
 	this->graphicsData->TextureDataMap->at(name)->initBlocksOccupied(name);
 	this->graphicsData->TextureDataMap->at(name)->itemID = itemID;
 	
 }
 
-void Game::LoadNewGraphic(const std::string& name, sf::Vector2i blockadeSize,  sf::Vector2i origin, sf::Vector2f blockadeOffset, 
+void Game::LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, sf::Vector2i blockadeSize,  sf::Vector2i origin, sf::Vector2f blockadeOffset,
 	bool blockade, tileType typeOfTile,StorageAreas storageArea, int itemID, float offsetForCamera, sf::FloatRect textRect, 
 	sf::FloatRect blockadeRect, std::vector<int>idOfItemsDroppedFromTile, std::vector<int>ammountOfDroppedItems)
 {
-	LoadNewGraphic(name, itemID);
+	LoadNewGraphic(name, nameOfTxt, itemID);
 
 	this->graphicsData->TextureDataMap->at(name)->blockade = blockade;
 	this->graphicsData->TextureDataMap->at(name)->blockadeSize = blockadeSize;

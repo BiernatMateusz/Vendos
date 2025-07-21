@@ -92,7 +92,7 @@ void ThrowedItem::setItemParametersFromTile(sf::Vector2i tileCord)
 	this->Item->cameraSprite->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
 
 	//to change below 
-	this->Item->cameraSprite->getSprite()->setPosition(this->tile->at(tileCord.x).at(tileCord.y)->cameraSprite->getSprite()->getPosition().x+this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->cameraSprite->getSprite()->getPosition().y + this->graphicsData->tileSize );
+	this->Item->cameraSprite->getSprite()->setPosition(this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().x+this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().y + this->graphicsData->tileSize );
 	this->initialPosition = this->Item->cameraSprite->getSprite()->getPosition();
 }
 

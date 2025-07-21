@@ -49,3 +49,88 @@ item* ItemConstructor::creatorOfItemBasedOnID(int itemID, int ammount)
 
 	std::cout << "Brak itemu w klasie intemContructor.cpp, dodaj warunek w switchu!";
 }
+
+item* ItemConstructor::createItem(ItemNames nameOfItem)
+{
+	if (this->newItemToReturn != nullptr)
+		this->newItemToReturn = nullptr;
+
+	this->newItemToReturn = new item(this->graphicsData);
+
+	switch (nameOfItem)
+	{
+	case ItemNames::HoedNoWater:
+		break;
+	case ItemNames::HoedWatered:
+		break;
+	case ItemNames::Tree1:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Tree1, tileType::axableField, { 101 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 50,160 }, 33);
+		this->newItemToReturn->initTileBlockadeData({ 30,30 }, { 6,8 }, sf::FloatRect(0, 0, 30, 22));
+		this->newItemToReturn->initItemID(10);
+		break;
+	case ItemNames::Tree2:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Tree2,  tileType::axableField, { 101 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 68,162 }, 33);
+		this->newItemToReturn->initTileBlockadeData({ 30,18 }, { 8,19 }, sf::FloatRect(0, 0, 30, 18));
+		this->newItemToReturn->initItemID(11);
+		break;
+	case ItemNames::Tree3:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Tree3, tileType::axableField, { 101 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 42,135 }, 33);
+		this->newItemToReturn->initTileBlockadeData({ 30,16 }, { 12,24 }, sf::FloatRect(0, 0, 30, 14));
+		this->newItemToReturn->initItemID(12);
+		break;
+	case ItemNames::BushEmpty:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::BushEmpty, tileType::axableField, { 102 }, { 5 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, 40);
+		this->newItemToReturn->initTileBlockadeData({ 30,20 }, { 7,25 }, sf::FloatRect(0, 0, 30, 15));
+		this->newItemToReturn->initItemID(13);
+		break;
+	case ItemNames::EmptyTile:
+		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::EmptyTile, tileType::emptyBlockade, { 0 }, { 0 });
+		this->newItemToReturn->initTileGraphicData({ 0,0 }, 0);
+		this->newItemToReturn->initTileBlockadeData({ 29,29 }, { 0,0 }, sf::FloatRect(0, 0, 29, 29));
+		this->newItemToReturn->initItemID(0);
+		break;
+	case ItemNames::WoodenHoe:
+		break;
+	case ItemNames::WoodenPickaxe:
+		break;
+	case ItemNames::WoodenAxe:
+		break;
+	case ItemNames::WoodenSword:
+		break;
+	case ItemNames::WoodenShovel:
+		break;
+	case ItemNames::WoodenWateringCan:
+		break;
+	case ItemNames::StoneEq:
+		break;
+	case ItemNames::WoodEq:
+		break;
+	case ItemNames::Patyk:
+		break;
+	case ItemNames::CopperEq:
+		break;
+	case ItemNames::IronEq:
+		break;
+	case ItemNames::ChestEq:
+		break;
+	case ItemNames::FurnaceEq:
+		break;
+	}
+
+	if (this->newItemToReturn==nullptr)
+		std::cout << "Brak itemu w klasie intemContructor.cpp, dodaj warunek w switchu w funkcji createItem(TextureNames nameOfTxt)!";
+
+
+	return this->newItemToReturn;
+}
+
+item* ItemConstructor::createItem(TextureNames nameOfTxt, sf::Vector2i position2i)
+{
+	this->newItemToReturn = createItem(nameOfTxt);
+	this->newItemToReturn->initPosition(position2i);
+	return newItemToReturn;
+}
