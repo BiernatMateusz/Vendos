@@ -13,7 +13,7 @@ public:
 	void render();
 
 	void initTile(sf::Vector2i position2i, std::string NameOfTxt);
-	
+	void initTile(sf::Vector2i position2i, ItemNames itemName);
 
 protected:
 	GraphicsData* graphicsData;
@@ -25,6 +25,7 @@ protected:
 	sf::Vector2i getCordsOfClickedTile(const std::map<std::string, button*>& AllKeys);
 private:
 	bool checkIfDestroyable(TilesOnMap* TileToCheck);
+	ItemConstructor itemFactory;
 
 };
 

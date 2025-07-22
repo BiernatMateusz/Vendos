@@ -93,7 +93,7 @@ void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames name
 	this->nameOfTxtOfTile = nameOfTxt;
 	
 
-	this->typeOfTile = typeOfTile;
+	this->typeOfTile = TypeOfTile;
 	this->idOfBlocksThatDropsFromTile = IDOfBlocksThatDropsFromTile;
 	this->ammountOfItemsDroppedFromTile = AmmountOfItemsDroppedFromTile;
 

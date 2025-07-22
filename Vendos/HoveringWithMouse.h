@@ -18,7 +18,6 @@ private:
 	EquipmentData* equipmentData;
 	std::vector<std::vector<TilesOnMap*>>* Tile;
 
-	sf::Font font{};
 	sf::Text numberOfItems{};
 	std::string displayedTxt{};
 	TilesOnMap* tileHovered{};

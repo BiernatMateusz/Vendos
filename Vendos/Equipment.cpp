@@ -12,13 +12,13 @@ Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOn
 
 	initEquipment();
 	
-	this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, nullptr, ItemsOnTheGround);
+	this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), nullptr, ItemsOnTheGround);
 
 	this->Tile = Tile;
 
-	this->tilesByItemManagement = new TilesByItemsManagement(this->graphicsData, this->equipmentData, this->Tile, this->items);
+	this->tilesByItemManagement = new TilesByItemsManagement(this->graphicsData, this->equipmentData, this->Tile, this->getItemsArea());
 
-	this->itemsOnTheGround->initEqPtr(items);
+	this->itemsOnTheGround->initEqPtr(this->getItemsArea());
 }
 
 
@@ -37,16 +37,16 @@ void Equipment::updateKeybinds(const std::map<std::string, button*>& AllKeys)
 void Equipment::initEquipment()
 {
 	factoryOfItems.init(this->graphicsData, this->equipmentData);
-	items->at(0).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 10));
-	items->at(0).at(2).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(101, 10));
-	items->at(0).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	items->at(1).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	items->at(2).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	items->at(2).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(22, 1));
-	items->at(3).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(21, 1));
-	items->at(4).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(105, 1));
-	items->at(6).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(20, 1));
-	items->at(7).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(25, 1));
+	getItemsArea()->at(0).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 10));
+	getItemsArea()->at(0).at(2).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(101, 10));
+	getItemsArea()->at(0).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
+	getItemsArea()->at(1).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
+	getItemsArea()->at(2).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
+	getItemsArea()->at(2).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(22, 1));
+	getItemsArea()->at(3).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(21, 1));
+	getItemsArea()->at(4).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(105, 1));
+	getItemsArea()->at(6).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(20, 1));
+	getItemsArea()->at(7).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(25, 1));
 
 	calculatePositionOfFirstItemEqAndChest();
 }
@@ -94,7 +94,7 @@ void Equipment::openingEquipment(const std::map<std::string, button*>& AllKeys)
 		delete this->eqAreas;
 		this->crafting = new Crafting(this->graphicsData, this->equipmentData, this->itemsOnTheGround);
 		this->equipmentData->openedWorkstation = this->crafting;
-		this->eqAreas= new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, this->crafting->getItemsArea(), this->itemsOnTheGround);
+		this->eqAreas= new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), this->crafting->getItemsArea(), this->itemsOnTheGround);
 		this->secondEq = this->crafting;
 	}
 
@@ -111,7 +111,7 @@ void Equipment::openingEquipment(const std::map<std::string, button*>& AllKeys)
 			this->crafting = nullptr;
 		}
 
-		this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, nullptr, this->itemsOnTheGround);
+		this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), nullptr, this->itemsOnTheGround);
 		this->secondEq = nullptr;
 	}
 
@@ -136,7 +136,7 @@ void Equipment::openingChest(const std::map<std::string, button*>& AllKeys)
 				{
 					this->equipmentData->isEqOpened = true;
 					this->equipmentData->isChestOpened = true;
-					this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->items, this->equipmentData->openedWorkstation->getItemsArea(), this->itemsOnTheGround);
+					this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), this->equipmentData->openedWorkstation->getItemsArea(), this->itemsOnTheGround);
 					this->secondEq = this->equipmentData->openedWorkstation;
 				}
 

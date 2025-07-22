@@ -115,8 +115,8 @@ void StateSpawnPlace::playerMovement(const float& dt, const std::map<std::string
 
 void StateSpawnPlace::mapGeneration()
 {
-	tileManagement->initTile({ 17, 12 }, "Skrzynia");
-	tileManagement->initTile({ 18, 12 }, "Furnace");
+	tileManagement->initTile({ 17, 12 }, ItemNames::ChestEq);
+	tileManagement->initTile({ 18, 12 }, ItemNames::FurnaceEq);
 
 	std::uniform_int_distribution<int> randomValue(0, 1000);
 	int randomizedValue{};
@@ -128,19 +128,19 @@ void StateSpawnPlace::mapGeneration()
 				randomizedValue = randomValue(this->graphicsData->randomEngine.mt);
 
 				if (randomizedValue<50)
-					tileManagement->initTile({ i,j }, "Stone");
+					tileManagement->initTile({ i,j }, ItemNames::StoneEq);
 				else if (randomizedValue >= 50 and randomizedValue < 60)
-					tileManagement->initTile({ i, j }, "Tree1");
+					tileManagement->initTile({ i, j }, ItemNames::Tree1);
 				else if (randomizedValue >= 60 and randomizedValue < 70)
-					tileManagement->initTile({ i, j }, "Tree2");
+					tileManagement->initTile({ i, j }, ItemNames::Tree2);
 				else if (randomizedValue >= 70 and randomizedValue < 80)
-					tileManagement->initTile({ i, j }, "Tree3");
+					tileManagement->initTile({ i, j }, ItemNames::Tree3);
 				else if (randomizedValue >= 80 and randomizedValue < 90)
-					tileManagement->initTile({ i, j }, "Copper");
+					tileManagement->initTile({ i, j }, ItemNames::CopperEq);
 				else if (randomizedValue >= 90 and randomizedValue < 100)
-					tileManagement->initTile({ i, j }, "Iron");
+					tileManagement->initTile({ i, j }, ItemNames::IronEq);
 				else if (randomizedValue >= 100 and randomizedValue < 150)
-					tileManagement->initTile({ i, j }, "Bush_empty");
+					tileManagement->initTile({ i, j }, ItemNames::BushEmpty);
 
 			}
 

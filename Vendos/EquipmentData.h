@@ -7,6 +7,8 @@
 
 #include <set>
 
+enum class typeOfItemArea { PickAndPlace, Pick, Place };
+
 class EquipmentStorageArea;
 
 struct EquipmentData

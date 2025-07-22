@@ -14,12 +14,13 @@ Crafting::Crafting(GraphicsData* graphicsData, EquipmentData* equipmentData, Thr
 
 Crafting::~Crafting()
 {
-	for (int i=0;i<items->size();i++)
-		for (int j=0;j<items->at(0).size();j++)
-			if (items->at(i).at(j).second->getItemPtr() != nullptr)
+	
+	for (int i=0;i< this->getItemsArea()->size();i++)
+		for (int j=0;j< this->getItemsArea()->at(0).size();j++)
+			if (this->getItemsArea()->at(i).at(j).second->getItemPtr() != nullptr)
 			{
-				this->itemsOnTheGround->insertItemDroppedFromPlayer(items->at(i).at(j).second->getItemPtr());
-				items->at(i).at(j).second->setItemPtr(nullptr);
+				this->itemsOnTheGround->insertItemDroppedFromPlayer(this->getItemsArea()->at(i).at(j).second->getItemPtr());
+				this->getItemsArea()->at(i).at(j).second->setItemPtr(nullptr);
 			}
 }
 
@@ -32,18 +33,18 @@ void Crafting::update(const float& dt, const std::map<std::string, button*>& All
 
 	if (checkIfAnyPatternMatches(this->stringMadeFromTable))
 	{
-		if (this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr and this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr()->itemID != idOfItemToMake)
-			this->items->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
+		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr and this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr()->itemID != idOfItemToMake)
+			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
 
-		if (this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
-			this->items->at(craftPos.x).at(craftPos.y).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(idOfItemToMake, itemToMakeCount));
+		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
+			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(idOfItemToMake, itemToMakeCount));
 	}
 	else
-		this->items->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
+		this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
 
 
-	if (this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr)
-		this->ResultItemCountFromPrevCycle = this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr()->getNumberOfItems();
+	if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr)
+		this->ResultItemCountFromPrevCycle = this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr()->getNumberOfItems();
 	else
 		this->ResultItemCountFromPrevCycle = 0;
 
@@ -80,9 +81,9 @@ std::string Crafting::makeStringFromTable()
 	for (int i=3;i<3+3;i++)
 		for (int j = 4; j < 4 + 3; j++)
 		{
-			if (this->items->at(i).at(j).second->getItemPtr() != nullptr)
+			if (this->getItemsArea()->at(i).at(j).second->getItemPtr() != nullptr)
 			{
-				this->stringMadeFromTable.append(std::to_string(this->items->at(i).at(j).second->getItemPtr()->itemID));
+				this->stringMadeFromTable.append(std::to_string(this->getItemsArea()->at(i).at(j).second->getItemPtr()->itemID));
 				this->itemsOnCrafting++;
 			}
 			else
@@ -186,14 +187,14 @@ void Crafting::changeItemNumbersIfResultNmbChanged()
 {
 	int tmpItemCount{};
 
-	if (this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
+	if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
 		tmpItemCount = 0;
 	else
-		tmpItemCount = this->items->at(craftPos.x).at(craftPos.y).second->getItemPtr()->getNumberOfItems();
+		tmpItemCount = this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr()->getNumberOfItems();
 
 
 	if (tmpItemCount != this->ResultItemCountFromPrevCycle)
-		for (auto& elem : *items)
+		for (auto& elem : *this->getItemsArea())
 			for (auto& row : elem)
 				if (row.second->getItemPtr() != nullptr)
 				{

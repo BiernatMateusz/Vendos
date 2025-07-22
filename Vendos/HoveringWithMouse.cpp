@@ -6,8 +6,7 @@ HoveringWithMouse::HoveringWithMouse(GraphicsData* graphicsData, EquipmentData* 
 	this->equipmentData = equipmentData;
 	this->Tile = Tile;
 
-	this->font.loadFromFile("Font/Rinnero.ttf");
-	this->numberOfItems.setFont(font);
+	this->numberOfItems.setFont(this->graphicsData->font);
 	this->numberOfItems.setFillColor(sf::Color::Black);
 	this->numberOfItems.setStyle(sf::Text::Bold);
 }
@@ -47,7 +46,7 @@ void HoveringWithMouse::updateAndRenderTileText(const std::map<std::string, butt
 	this->numberOfItems.setString(this->displayedTxt);
 	this->numberOfItems.setCharacterSize(16);
 
-	this->numberOfItems.setFont(font);
+	this->numberOfItems.setFont(this->graphicsData->font);
 
 	this->numberOfItems.setPosition(
 		AllKeys.at("LeftMouse")->mousePosGet().x+15, //- numberOfItems.getGlobalBounds().width

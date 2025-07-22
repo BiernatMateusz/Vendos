@@ -231,6 +231,8 @@ void Game::initGraphicsData()
 	this->graphicsData->AllExcludedSpritesPointer = new std::vector<sf::Sprite*>;
 	this->graphicsData->backGroundMapped = new CameraSprite;
 	this->graphicsData->itemDroppedVec = new std::vector<itemDroppedFromTile*>;
+
+	this->graphicsData->font.loadFromFile("Font/Rinnero.ttf");
 }
 
 //Graphics functions 

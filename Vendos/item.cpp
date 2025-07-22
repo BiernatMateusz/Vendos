@@ -7,8 +7,7 @@ item::item(GraphicsData* graphicsData)
 
 	this->cameraSpriteOfItem = new CameraSprite; //delete it later
 
-	this->font.loadFromFile("Font/Rinnero.ttf");
-	this->numberOfItems.setFont(font);
+	this->numberOfItems.setFont(this->graphicsData->font);
 	this->numberOfItems.setFillColor(sf::Color::Black);
 	this->numberOfItems.setStyle(sf::Text::Bold);
 }
@@ -50,7 +49,7 @@ void item::updateAndRenderNumberOfItems()
 	this->numberOfItems.setString(std::to_string(numberOfItemsInStack));
 	this->numberOfItems.setCharacterSize(16);
 
-	this->numberOfItems.setFont(font);
+	this->numberOfItems.setFont(this->graphicsData->font);
 
 	this->numberOfItems.setPosition(
 		this->itemSprite.getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
@@ -114,7 +113,6 @@ item& item::operator=(const item& model)
 {
 	if (&model != this)
 	{
-		font =model.font;
 		numberOfItems = model.numberOfItems;
 		maxStack = model.maxStack;
 		OverMax = model.OverMax;

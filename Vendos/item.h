@@ -13,11 +13,11 @@
 #include "StructuresOfData.h"
 #include "TilesOnMap.h"
 
+
 class item
 	: public TilesOnMap
 {
 private:
-	sf::Font font{};
 	sf::Text numberOfItems{};
 	int maxStack{ 999 };
 	bool OverMax{};

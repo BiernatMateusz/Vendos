@@ -30,6 +30,7 @@
     <ClCompile Include="EquipmentAreas.cpp" />
     <ClCompile Include="EquipmentAreasMenagement.cpp" />
     <ClCompile Include="EquipmentStorageArea.cpp" />
+    <ClCompile Include="EquipmentStorageAreaMenagement.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HoveringWithMouse.cpp" />
     <ClCompile Include="item.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="EquipmentAreasMenagement.h" />
     <ClInclude Include="EquipmentData.h" />
     <ClInclude Include="EquipmentStorageArea.h" />
+    <ClInclude Include="EquipmentStorageAreaMenagement.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="HoveringWithMouse.h" />

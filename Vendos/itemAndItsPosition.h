@@ -4,7 +4,7 @@
 #include "StructuresOfData.h"
 #include "item.h"
 
-enum class typeOfItemArea { PickAndPlace, Pick, Place };
+
 
 class itemAndItsPosition
 {

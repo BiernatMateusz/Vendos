@@ -10,6 +10,7 @@
 #include "itemFurnace.h"
 #include "itemWateringCan.h"
 #include "StructuresOfData.h"
+#include "EquipmentStorageAreaMenagement.h"
 
 
 
@@ -20,6 +21,7 @@ private:
 	EquipmentData* equipmentData;
 
 	item* newItemToReturn{};
+	EquipmentStorageAreaMenagement storageCreator;
 
 public:
 	void init(GraphicsData* graphicsData, EquipmentData* equipmentData);
