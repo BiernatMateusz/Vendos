@@ -5,7 +5,6 @@
 
 //Add functions for creating destroying etc.
 
-class itemChest;
 class EquipmentStorageArea;
 
 class TilesOnMap
@@ -23,7 +22,7 @@ protected:
 public:
 	TilesOnMap() {};
 	TilesOnMap(GraphicsData* graphicsData);
-	TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsData* graphicsData);
+	/*TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsData* graphicsData);*/
 	~TilesOnMap();
 
 	//Blockade

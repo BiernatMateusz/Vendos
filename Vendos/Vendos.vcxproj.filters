@@ -63,28 +63,10 @@
     <ClCompile Include="Equipment.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="itemHoe.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>Pliki źródłowe\items</Filter>
     </ClCompile>
     <ClCompile Include="itemTool.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="itemPickaxe.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="itemWateringCan.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="itemAxe.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="itemSword.cpp">
-      <Filter>Pliki źródłowe\items\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="itemShovel.cpp">
       <Filter>Pliki źródłowe\items\tools</Filter>
     </ClCompile>
     <ClCompile Include="button.cpp">
@@ -135,12 +117,6 @@
     <ClCompile Include="Workstation.cpp">
       <Filter>Pliki źródłowe\items\workStations</Filter>
     </ClCompile>
-    <ClCompile Include="itemChest.cpp">
-      <Filter>Pliki źródłowe\items\workStations</Filter>
-    </ClCompile>
-    <ClCompile Include="itemFurnace.cpp">
-      <Filter>Pliki źródłowe\items\workStations</Filter>
-    </ClCompile>
     <ClCompile Include="TileConstructor.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -179,25 +155,7 @@
     <ClInclude Include="item.h">
       <Filter>Pliki nagłówkowe\item</Filter>
     </ClInclude>
-    <ClInclude Include="itemWateringCan.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="itemHoe.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="itemPickaxe.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
     <ClInclude Include="itemTool.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="itemAxe.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="itemSword.h">
-      <Filter>Pliki nagłówkowe\item\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="itemShovel.h">
       <Filter>Pliki nagłówkowe\item\tools</Filter>
     </ClInclude>
     <ClInclude Include="button.h">
@@ -260,13 +218,7 @@
     <ClInclude Include="EquipmentData.h">
       <Filter>Pliki nagłówkowe\BasicStructures</Filter>
     </ClInclude>
-    <ClInclude Include="itemChest.h">
-      <Filter>Pliki nagłówkowe\item\workStations</Filter>
-    </ClInclude>
     <ClInclude Include="Workstation.h">
-      <Filter>Pliki nagłówkowe\item\workStations</Filter>
-    </ClInclude>
-    <ClInclude Include="itemFurnace.h">
       <Filter>Pliki nagłówkowe\item\workStations</Filter>
     </ClInclude>
     <ClInclude Include="itemsData.h">

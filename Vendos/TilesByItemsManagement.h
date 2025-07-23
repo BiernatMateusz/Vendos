@@ -4,6 +4,7 @@
 #include "TilesManagement.h"
 #include "ItemConstructor.h"
 #include "TileConstructor.h"
+#include "itemAndItsPosition.h"
 
 class TilesByItemsManagement : public TilesManagement
 {

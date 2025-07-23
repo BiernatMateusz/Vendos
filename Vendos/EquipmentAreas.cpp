@@ -31,6 +31,7 @@ EquipmentAreas::EquipmentAreas(GraphicsData* graphicsData, EquipmentData* equipm
 	resizeAllItemsAreaVec();
 	connectBothAreas();
 	whichLinesOfEqOpen();
+
 }
 
 EquipmentAreas::~EquipmentAreas()
@@ -76,7 +77,7 @@ void EquipmentAreas::updateKeybinds(const std::map<std::string, button*>& AllKey
 			putOffItemFromHand(AllKeys);
 
 		if (AllKeys.at("RightMouse")->oneSignalButtonPressed() and itemGrabbed == nullptr and this->itemTakenThisFrame == 0)
-			takeHalfOfItemsToHand(AllKeys); //bylo takeOneOfItemToHand
+			takeHalfOfItemsToHand(AllKeys);
 
 		if (AllKeys.at("RightMouse")->oneSignalButtonPressed() and itemGrabbed != nullptr and this->itemTakenThisFrame == 0)
 			placeOneMoreItem(AllKeys);
@@ -176,7 +177,7 @@ void EquipmentAreas::takeOneItemToHand(const std::map<std::string, button*>& All
 			std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
 		else
 		{
-			this->itemGrabbed = factoryOfItems.creatorOfItemBasedOnExample(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr());
+			this->itemGrabbed = factoryOfItems.createItem(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getItemName());
 			this->itemGrabbed->setNumberOfItems(1);
 			this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->substrFromThisItem(1);
 		}
@@ -194,7 +195,7 @@ void EquipmentAreas::takeHalfOfItemsToHand(const std::map<std::string, button*>&
 		{
 			int tmpGrabbedNumberValue = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getHalfOfItems();
 
-			this->itemGrabbed = factoryOfItems.creatorOfItemBasedOnExample(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr());
+			this->itemGrabbed = factoryOfItems.createItem(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getItemName());
 			
 			this->itemGrabbed->setNumberOfItems(tmpGrabbedNumberValue);
 			this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->substrFromThisItem(tmpGrabbedNumberValue);
@@ -213,7 +214,7 @@ void EquipmentAreas::placeOneMoreItem(const std::map<std::string, button*>& AllK
 	}
 	else
 	{
-		this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnExample(this->itemGrabbed));
+		this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->setItemPtr(factoryOfItems.createItem(this->itemGrabbed->getItemName()));
 		this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->setNumberOfItems(1);
 		this->itemGrabbed->substrFromThisItem(1);
 		if (this->itemGrabbed->getNumberOfItems() == 0)
@@ -242,7 +243,7 @@ std::vector<int> EquipmentAreas::makeVectorOfUsedRows()
 				if (AllitemsArea->at(j).at(i).second->getType()==typeOfItemArea::PickAndPlace or AllitemsArea->at(j).at(i).second->getType() == typeOfItemArea::Place)
 				{
 					tmpVec.push_back(i);
-					j = AllitemsArea->size();
+					break;
 				}
 	return tmpVec;
 }
@@ -315,7 +316,7 @@ void EquipmentAreas::throwItem(item* item, bool isThrowdAllStack)
 	}
 	else
 	{
-		this->itemsOnTheGround->insertItemDroppedFromPlayer(factoryOfItems.creatorOfItemBasedOnExample(this->itemGrabbed));
+		this->itemsOnTheGround->insertItemDroppedFromPlayer(factoryOfItems.createItem(this->itemGrabbed->getItemName()));
 		this->itemsOnTheGround->setNumberOfItemsLastInVector(1);
 		this->itemGrabbed->substrFromThisItem(1);
 		if (this->itemGrabbed->getNumberOfItems() == 0)

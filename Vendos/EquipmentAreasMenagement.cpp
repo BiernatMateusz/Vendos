@@ -60,8 +60,8 @@ bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemA
 				if (ifEmptySpot(itemsArea->at(j).at(orderOfSearch[i])))
 				{
 
-					slotOfItemToDelete.second->itemPtr->itemSprite.setOrigin(0, 0);
-					slotOfItemToDelete.second->itemPtr->itemSprite.setScale(1, 1);
+					slotOfItemToDelete.second->itemPtr->cameraSpriteOfItem->getSprite()->setOrigin(0, 0);
+					slotOfItemToDelete.second->itemPtr->cameraSpriteOfItem->getSprite()->setScale(1, 1);
 					std::swap(slotOfItemToDelete.second->itemPtr, itemsArea->at(j).at(orderOfSearch[i]).second->itemPtr);
 
 					int tmpi = i;

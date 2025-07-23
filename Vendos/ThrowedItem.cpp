@@ -121,7 +121,7 @@ void ThrowedItem::update(const float& dt)
 				SpeedOfFlyingItem.x = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.x * 1.5 / distance, this->distanceToPlayer.x);
 				SpeedOfFlyingItem.y = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.y * 1.5 / distance, this->distanceToPlayer.y);
 
-				this->Item->itemSprite.move(SpeedOfFlyingItem);
+				this->Item->cameraSpriteOfItem->getSprite()->move(SpeedOfFlyingItem);
 			}
 	}
 
@@ -204,8 +204,8 @@ void ThrowedItem::getAndChangeDestinationOfItem(sf::Vector2f MoveValues)
 
 bool ThrowedItem::checkDistanceItemToPlayer()
 {
-	this->distanceToPlayer.x = this->Item->itemSprite.getPosition().x - this->graphicsData->player->getPosition().x;
-	this->distanceToPlayer.y = this->Item->itemSprite.getPosition().y - this->graphicsData->player->getPosition().y;
+	this->distanceToPlayer.x = this->Item->cameraSpriteOfItem->getSprite()->getPosition().x - this->graphicsData->player->getPosition().x;
+	this->distanceToPlayer.y = this->Item->cameraSpriteOfItem->getSprite()->getPosition().y - this->graphicsData->player->getPosition().y;
 
 	this->distance = sqrt(pow(distanceToPlayer.x, 2) + pow(distanceToPlayer.y, 2));
 
@@ -273,7 +273,7 @@ void ThrowedItem::itemMovementTowardsDestination(const float& dt)
 	else
 		itemMovementThrewnFromNonPlayer(dt);
 
-	this->Item->itemSprite.move(dt * this->calculatedDistanceToMove.x, dt * calculatedDistanceToMove.y);
+	this->Item->cameraSpriteOfItem->getSprite()->move(dt * this->calculatedDistanceToMove.x, dt * calculatedDistanceToMove.y);
 }
 
 void ThrowedItem::accumulateTimeOfItemOnGround(const float& dt)

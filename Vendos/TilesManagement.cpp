@@ -36,48 +36,12 @@ void TilesManagement::render()
 	this->hoveringWithMouse->render();
 }
 
-void TilesManagement::initTile(sf::Vector2i position2i, std::string NameOfTxt)
-{
-	this->equipmentData->needToUpdateTilesSpriteVec = 1;
-	this->equipmentData->needToUpdateCameraAllSpr = 1;
-
-	/*if (NameOfTxt == "Furnace")
-		this->Tile->at(position2i.x).at(position2i.y) = new itemFurnace(graphicsData, equipmentData, position2i, NameOfTxt);
-	else if (NameOfTxt == "Skrzynia")
-		this->Tile->at(position2i.x).at(position2i.y) = new itemChest(graphicsData, equipmentData, position2i, NameOfTxt);
-	else*/
-	this->Tile->at(position2i.x).at(position2i.y) = new TilesOnMap(position2i, NameOfTxt, graphicsData);
-
-	if (this->graphicsData->TextureDataMap->at(NameOfTxt)->typeOfTile == tileType::chestField) //8 -> workstation
-		initStorageArea({ position2i.x,position2i.y }, this->graphicsData->TextureDataMap->at(NameOfTxt)->storageArea);
-
-
-}
-
 void TilesManagement::initTile(sf::Vector2i position2i, ItemNames itemName)
 {
 	this->equipmentData->needToUpdateTilesSpriteVec = 1;
 	this->equipmentData->needToUpdateCameraAllSpr = 1;
 
 	this->Tile->at(position2i.x).at(position2i.y) = itemFactory.createItem(itemName, position2i);
-}
-
-///PROTECTED
-void TilesManagement::initStorageArea(sf::Vector2i position2i, StorageAreas storageArea)
-{
-	switch (storageArea)
-	{
-	case StorageAreas::Empty:
-		break;
-	case StorageAreas::Chest:
-		this->Tile->at(position2i.x).at(position2i.y)->storageArea = new itemChest(this->graphicsData, this->equipmentData);
-		break;
-	case StorageAreas::Crafting:
-		break;
-	case StorageAreas::Furnace:
-		this->Tile->at(position2i.x).at(position2i.y)->storageArea = new itemFurnace(this->graphicsData, this->equipmentData);
-		break;
-	}
 }
 
 void TilesManagement::takingResistanceDown(sf::Vector2i coordsOfClickedTile, item* item)

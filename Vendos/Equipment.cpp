@@ -26,10 +26,10 @@ void Equipment::updateKeybinds(const std::map<std::string, button*>& AllKeys)
 {
 	//E key
 	openingEquipment(AllKeys);
-	
+
 	//Dealing with chests
 	openingChest(AllKeys);
-
+	
 	//1-9(0) keys
 	changingSelectedItem(AllKeys);
 }
@@ -37,33 +37,33 @@ void Equipment::updateKeybinds(const std::map<std::string, button*>& AllKeys)
 void Equipment::initEquipment()
 {
 	factoryOfItems.init(this->graphicsData, this->equipmentData);
-	getItemsArea()->at(0).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 10));
-	getItemsArea()->at(0).at(2).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(101, 10));
-	getItemsArea()->at(0).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	getItemsArea()->at(1).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	getItemsArea()->at(2).at(1).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(100, 995));
-	getItemsArea()->at(2).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(22, 1));
-	getItemsArea()->at(3).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(21, 1));
-	getItemsArea()->at(4).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(105, 1));
-	getItemsArea()->at(6).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(20, 1));
-	getItemsArea()->at(7).at(0).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(25, 1));
+
+	getItemsArea()->at(0).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	10));
+	getItemsArea()->at(0).at(2).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodEq,		10));
+	getItemsArea()->at(0).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
+	getItemsArea()->at(1).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
+	getItemsArea()->at(2).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
+	getItemsArea()->at(2).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenAxe,	1));
+	getItemsArea()->at(3).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenPickaxe,		1));
+	getItemsArea()->at(4).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::ChestEq,	1));
+	getItemsArea()->at(6).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenHoe,	1));
+	getItemsArea()->at(7).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenWateringCan,	1));
 
 	calculatePositionOfFirstItemEqAndChest();
 }
 
-void Equipment::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void Equipment::updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	this->tilesByItemManagement->update(dt, AllKeys);
 	
 	if (secondEq != nullptr)
-		secondEq->update(dt, AllKeys);
-
+		secondEq->updateStorageArea(dt, AllKeys);
+	
 	this->eqAreas->update(AllKeys);
-
+	
 	this->itemsOnTheGround->update(dt);
-
+	
 	this->updateKeybinds(AllKeys); 
-
 }
 
 void Equipment::render()
@@ -137,7 +137,9 @@ void Equipment::openingChest(const std::map<std::string, button*>& AllKeys)
 					this->equipmentData->isEqOpened = true;
 					this->equipmentData->isChestOpened = true;
 					this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), this->equipmentData->openedWorkstation->getItemsArea(), this->itemsOnTheGround);
+					
 					this->secondEq = this->equipmentData->openedWorkstation;
+
 				}
 
 			}

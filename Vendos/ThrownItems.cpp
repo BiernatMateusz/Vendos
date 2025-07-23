@@ -34,7 +34,7 @@ void ThrownItems::checkIfItemDropped()
 {
 
 	for (auto *elem: *this->graphicsData->itemDroppedVec)
-		insertItemDroppedFromTile(itemCreator.creatorOfItemBasedOnID(elem->itemID, elem->ammountOfItem), elem->tileCords);
+		insertItemDroppedFromTile(itemCreator.createItem(elem->itemID, elem->ammountOfItem), elem->tileCords);
 
 	for (auto* elem : *this->graphicsData->itemDroppedVec)
 		delete elem;
@@ -86,7 +86,7 @@ void ThrownItems::update(const float& dt)
 					{
 						if (ItemsThrownVec->assignItemToAreaFromTiles(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))
 						{
-							this->SprToDeleteVec.push_back(&ItemsThrownVec->getItem()->itemSprite);
+							this->SprToDeleteVec.push_back(ItemsThrownVec->getItem()->cameraSpriteOfItem->getSprite());
 							this->itemToDeleteFound = true;
 							return true;
 						}

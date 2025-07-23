@@ -8,8 +8,6 @@
 #include "Camera.h"
 #include "Equipment.h"
 #include "StructuresOfData.h"
-#include "itemChest.h"
-#include "itemFurnace.h"
 #include "ThrownItems.h"
 #include "Collision.h"
 #include "TilesManagement.h"

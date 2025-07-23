@@ -2,7 +2,9 @@
 #define EQUIPMENTSTORAGEAREA_H
 
 #include "Workstation.h"
-#include "itemAndItsPosition.h"
+//#include "itemAndItsPosition.h"
+
+class itemAndItsPosition;
 
 class EquipmentStorageArea:
 	public Workstation
@@ -27,7 +29,7 @@ public:
 	void makeUsableSpots(sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares, std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots, std::initializer_list<sf::Vector2i> PlacesOfOnlyPickableSpots);
 	void setItemTypes(std::initializer_list<sf::Vector2i>Places, typeOfItemArea itemType);
 
-	virtual void update(const float& dt, const std::map<std::string, button*>& AllKeys) {};
+	virtual void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys) {};
 
 	
 

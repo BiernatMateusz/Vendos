@@ -1,4 +1,5 @@
 #include "EquipmentStorageArea.h"
+#include "itemAndItsPosition.h"
 
 EquipmentStorageArea::EquipmentStorageArea()
 {

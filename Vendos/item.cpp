@@ -12,37 +12,34 @@ item::item(GraphicsData* graphicsData)
 	this->numberOfItems.setStyle(sf::Text::Bold);
 }
 
-item::item(GraphicsData* graphicsData, TypeOfAction actionType) : item(graphicsData)
-{
-	this->typeOfAction = actionType;
-}
-
-item::item(GraphicsData* graphicsData, bool empty)
-	:item(graphicsData)
-{
-	this->cameraSpriteOfItem = new CameraSprite(true);
-}
-
-item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType)
-	:
-	item(graphicsData)
-{
-	this->equipmentData = equipmentData;
-	this->numberOfItemsInStack = ammount;
-	initGraphics(name);
-	this->typeOfAction = actionType;
-}
-
-item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, TypeOfTool typeOfTool, QualityOfTool qualityOfTool)
-	:
-	item(graphicsData)
-{
-	this->equipmentData = equipmentData;
-
-	this->nameOfTxt = makeNameTexture(typeOfTool, qualityOfTool);
-
-	initGraphics(this->nameOfTxt);
-}
+//item::item(GraphicsData* graphicsData, TypeOfAction actionType) : item(graphicsData)
+//{
+//	this->typeOfAction = actionType;
+//}
+//
+//item::item(GraphicsData* graphicsData, bool empty)
+//	:item(graphicsData)
+//{
+//	this->cameraSpriteOfItem = new CameraSprite(true);
+//}
+//
+//item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType)
+//	:
+//	item(graphicsData)
+//{
+//	this->equipmentData = equipmentData;
+//	this->numberOfItemsInStack = ammount;
+//
+//	this->typeOfAction = actionType;
+//}
+//
+//item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, QualityOfTool qualityOfTool)
+//	:
+//	item(graphicsData)
+//{
+//	this->equipmentData = equipmentData;
+//
+//}
 
 void item::updateAndRenderNumberOfItems()
 {
@@ -52,8 +49,8 @@ void item::updateAndRenderNumberOfItems()
 	this->numberOfItems.setFont(this->graphicsData->font);
 
 	this->numberOfItems.setPosition(
-		this->itemSprite.getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
-		this->itemSprite.getPosition().y + 62);
+		this->cameraSpriteOfItem->getSprite()->getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
+		this->cameraSpriteOfItem->getSprite()->getPosition().y + 62);
 	this->graphicsData->window->draw(this->numberOfItems);
 }
 
@@ -62,14 +59,14 @@ const int& item::getBreakingDamage() const
 	return {};
 }
 
+ItemNames item::getItemName()
+{
+	return this->itemName;
+}
+
 void item::updateKeybinds(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	;
-}
-
-void item::initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const int& itemSize, int OffsetYPositioning)
-{
-	this->itemSprite.setPosition(FirstItemPos.x + xyOfvec.x*itemSize, FirstItemPos.y- (-xyOfvec.y+2) * itemSize - OffsetYPositioning*itemSize);
 }
 
 void item::initItemBasicData(EquipmentData* equipmentData, TextureNames nameOfTxt, int ammount, TypeOfAction actionType)
@@ -87,27 +84,11 @@ void item::initItemGraphicsData()
 	this->cameraSpriteOfItem->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfItem)->texture);
 }
 
-void item::initItemID(int ID)
+void item::initItemIDandName(int ID, ItemNames itemName)
 {
 	this->itemID = ID;
+	this->itemName = itemName;
 }
-
-void item::initGraphics(const std::string &name)
-{
-	this->cameraSpriteOfItem->sprite = &itemSprite;
-	this->cameraSpriteOfItem->distance = this->graphicsData->TextureDataMap->at(name)->offsetForCamera;
-	this->itemSprite.setTexture(*this->graphicsData->TexturesMap->at(name));
-	this->itemID = this->graphicsData->TextureDataMap->at(name)->itemID;
-}
-
-
-
-std::string item::makeNameTexture(TypeOfTool typeOfTool, QualityOfTool qualityOfTool)
-{
-	return StrQuality.at(static_cast<int>(qualityOfTool))+StrType.at(static_cast<int>(typeOfTool));
-}
-
-
 
 item& item::operator=(const item& model)
 {
@@ -119,13 +100,9 @@ item& item::operator=(const item& model)
 		graphicsData = model.graphicsData;
 		equipmentData = model.equipmentData;
 		numberOfItemsInStack = 1; //model.numberOfItemsInStack 
-		nameOfTxt = model.nameOfTxt;
 		timeOfItemUsage = model.timeOfItemUsage;
-		nameOfTxt = model.nameOfTxt;
 		itemID = model.itemID;
-		itemSprite = model.itemSprite;
 		cameraSpriteOfItem = model.cameraSpriteOfItem;
-		cameraSpriteOfItem->sprite = &itemSprite;
 	}
 	return *this;
 }
@@ -233,20 +210,9 @@ void item::update(const float& dt, const std::map<std::string, button*>& AllKeys
 
 void item::render()
 {
-	this->graphicsData->window->draw(this->itemSprite);
-	//this->Window->draw(this->itemSprite);
+	this->graphicsData->window->draw(*this->cameraSpriteOfItem->getSprite());
+
 	updateAndRenderNumberOfItems();
-}
-
-
-std::vector<tileType>* item::getTypeOfBlocksToInterract()
-{
-	return &TypeOfBlockToInterract;
-}
-
-bool item::getIsCreatingOnEmptyTilePossible()
-{
-	return this->isCreatingOnEmptyTilePossible;
 }
 
 TypeOfAction item::getTypeOfAction()

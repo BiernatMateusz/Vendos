@@ -23,7 +23,7 @@ itemChest::~itemChest()
 
 }
 
-void itemChest::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void itemChest::updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	;//std::cout<<"Skrzynka sie updatuje\n";
 }

@@ -24,7 +24,7 @@ void EntityPlayer::setStartingPositionOfPlayer()
 
 void EntityPlayer::update(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
-	this->equipmentPtr->update(dt, AllKeys);
+	this->equipmentPtr->updateStorageArea(dt, AllKeys);
 }
 
 void EntityPlayer::render()

@@ -24,7 +24,7 @@ Crafting::~Crafting()
 			}
 }
 
-void Crafting::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void Crafting::updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	changeItemNumbersIfResultNmbChanged();
 
@@ -37,7 +37,7 @@ void Crafting::update(const float& dt, const std::map<std::string, button*>& All
 			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
 
 		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
-			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(factoryOfItems.creatorOfItemBasedOnID(idOfItemToMake, itemToMakeCount));
+			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(factoryOfItems.createItem(idOfItemToMake, itemToMakeCount));
 	}
 	else
 		this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);

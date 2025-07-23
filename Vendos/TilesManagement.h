@@ -12,7 +12,7 @@ public:
 	void update(const float& dt, const std::map<std::string, button*>& AllKeys);
 	void render();
 
-	void initTile(sf::Vector2i position2i, std::string NameOfTxt);
+	//void initTile(sf::Vector2i position2i, ItemNames nameOfItem);
 	void initTile(sf::Vector2i position2i, ItemNames itemName);
 
 protected:
@@ -20,7 +20,6 @@ protected:
 	EquipmentData* equipmentData;
 	std::vector<std::vector<TilesOnMap*>>* Tile;
 
-	void initStorageArea(sf::Vector2i position2i, StorageAreas storageArea);
 	void takingResistanceDown(sf::Vector2i coordsOfClickedTile, item* item);
 	sf::Vector2i getCordsOfClickedTile(const std::map<std::string, button*>& AllKeys);
 private:

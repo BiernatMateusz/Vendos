@@ -40,21 +40,21 @@ void StateSpawnPlace::makeInvisibleBarrierAroundTheMap()
 	for (int i = 0; i < Tile[0].size() - 1; i++)
 	{
 		for (int j = 0; j <= 2; j++)
-			tileManagement->initTile({ j,i }, "EmptyTile");
+			tileManagement->initTile({ j,i }, ItemNames::EmptyTile);
 
-		tileManagement->initTile({ 71,i }, "EmptyTile");
-		tileManagement->initTile({ 72,i }, "EmptyTile");
-		tileManagement->initTile({ 73,i }, "EmptyTile");
+		tileManagement->initTile({ 71,i }, ItemNames::EmptyTile);
+		tileManagement->initTile({ 72,i }, ItemNames::EmptyTile);
+		tileManagement->initTile({ 73,i }, ItemNames::EmptyTile);
 	}
 	for (int i = 0; i < Tile.size() - 1; i++)
 	{
 		for (int j = 0; j <= 4; j++)
-			tileManagement->initTile({ i,j }, "EmptyTile");
+			tileManagement->initTile({ i,j }, ItemNames::EmptyTile);
 
-		tileManagement->initTile({ i,58 }, "EmptyTile");
+		tileManagement->initTile({ i,58 }, ItemNames::EmptyTile);
 	}
 
-	tileManagement->initTile({ 3,5 }, "EmptyTile");
+	tileManagement->initTile({ 3,5 }, ItemNames::EmptyTile);
 }
 
 

@@ -10,7 +10,7 @@ class Crafting:
 public:
 	Crafting(GraphicsData* graphicsData, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
 	~Crafting();
-	void update(const float& dt, const std::map<std::string, button*>& AllKeys);
+	void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys);
 
 
 private:

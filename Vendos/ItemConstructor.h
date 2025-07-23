@@ -1,14 +1,8 @@
 #ifndef ITEM_CONSTRUCTOR_H
 #define ITEM_CONSTRUCTOR_H
 
-#include "itemAxe.h"
-#include "itemPickaxe.h"
-#include "itemHoe.h"
-#include "itemShovel.h"
-#include "itemSword.h"
-#include "itemChest.h"
-#include "itemFurnace.h"
-#include "itemWateringCan.h"
+
+#include "item.h"
 #include "StructuresOfData.h"
 #include "EquipmentStorageAreaMenagement.h"
 
@@ -25,12 +19,11 @@ private:
 
 public:
 	void init(GraphicsData* graphicsData, EquipmentData* equipmentData);
-	item* creatorOfItemBasedOnExample(item* example);
-	item* creatorOfItemBasedOnID(int itemID, int ammount);
+	item* createItem(int itemID, int ammount);
 
 	item* createItem(ItemNames nameOfItem);
-	item* createItem(ItemNames nameOfTxt, sf::Vector2i position2i);
-
+	item* createItem(ItemNames nameOfItem, int ammount);
+	item* createItem(ItemNames nameOfItem, sf::Vector2i position2i);
 
 };
 

@@ -12,10 +12,11 @@
 #include "CameraSprite.h"
 #include "StructuresOfData.h"
 #include "TilesOnMap.h"
-
+#include "itemTool.h"
 
 class item
-	: public TilesOnMap
+	: public TilesOnMap,
+	public itemTool
 {
 private:
 	sf::Text numberOfItems{};
@@ -24,34 +25,24 @@ private:
 	
 
 	void updateAndRenderNumberOfItems();
-	
-
 
 protected:
-	std::vector<std::string> StrType{ "Axe", "Pickaxe", "Hoe", "WateringCan", "Shovel", "Sword" };
-	std::vector<std::string> StrQuality{ "Wooden", "Stone", "Iron", "Golden", "Diamond" };
-	
-	GraphicsData* graphicsData;
-	EquipmentData* equipmentData;
+	GraphicsData* graphicsData{};
+	EquipmentData* equipmentData{};
 
-	TextureNames nameOfTxtOfItem;
+	TextureNames nameOfTxtOfItem{};
+	ItemNames itemName{};
 	
 	//new things
-	std::vector<tileType>TypeOfBlockToInterract{}; //constructor needs to make vector with those numbers for every tool 
-	bool isCreatingOnEmptyTilePossible{};
+	 //constructor needs to make vector with those numbers for every tool 
+	
 	
 	
 	float timeOfItemUsage{1}; //create map of times then every item needs it 
 
-	std::string nameOfTxt;
-
 	int numberOfItemsInStack{ 1 };
 
 	void updateKeybinds(const float& dt, const std::map<std::string, button*>& AllKeys);
-	
-	void initGraphics(const std::string& name);
-
-	std::string makeNameTexture(TypeOfTool typeOfTool, QualityOfTool qualityOfTool);
 
 	TypeOfAction typeOfAction{ TypeOfAction::Pick };
 public:
@@ -59,25 +50,24 @@ public:
 	//Constructos
 	item() {};
 	item(GraphicsData* graphicsData);
-	item(GraphicsData* graphicsData, TypeOfAction actionType);
+	/*item(GraphicsData* graphicsData, TypeOfAction actionType);
 	item(GraphicsData* graphicsData, bool empty);
 	item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType);
-	item(GraphicsData* graphicsData, EquipmentData* equipmentData, TypeOfTool typeOfTool, QualityOfTool qualityOfTool);
-	item(bool tileExist, bool equipmentStorageExist);
+	item(GraphicsData* graphicsData, EquipmentData* equipmentData, QualityOfTool qualityOfTool);
+	item(bool tileExist, bool equipmentStorageExist);*/
 
 
 	
 	//Assign operators
-	virtual item& operator=(const item& model);
+	item& operator=(const item& model);
 
 	//Functions
-	virtual void update(const float &dt, const std::map<std::string, button*>& AllKeys); //actions
-	virtual void render(); //for animations
+	void update(const float &dt, const std::map<std::string, button*>& AllKeys); //actions
+	void render(); //for animations
 
-	void initPositon(sf::Vector2i xyOfvec, sf::Vector2f FirstItemPos, const int& itemSize, int OffsetYPositioning);
 	void initItemBasicData(EquipmentData* equipmentData, TextureNames nameOfTxt,int ammount, TypeOfAction actionType);
 	void initItemGraphicsData();
-	void initItemID(int ID);
+	void initItemIDandName(int ID, ItemNames itemName);
 
 	void changeNumberOfItems(int newNumberOfItems);
 	int getNumberOfItems();
@@ -93,9 +83,6 @@ public:
 	void setNumberOfItems(int value);
 
 	bool checkIfAddable();
-
-	std::vector<tileType>*getTypeOfBlocksToInterract();
-	bool getIsCreatingOnEmptyTilePossible();
 	
 	TypeOfAction getTypeOfAction();
 	float getTimeOfActionOfItemUsage();
@@ -106,11 +93,12 @@ public:
 	//Variables
 	int itemID{};
 	float distance{};
-	sf::Sprite itemSprite{};
 	sf::Vector2i TileClicked{};
 	std::string nameOfTxtWhileReplacing{};
 
 	CameraSprite* cameraSpriteOfItem{};
+
+	ItemNames getItemName();
 };
 
 #endif 

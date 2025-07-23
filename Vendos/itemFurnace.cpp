@@ -23,7 +23,7 @@ itemFurnace::~itemFurnace()
 	;
 }
 
-void itemFurnace::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void itemFurnace::updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	;
 }

@@ -71,7 +71,7 @@ void TilesByItemsManagement::ToolReplaceBlock(const std::map<std::string, button
 {
 	if (checkIfTileTypeMatchingToolType())
 	{
-		initTile(this->coordsOfTileClicked, this->itemUsed->getReplaceTxtName());
+		initTile(this->coordsOfTileClicked, this->itemUsed->getItemName());
 
 		this->equipmentData->needToUpdateTilesSpriteVec = 1;
 		this->equipmentData->needToUpdateCameraAllSpr = 1;
@@ -87,7 +87,7 @@ void TilesByItemsManagement::ToolPickItemFromTile(const std::map<std::string, bu
 void TilesByItemsManagement::ToolPlaceItem(const std::map<std::string, button*>& AllKeys)
 {
 	std::cout << "placeAction\n";
-	initTile(coordsOfTileClicked, factoryOfTiles.creatorOfTileBasedOnHeldItemID(this->itemUsed->itemID));
+	initTile(coordsOfTileClicked, this->itemUsed->getItemName());
 	this->itemUsed->substrFromThisItem(1);
 }
 

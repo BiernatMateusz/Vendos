@@ -13,7 +13,7 @@ public:
 
 	void initBackground(std::string name);
 
-	virtual void update(const float& dt, const std::map<std::string, button*>& AllKeys) {};
+	virtual void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys) {};
 	void render();
 protected:
 	GraphicsData* graphicsData{};

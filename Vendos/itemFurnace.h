@@ -17,7 +17,7 @@ public:
 	itemFurnace(GraphicsData* graphicsData, EquipmentData* equipmentData, sf::Vector2i position2i, std::string NameOfTxt);
 	~itemFurnace();
 
-	void update(const float& dt, const std::map<std::string, button*>& AllKeys);
+	void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys);
 	void render();
 
 };
