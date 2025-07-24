@@ -1,12 +1,8 @@
 #ifndef ITEM_CONSTRUCTOR_H
 #define ITEM_CONSTRUCTOR_H
 
-
 #include "item.h"
 #include "StructuresOfData.h"
-#include "EquipmentStorageAreaMenagement.h"
-
-
 
 class ItemConstructor
 {
@@ -15,7 +11,6 @@ private:
 	EquipmentData* equipmentData;
 
 	item* newItemToReturn{};
-	EquipmentStorageAreaMenagement storageCreator;
 
 public:
 	void init(GraphicsData* graphicsData, EquipmentData* equipmentData);

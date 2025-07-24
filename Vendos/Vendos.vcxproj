@@ -30,7 +30,6 @@
     <ClCompile Include="EquipmentAreas.cpp" />
     <ClCompile Include="EquipmentAreasMenagement.cpp" />
     <ClCompile Include="EquipmentStorageArea.cpp" />
-    <ClCompile Include="EquipmentStorageAreaMenagement.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HoveringWithMouse.cpp" />
     <ClCompile Include="item.cpp" />
@@ -44,7 +43,6 @@
     <ClCompile Include="StateSpawnPlace.cpp" />
     <ClCompile Include="ThrowedItem.cpp" />
     <ClCompile Include="ThrownItems.cpp" />
-    <ClCompile Include="TileConstructor.cpp" />
     <ClCompile Include="TilesByItemsManagement.cpp" />
     <ClCompile Include="TilesOnMap.cpp" />
     <ClCompile Include="TilesManagement.cpp" />
@@ -64,7 +62,6 @@
     <ClInclude Include="EquipmentAreasMenagement.h" />
     <ClInclude Include="EquipmentData.h" />
     <ClInclude Include="EquipmentStorageArea.h" />
-    <ClInclude Include="EquipmentStorageAreaMenagement.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="HoveringWithMouse.h" />
@@ -81,7 +78,6 @@
     <ClInclude Include="TextureData.h" />
     <ClInclude Include="ThrowedItem.h" />
     <ClInclude Include="ThrownItems.h" />
-    <ClInclude Include="TileConstructor.h" />
     <ClInclude Include="TilesByItemsManagement.h" />
     <ClInclude Include="TilesOnMap.h" />
     <ClInclude Include="TilesManagement.h" />

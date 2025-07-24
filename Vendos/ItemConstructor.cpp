@@ -185,7 +185,7 @@ item* ItemConstructor::createItem(ItemNames nameOfItem)
 		this->newItemToReturn->initItemIDandName(105, ItemNames::ChestEq);
 		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::ChestEq, 5, TypeOfAction::Place);
 		this->newItemToReturn->initItemGraphicsData();
-		this->newItemToReturn->storageArea = this->storageCreator.initStorageArea(graphicsData, equipmentData, { 9,3 }, { 0,4 }, {}, {}, "BackgroundChest");
+		this->newItemToReturn->initStorageArea(graphicsData, equipmentData, { 9,3 }, { 0,4 }, {}, {}, "BackgroundChest");
 		break;
 	case ItemNames::FurnaceEq:
 		this->newItemToReturn->initTileBasicData(this->graphicsData, TextureNames::Furnace, tileType::chestField, { 0 }, { 0 });
@@ -194,7 +194,7 @@ item* ItemConstructor::createItem(ItemNames nameOfItem)
 		this->newItemToReturn->initItemIDandName(106, ItemNames::FurnaceEq);
 		this->newItemToReturn->initItemBasicData(this->equipmentData, TextureNames::FurnaceEq, 5, TypeOfAction::Place);
 		this->newItemToReturn->initItemGraphicsData();
-		this->newItemToReturn->storageArea = this->storageCreator.initStorageArea(graphicsData, equipmentData, { 1,1 }, { 3,5 }, {}, { {3,7}, {5,6} }, "BackgroundFurnace");
+		this->newItemToReturn->initStorageArea(graphicsData, equipmentData, { 1,1 }, { 3,5 }, {}, { {3,7}, {5,6} }, "BackgroundFurnace");
 		break;
 	}
 

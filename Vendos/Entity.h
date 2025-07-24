@@ -28,8 +28,6 @@ protected:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 
-	std::vector<sf::Sprite*>* Enti{};
-
 	sf::Vector2f centerOfGame;
 	
 	//Camera
@@ -44,8 +42,6 @@ protected:
 	Collision collisionManagement{};
 	std::vector<sf::FloatRect*>*CollisionTilesVec{};
 
-	sf::RenderWindow* window;
-	std::map<std::string, sf::Texture*>* TexturesMap;
 	std::vector<ThrownItems*>* ItemsThrown;
 	ThrownItems* ItemsOnTheGround{};
 

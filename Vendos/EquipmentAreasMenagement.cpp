@@ -26,7 +26,7 @@ bool EquipmentAreasMenagement::assignItemToAreaFromTiles(item* item, std::vector
 	}
 
 	slotOfItemToDelete.second = nullptr;
-	this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->itemID);
+	this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->getItemID());
 
 	return false;
 }
@@ -60,9 +60,9 @@ bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemA
 				if (ifEmptySpot(itemsArea->at(j).at(orderOfSearch[i])))
 				{
 
-					slotOfItemToDelete.second->itemPtr->cameraSpriteOfItem->getSprite()->setOrigin(0, 0);
-					slotOfItemToDelete.second->itemPtr->cameraSpriteOfItem->getSprite()->setScale(1, 1);
-					std::swap(slotOfItemToDelete.second->itemPtr, itemsArea->at(j).at(orderOfSearch[i]).second->itemPtr);
+					slotOfItemToDelete.second->getItemPtr()->cameraSpriteOfItem->getSprite()->setOrigin(0, 0);
+					slotOfItemToDelete.second->getItemPtr()->cameraSpriteOfItem->getSprite()->setScale(1, 1);
+					std::swap(slotOfItemToDelete.second->getItemPtrAdress(), itemsArea->at(j).at(orderOfSearch[i]).second->getItemPtrAdress());
 
 					int tmpi = i;
 					int tmpj = j;
@@ -70,10 +70,7 @@ bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemA
 					i = orderOfSearch.size();
 					j = itemsArea->size();
 
-
-
-
-					if (itemsArea->at(tmpj).at(orderOfSearch[tmpi]).second->itemPtr->getNumberOfItems() > 0)
+					if (!(itemsArea->at(tmpj).at(orderOfSearch[tmpi]).second->getItemPtr()->isNullItemsInStack()))
 						return true;
 				}
 	
@@ -96,7 +93,7 @@ bool EquipmentAreasMenagement::checkIfPossibleItemPlacement(item* item, std::vec
 				return true;
 			}
 			if (ifSameID(slotOfItemToDelete, itemsArea->at(j).at(lineOfSearches[i])))
-				if (itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->getNumberOfItems() != itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->getNumberMax())
+				if (!(itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->isMaxItemsInStack())) //not tested
 				{
 					slotOfItemToDelete.second = nullptr;
 					return true;
@@ -109,11 +106,11 @@ bool EquipmentAreasMenagement::checkIfPossibleItemPlacement(item* item, std::vec
 
 bool EquipmentAreasMenagement::ifSameID(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::pair<bool, itemAndItsPosition*> slot)
 {
-	if (slot.first == true)
-		if (slot.second->getItemPtr() != nullptr)
-			if (slot.second->getItemPtr() != slotOfItemToDelete.second->getItemPtr())
-				if (slot.second->getItemPtr()->itemID == slotOfItemToDelete.second->getItemPtr()->itemID)
-					return true;
+	if (slot.first == true and
+		slot.second->getItemPtr() != nullptr and
+		slot.second->getItemPtr() != slotOfItemToDelete.second->getItemPtr() and
+		slot.second->getItemPtr()->getItemID() == slotOfItemToDelete.second->getItemPtr()->getItemID())
+		return true;
 
 	return false;
 
@@ -121,8 +118,9 @@ bool EquipmentAreasMenagement::ifSameID(std::pair<bool, itemAndItsPosition*> slo
 
 bool EquipmentAreasMenagement::ifEmptySpot(std::pair<bool, itemAndItsPosition*> slot)
 {
-	if (slot.first == true)
-		if (slot.second->getItemPtr() == nullptr)
-			return true;
+	if (slot.first == true and
+		slot.second->getItemPtr() == nullptr)
+		return true;
+
 	return false;
 }

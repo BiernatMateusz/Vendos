@@ -33,7 +33,7 @@ void Crafting::updateStorageArea(const float& dt, const std::map<std::string, bu
 
 	if (checkIfAnyPatternMatches(this->stringMadeFromTable))
 	{
-		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr and this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr()->itemID != idOfItemToMake)
+		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() != nullptr and this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr()->getItemID() != idOfItemToMake)
 			this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->setItemPtr(nullptr);
 
 		if (this->getItemsArea()->at(craftPos.x).at(craftPos.y).second->getItemPtr() == nullptr)
@@ -83,7 +83,7 @@ std::string Crafting::makeStringFromTable()
 		{
 			if (this->getItemsArea()->at(i).at(j).second->getItemPtr() != nullptr)
 			{
-				this->stringMadeFromTable.append(std::to_string(this->getItemsArea()->at(i).at(j).second->getItemPtr()->itemID));
+				this->stringMadeFromTable.append(std::to_string(this->getItemsArea()->at(i).at(j).second->getItemPtr()->getItemID()));
 				this->itemsOnCrafting++;
 			}
 			else

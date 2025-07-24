@@ -117,13 +117,7 @@
     <ClCompile Include="Workstation.cpp">
       <Filter>Pliki źródłowe\items\workStations</Filter>
     </ClCompile>
-    <ClCompile Include="TileConstructor.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
     <ClCompile Include="EquipmentAreasMenagement.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="EquipmentStorageAreaMenagement.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
@@ -224,13 +218,7 @@
     <ClInclude Include="itemsData.h">
       <Filter>Pliki nagłówkowe\BasicStructures</Filter>
     </ClInclude>
-    <ClInclude Include="TileConstructor.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
     <ClInclude Include="EquipmentAreasMenagement.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="EquipmentStorageAreaMenagement.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

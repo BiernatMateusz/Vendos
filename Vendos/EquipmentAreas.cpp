@@ -149,88 +149,91 @@ void EquipmentAreas::deleteItemIfAmmount_0()
 
 void EquipmentAreas::takingItemToTheHand(const std::map<std::string, button*>& AllKeys)
 {
-	std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
-	this->itemTakenThisFrame = 1;
+	std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtrAdress());
+	//std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
+	this->itemTakenThisFrame = true;
 }
 
 void EquipmentAreas::putOffItemFromHand(const std::map<std::string, button*>& AllKeys)
 {
-	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getType() != typeOfItemArea::Pick)
+	auto hoveredSquare = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second;
+
+	if (hoveredSquare->getType() != typeOfItemArea::Pick)
 	{
-		if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() == nullptr or
-			(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr and
-				this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->itemID != this->itemGrabbed->itemID))
+		if (hoveredSquare->getItemPtr() == nullptr or
+			(hoveredSquare->getItemPtr() != nullptr and hoveredSquare->getItemPtr()->getItemID() != this->itemGrabbed->getItemID()))
 		{
-			std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
-			this->itemTakenThisFrame = 1;
+			std::swap(this->itemGrabbed, hoveredSquare->getItemPtrAdress());
+			this->itemTakenThisFrame = true;
 		}
-		else if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->itemID == this->itemGrabbed->itemID)
-			stackItems_TrueIfRestEqual0(&this->itemGrabbed, &this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
+		else if (hoveredSquare->getItemPtr()->getItemID() == this->itemGrabbed->getItemID())
+			stackItems_TrueIfRestEqual0(&this->itemGrabbed, &hoveredSquare->getItemPtrAdress());
 	}
 }
 
 void EquipmentAreas::takeOneItemToHand(const std::map<std::string, button*>& AllKeys)
 {
-	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
+	auto hoveredSquare = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second;
+
+	if (hoveredSquare->getItemPtr() != nullptr)
 	{
-		if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getNumberOfItems() == 1)
-			std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
+		if (hoveredSquare->getItemPtr()->getNumberOfItems() == 1)
+			std::swap(this->itemGrabbed, hoveredSquare->getItemPtrAdress());
 		else
 		{
-			this->itemGrabbed = factoryOfItems.createItem(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getItemName());
+			this->itemGrabbed = factoryOfItems.createItem(hoveredSquare->getItemPtr()->getItemName());
 			this->itemGrabbed->setNumberOfItems(1);
-			this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->substrFromThisItem(1);
+			hoveredSquare->getItemPtr()->substrFromThisItem(1);
 		}
-		this->itemTakenThisFrame = 1;
+		this->itemTakenThisFrame = true;
 	}
 }
 
 void EquipmentAreas::takeHalfOfItemsToHand(const std::map<std::string, button*>& AllKeys)
 {
-	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
+	auto hoveredSquare = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second;
+
+	if (hoveredSquare->getItemPtr() != nullptr)
 	{
-		if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getNumberOfItems() == 1)
-			std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
+		if (hoveredSquare->getItemPtr()->getNumberOfItems() == 1)
+			std::swap(this->itemGrabbed, hoveredSquare->getItemPtrAdress());
 		else
 		{
-			int tmpGrabbedNumberValue = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getHalfOfItems();
+			int tmpGrabbedNumberValue = hoveredSquare->getItemPtr()->getHalfOfItems();
 
-			this->itemGrabbed = factoryOfItems.createItem(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->getItemName());
+			this->itemGrabbed = this->factoryOfItems.createItem(hoveredSquare->getItemPtr()->getItemName());
 			
 			this->itemGrabbed->setNumberOfItems(tmpGrabbedNumberValue);
-			this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->substrFromThisItem(tmpGrabbedNumberValue);
+			hoveredSquare->getItemPtr()->substrFromThisItem(tmpGrabbedNumberValue);
 		}
-		this->itemTakenThisFrame = 1;
+		this->itemTakenThisFrame = true;
 	}
 }
 
 void EquipmentAreas::placeOneMoreItem(const std::map<std::string, button*>& AllKeys)
 {
-	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
+	auto hoveredSquare = this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second;
+
+	if (hoveredSquare->getItemPtr() != nullptr)
 	{
-		if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->itemID == itemGrabbed->itemID)
-			if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->addOneItemReturn1IfNmbOfItemsFromTakenIs0(this->itemGrabbed))
+		if (hoveredSquare->getItemPtr()->getItemID() == itemGrabbed->getItemID())
+			if (hoveredSquare->getItemPtr()->addOneItemReturn1IfNmbOfItemsFromTakenIs0(this->itemGrabbed))
 				this->itemGrabbed=nullptr;
 	}
 	else
 	{
-		this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->setItemPtr(factoryOfItems.createItem(this->itemGrabbed->getItemName()));
-		this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr()->setNumberOfItems(1);
+		hoveredSquare->setItemPtr(this->factoryOfItems.createItem(this->itemGrabbed->getItemName()));
+		hoveredSquare->getItemPtr()->setNumberOfItems(1);
 		this->itemGrabbed->substrFromThisItem(1);
-		if (this->itemGrabbed->getNumberOfItems() == 0)
+		if (this->itemGrabbed->isNullItemsInStack())
 			this->itemGrabbed = nullptr;
 	}
 }
-
-
-//Trzeba wiedziec gdzie jest area 1 i gdzie area 2
-//W zaleznosci od tego z ktorej bierzemy trzeba odkladac na drug¹ aree
 
 void EquipmentAreas::searchForPlaceForWholeStack(const std::map<std::string, button*>& AllKeys)
 {
 	if (this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtr() != nullptr)
 		assignItemToAreaInEquipment(this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y), AllitemsArea, decideWhichOrder(this->SquareHovered.y));
-
 }
 
 std::vector<int> EquipmentAreas::makeVectorOfUsedRows()

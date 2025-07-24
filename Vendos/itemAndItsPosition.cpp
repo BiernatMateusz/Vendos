@@ -19,7 +19,7 @@ itemAndItsPosition::itemAndItsPosition(const itemAndItsPosition& copyFrom)
 	this->type = copyFrom.type;
 }
 
-itemAndItsPosition::itemAndItsPosition(itemAndItsPosition&& copyFrom)
+itemAndItsPosition::itemAndItsPosition(itemAndItsPosition&& copyFrom) noexcept
 {
 	this->itemPtr = std::move(copyFrom.itemPtr);
 	copyFrom.itemPtr = nullptr;
@@ -38,7 +38,7 @@ itemAndItsPosition& itemAndItsPosition::operator=(const itemAndItsPosition& copy
 	return *this;
 }
 
-itemAndItsPosition& itemAndItsPosition::operator=(itemAndItsPosition&& copyFrom)
+itemAndItsPosition& itemAndItsPosition::operator=(itemAndItsPosition&& copyFrom) noexcept
 {
 	if (&copyFrom != this)
 	{
@@ -75,6 +75,11 @@ void itemAndItsPosition::setType(typeOfItemArea Type)
 
 
 item* itemAndItsPosition::getItemPtr()
+{
+	return this->itemPtr;
+}
+
+item*& itemAndItsPosition::getItemPtrAdress()
 {
 	return this->itemPtr;
 }

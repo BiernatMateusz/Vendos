@@ -115,7 +115,7 @@ void ThrowedItem::update(const float& dt)
 	
 	if (this->timePassedWhileOnGround > this->timeWhileUnableToCatch)
 	{
-		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->itemID) == this->equipmentData->IDofItemsWhichCantBeTaken.end())
+		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->getItemID()) == this->equipmentData->IDofItemsWhichCantBeTaken.end())
 			if (checkDistanceItemToPlayer())
 			{
 				SpeedOfFlyingItem.x = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.x * 1.5 / distance, this->distanceToPlayer.x);
@@ -233,11 +233,11 @@ void ThrowedItem::makeUnpickableItemsList(std::vector<int>orderOfSearch)
 			}
 			else if (eq->at(j).at(i).second->getItemPtr()->checkIfAddable() == false)
 			{
-				this->TmpUnAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->itemID);
+				this->TmpUnAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->getItemID());
 			}
 			else
 			{
-				this->TmpAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->itemID);
+				this->TmpAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->getItemID());
 			}
 
 	compareAddableAndUnaddableList();
@@ -257,7 +257,7 @@ void ThrowedItem::setCatchedState(bool catched)
 bool ThrowedItem::checkIfCatched()
 {
 	if (this->catchedItem)
-		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->itemID) != this->equipmentData->IDofItemsWhichCantBeTaken.end()) //zawsze puste hmm
+		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->getItemID()) != this->equipmentData->IDofItemsWhichCantBeTaken.end()) //zawsze puste hmm
 		{
 			this->catchedItem = 0;
 		}

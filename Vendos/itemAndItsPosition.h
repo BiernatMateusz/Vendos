@@ -10,15 +10,15 @@ class itemAndItsPosition
 {
 private:
 	typeOfItemArea type{ typeOfItemArea::PickAndPlace };
-public:
 	item* itemPtr{};
+public:
 	//constructors //destructors
 	itemAndItsPosition();
 	itemAndItsPosition(item* ItemPtr, typeOfItemArea Type);
 	itemAndItsPosition(const itemAndItsPosition&copyFrom);
-	itemAndItsPosition(itemAndItsPosition&& copyFrom);
+	itemAndItsPosition(itemAndItsPosition&& copyFrom) noexcept;
 	itemAndItsPosition& operator=(const itemAndItsPosition& copyFrom);
-	itemAndItsPosition& operator=(itemAndItsPosition&& copyFrom);
+	itemAndItsPosition& operator=(itemAndItsPosition&& copyFrom) noexcept;
 
 	~itemAndItsPosition();
 
@@ -28,6 +28,7 @@ public:
 	void setType(typeOfItemArea Type);
 	
 	item* getItemPtr();
+	item*& getItemPtrAdress();
 	const sf::Vector2f getPosition() const;
 	const typeOfItemArea getType() const;
 

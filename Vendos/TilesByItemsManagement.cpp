@@ -4,7 +4,6 @@ TilesByItemsManagement::TilesByItemsManagement(GraphicsData* graphicsData, Equip
 	: TilesManagement(graphicsData, equipmentData, Tile)
 {
 	this->factoryOfItems.init(graphicsData, equipmentData);
-	this->factoryOfTiles.init(graphicsData, equipmentData);
 	this->eq = eq;
 }
 
@@ -27,28 +26,6 @@ void TilesByItemsManagement::update(const float& dt, const std::map<std::string,
 			setTimeoutWhileActionTrue();
 		}
 	
-	
-	//co sie dzieje jak ³apka pusta?
-
-
-	//LISTA W texturedata.H -> TAM I TU UPDEJTOWAC
-
-	//0 - terrain like fields - to use by hoe
-	//1 - crops, seeds - to pickup by hand/scythe - destroyed by pickaxe, axe, shovel, hoe
-	//2 - wooden things - axable
-	//3 - rocky things - pickable
-	//4 - pickupable by hand like flowers, small wooden pieces, rocks
-	//5 - hoed tiles - able to make croops here (no water)
-	//6 - watered - able to make croops here and it will grow on here
-	//7 - pure blockade
-	//8 - chests - left->destroy right->open
-	//9 - player
-
-	
-		; //is action is not happening its possible to do action
-
-	//std::cout << whichTileIsClicked(AllKeys).x<<" "<< whichTileIsClicked(AllKeys).y<<"\n";
-
 }
 
 void TilesByItemsManagement::ToolDropItem(const std::map<std::string, button*>& AllKeys)
@@ -109,23 +86,23 @@ bool TilesByItemsManagement::checkIfActionIsPossible()
 
 void TilesByItemsManagement::actionTimeManagement(const float& dt)
 {
-	if (timeoutWhileActionIsHappening)
-		timePassedWhileAction += dt;
+	if (this->timeoutWhileActionIsHappening)
+		this->timePassedWhileAction += dt;
 
 	if (itemUsed != nullptr)
 	{
-		if (timePassedWhileAction >= this->itemUsed->getTimeOfActionOfItemUsage())
+		if (this->itemUsed->hasTimePassed(this->timePassedWhileAction))
 		{
-			timeoutWhileActionIsHappening = 0;
-			timePassedWhileAction = 0;
+			this->timeoutWhileActionIsHappening = 0;
+			this->timePassedWhileAction = 0;
 		}
 	}
 	else
 	{
-		if (timePassedWhileAction >= 0.2)
+		if (this->timePassedWhileAction >= 0.2)
 		{
-			timeoutWhileActionIsHappening = 0;
-			timePassedWhileAction = 0;
+			this->timeoutWhileActionIsHappening = 0;
+			this->timePassedWhileAction = 0;
 		}
 	}
 }
@@ -137,8 +114,8 @@ void TilesByItemsManagement::setTimeoutWhileActionTrue()
 
 void TilesByItemsManagement::resetTimeoutWhileActionTrue()
 {
-	timeoutWhileActionIsHappening = 0;
-	timePassedWhileAction = 0;
+	this->timeoutWhileActionIsHappening = 0;
+	this->timePassedWhileAction = 0;
 }
 
 

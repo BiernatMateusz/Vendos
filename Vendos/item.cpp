@@ -5,41 +5,10 @@ item::item(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
 
-	this->cameraSpriteOfItem = new CameraSprite; //delete it later
-
 	this->numberOfItems.setFont(this->graphicsData->font);
 	this->numberOfItems.setFillColor(sf::Color::Black);
 	this->numberOfItems.setStyle(sf::Text::Bold);
 }
-
-//item::item(GraphicsData* graphicsData, TypeOfAction actionType) : item(graphicsData)
-//{
-//	this->typeOfAction = actionType;
-//}
-//
-//item::item(GraphicsData* graphicsData, bool empty)
-//	:item(graphicsData)
-//{
-//	this->cameraSpriteOfItem = new CameraSprite(true);
-//}
-//
-//item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, const std::string& name, int ammount, TypeOfAction actionType)
-//	:
-//	item(graphicsData)
-//{
-//	this->equipmentData = equipmentData;
-//	this->numberOfItemsInStack = ammount;
-//
-//	this->typeOfAction = actionType;
-//}
-//
-//item::item(GraphicsData* graphicsData, EquipmentData* equipmentData, QualityOfTool qualityOfTool)
-//	:
-//	item(graphicsData)
-//{
-//	this->equipmentData = equipmentData;
-//
-//}
 
 void item::updateAndRenderNumberOfItems()
 {
@@ -59,9 +28,19 @@ const int& item::getBreakingDamage() const
 	return {};
 }
 
-ItemNames item::getItemName()
+const ItemNames& item::getItemName() const
 {
 	return this->itemName;
+}
+
+const TypeOfAction& item::getTypeOfAction() const
+{
+	return this->typeOfAction;
+}
+
+const int& item::getItemID() const
+{
+	return this->itemID;
 }
 
 void item::updateKeybinds(const float& dt, const std::map<std::string, button*>& AllKeys)
@@ -107,9 +86,10 @@ item& item::operator=(const item& model)
 	return *this;
 }
 
-void item::changeNumberOfItems(int newNumberOfItems)
+item::~item()
 {
-	this->numberOfItemsInStack = newNumberOfItems;
+	delete this->cameraSpriteOfItem;
+	this->cameraSpriteOfItem = nullptr;
 }
 
 int item::getNumberOfItems()
@@ -152,18 +132,6 @@ bool item::addItemsReturn1IfOverMax(item* itemPtr)
 	return OverMax;
 }
 
-bool item::addItemsReturn1IfOverMax_DontAddWhenOverMax(item* itemPtr)
-{
-	this->OverMax = 0;
-
-	if ((this->numberOfItemsInStack + itemPtr->numberOfItemsInStack) > maxStack)
-		OverMax = true;
-	else
-		this->numberOfItemsInStack += itemPtr->numberOfItemsInStack;
-
-	return OverMax;
-}
-
 bool item::addOneItemReturn1IfNmbOfItemsFromTakenIs0(item* itemPtr)
 {
 	this->OverMax = 0;
@@ -185,11 +153,6 @@ void item::substrFromThisItem(int value)
 	this->numberOfItemsInStack -= value;
 }
 
-void item::addToThisItem(int value)
-{
-	this->numberOfItemsInStack += value;
-}
-
 void item::setNumberOfItems(int value)
 {
 	this->numberOfItemsInStack = value;
@@ -201,6 +164,11 @@ bool item::checkIfAddable()
 		if (this->numberOfItemsInStack < this->maxStack)
 			return true;
 	return false;
+}
+
+bool item::hasTimePassed(float& timePassed)
+{
+	return (timePassed >=  this->timeOfItemUsage) ? true : false;
 }
 
 void item::update(const float& dt, const std::map<std::string, button*>& AllKeys)
@@ -215,17 +183,12 @@ void item::render()
 	updateAndRenderNumberOfItems();
 }
 
-TypeOfAction item::getTypeOfAction()
+bool item::isNullItemsInStack()
 {
-	return this->typeOfAction;
+	return (this->numberOfItemsInStack==0)? true:false;
 }
 
-float item::getTimeOfActionOfItemUsage()
+bool item::isMaxItemsInStack()
 {
-	return this->timeOfItemUsage;
-}
-
-std::string item::getReplaceTxtName()
-{
-	return this->nameOfTxtWhileReplacing;
+	return (this->numberOfItemsInStack == maxStack) ? true : false;
 }

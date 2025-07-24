@@ -3,7 +3,6 @@
 
 #include "TilesManagement.h"
 #include "ItemConstructor.h"
-#include "TileConstructor.h"
 #include "itemAndItsPosition.h"
 
 class TilesByItemsManagement : public TilesManagement
@@ -18,10 +17,8 @@ public:
 	void resetTimeoutWhileActionTrue();
 
 private:
-	std::vector<std::vector<item*>>* Eq{};
 	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq{};
 	ItemConstructor factoryOfItems;
-	TileConstructor factoryOfTiles;
 	int numberOfSlotOnBottomBar{};
 	item* itemUsed{};
 

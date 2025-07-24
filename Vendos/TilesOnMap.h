@@ -3,8 +3,6 @@
 
 #include "StructuresOfData.h"
 
-//Add functions for creating destroying etc.
-
 class EquipmentStorageArea;
 
 class TilesOnMap
@@ -17,12 +15,11 @@ private:
 	int remainingDurability{100};
 	StorageAreas storageAreaType{};
 protected:
-	TextureNames nameOfTxtOfTile;
+	TextureNames nameOfTxtOfTile{};
 
 public:
 	TilesOnMap() {};
 	TilesOnMap(GraphicsData* graphicsData);
-	/*TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsData* graphicsData);*/
 	~TilesOnMap();
 
 	//Blockade
@@ -39,21 +36,29 @@ public:
 	std::vector<int>idOfBlocksThatDropsFromTile{};
 	std::vector<int>ammountOfItemsDroppedFromTile{};
 
-	void updateCollisionBoxPos();
 
 	//Functions
 	void update(const float& dt);
-	tileType getTypeOfTile();
-	const int& getTicksToNextAction() const;
-	const int& getMaxDurability() const;
-	const int& getRemainingDurability() const;
+
+	void initStorageArea(GraphicsData* graphicsData,
+		EquipmentData* equipmentData,
+		sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares,
+		std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
+		std::initializer_list<sf::Vector2i>PlacesOfOnlyPickableSpots,
+		std::string nameOfBackground);
 
 	void initTileBasicData(GraphicsData* graphicsData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile);
 	void initTileGraphicData(sf::Vector2i origin, float offsetYcamera);
 	void initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect);
 	void initPosition(sf::Vector2i position2i);
 
+	const int& getMaxDurability() const;
+	const int& getRemainingDurability() const;
+
 	void decreaseTicksToDisappear(int valueToDecrease);
+	void updateCollisionBoxPos();
+
+
 };
 
 #endif

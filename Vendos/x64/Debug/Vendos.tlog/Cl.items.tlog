@@ -9,7 +9,6 @@ C:\Users\mbiernat\source\repos\Vendos\Vendos\Equipment.cpp;C:\Users\mbiernat\sou
 C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreas.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\EquipmentAreas.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentAreasMenagement.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\EquipmentAreasMenagement.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentStorageArea.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\EquipmentStorageArea.obj
-C:\Users\mbiernat\source\repos\Vendos\Vendos\EquipmentStorageAreaMenagement.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\EquipmentStorageAreaMenagement.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\Game.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\Game.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\HoveringWithMouse.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\HoveringWithMouse.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\item.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\item.obj
@@ -23,7 +22,6 @@ C:\Users\mbiernat\source\repos\Vendos\Vendos\StateMenu.cpp;C:\Users\mbiernat\sou
 C:\Users\mbiernat\source\repos\Vendos\Vendos\StateSpawnPlace.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\StateSpawnPlace.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\ThrowedItem.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrownItems.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\ThrownItems.obj
-C:\Users\mbiernat\source\repos\Vendos\Vendos\TileConstructor.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\TileConstructor.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesByItemsManagement.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\TilesByItemsManagement.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\TilesOnMap.obj
 C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesManagement.cpp;C:\Users\mbiernat\source\repos\Vendos\Vendos\x64\Debug\TilesManagement.obj

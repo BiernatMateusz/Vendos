@@ -1,4 +1,5 @@
 #include "TilesOnMap.h"
+#include "EquipmentStorageArea.h"
 
 TilesOnMap::TilesOnMap(GraphicsData* graphicsData)
 {
@@ -6,39 +7,11 @@ TilesOnMap::TilesOnMap(GraphicsData* graphicsData)
 	this->storageArea = nullptr;
 	this->cameraSpriteOfTile = nullptr;
 	this->typeOfTile = tileType::emptyBlockade; 
-	this->blokade = 1;
+	this->blokade = true;
 	this->sizeOfBlockade = { 40,40 };
 	
 }
 
-//TilesOnMap::TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsData* graphicsData)
-//{
-//	this->graphicsData = graphicsData;
-//	this->storageArea = nullptr;
-//	this->cameraSpriteOfTile = new CameraSprite;
-//	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMap->at(NameOfTxt)->texture);
-//	this->cameraSpriteOfTile->getSprite()->setOrigin(this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.x, this->graphicsData->TextureDataMap->at(NameOfTxt)->origin.y);
-//	this->cameraSpriteOfTile->getSprite()->setPosition((float)position2i.x * 44 + this->graphicsData->backGroundMapped->getSprite()->getPosition().x, ((float)position2i.y) * 44 - (this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height - this->graphicsData->backGroundMapped->getSprite()->getPosition().y));
-//	
-//	this->blokade = this->graphicsData->TextureDataMap->at(NameOfTxt)->blockade;
-//
-//	this->cameraSpriteOfTile->distance = this->graphicsData->TextureDataMap->at(NameOfTxt)->offsetForCamera;
-//
-//	if (this->blokade == 1)
-//	{
-//		this->sizeOfBlockade = this->graphicsData->TextureDataMap->at(NameOfTxt)->blockadeSize;
-//		this->blockadeOffset= this->graphicsData->TextureDataMap->at(NameOfTxt)->offsetForBlockade;
-//		this->collisionBox = new sf::FloatRect;
-//		*this->collisionBox = this->graphicsData->TextureDataMap->at(NameOfTxt)->blockadeRect;
-//		this->collisionBox->left = this->cameraSpriteOfTile->getSprite()->getPosition().x + this->blockadeOffset.x;
-//		this->collisionBox->top = this->cameraSpriteOfTile->getSprite()->getPosition().y + this->blockadeOffset.y;
-//	}
-//
-//	this->typeOfTile = this->graphicsData->TextureDataMap->at(NameOfTxt)->typeOfTile;
-//	this->idOfBlocksThatDropsFromTile = this->graphicsData->TextureDataMap->at(NameOfTxt)->idOfItemsThatDropsFromTile;
-//	this->ammountOfItemsDroppedFromTile = this->graphicsData->TextureDataMap->at(NameOfTxt)->ammountOfDroppedItems;
-//
-//}
 
 TilesOnMap::~TilesOnMap()
 {
@@ -66,14 +39,14 @@ void TilesOnMap::update(const float& dt)
 		; // std::cout << "Cos robi\n";
 }
 
-tileType TilesOnMap::getTypeOfTile()
+void TilesOnMap::initStorageArea(GraphicsData* graphicsData,
+	EquipmentData* equipmentData,
+	sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares,
+	std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
+	std::initializer_list<sf::Vector2i>PlacesOfOnlyPickableSpots,
+	std::string nameOfBackground)
 {
-	return this->typeOfTile;
-}
-
-const int& TilesOnMap::getTicksToNextAction() const
-{
-	return this->ticksToNextAction;
+	this->storageArea= new EquipmentStorageArea(graphicsData, equipmentData, SizeOfMainVec, FirstItemSquares, PlacesOfPickAndPlaceInRandomSpots, PlacesOfOnlyPickableSpots, nameOfBackground);
 }
 
 const int& TilesOnMap::getMaxDurability() const
