@@ -3,7 +3,7 @@
 
 //Constructor
 Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>*Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
-	: EquipmentStorageArea(graphicsData, equipmentData,{ 9,3 }, { 0,0 }, {}, {}, "BackgroundCrafting")
+	: EquipmentStorageArea(graphicsData, equipmentData,{ 9,3 }, { 0,0 }, {}, {}, TextureNames::BackgroundCrafting)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;

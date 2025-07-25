@@ -150,7 +150,6 @@ void EquipmentAreas::deleteItemIfAmmount_0()
 void EquipmentAreas::takingItemToTheHand(const std::map<std::string, button*>& AllKeys)
 {
 	std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->getItemPtrAdress());
-	//std::swap(this->itemGrabbed, this->AllitemsArea->at(this->SquareHovered.x).at(this->SquareHovered.y).second->itemPtr);
 	this->itemTakenThisFrame = true;
 }
 
@@ -273,7 +272,7 @@ std::vector<int> EquipmentAreas::shrinkVectorToOnlyPlacableRows(std::vector<int>
 	}
 	else if (hoveredRow < this->equipmentData->sizeOfEq.y)
 	{
-			return makeSortedFromHighestVecBiggerThatHoveredRow(vec, hoveredRow);  //make decisions based on which hovered clicked
+		return makeSortedFromHighestVecBiggerThatHoveredRow(vec, hoveredRow);  //make decisions based on which hovered clicked
 	}
 	else
 		return { 0,2,1 };
@@ -322,9 +321,9 @@ void EquipmentAreas::throwItem(item* item, bool isThrowdAllStack)
 		this->itemsOnTheGround->insertItemDroppedFromPlayer(factoryOfItems.createItem(this->itemGrabbed->getItemName()));
 		this->itemsOnTheGround->setNumberOfItemsLastInVector(1);
 		this->itemGrabbed->substrFromThisItem(1);
+
 		if (this->itemGrabbed->getNumberOfItems() == 0)
 			this->itemGrabbed = nullptr;
-
 	}
 }
 

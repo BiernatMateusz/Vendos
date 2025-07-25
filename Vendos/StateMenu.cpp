@@ -34,7 +34,7 @@ void StateMenu::endState()
 
 void StateMenu::initGraphics()
 {
-	LoadBackground({ 0,0 }, "Menu");
+	LoadBackground(TextureNames::Menu);
 
 	this->Camer = new Camera(this->graphicsData);
 }
@@ -46,5 +46,5 @@ void StateMenu::update(const float& dt, const std::map<std::string, button*>& Al
 
 void StateMenu::render()
 {
-	Camer->render(this->graphicsData->window);
+	this->Camer->render(this->graphicsData->window);
 }

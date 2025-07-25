@@ -44,7 +44,7 @@ void TilesOnMap::initStorageArea(GraphicsData* graphicsData,
 	sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares,
 	std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
 	std::initializer_list<sf::Vector2i>PlacesOfOnlyPickableSpots,
-	std::string nameOfBackground)
+	TextureNames nameOfBackground)
 {
 	this->storageArea= new EquipmentStorageArea(graphicsData, equipmentData, SizeOfMainVec, FirstItemSquares, PlacesOfPickAndPlaceInRandomSpots, PlacesOfOnlyPickableSpots, nameOfBackground);
 }
@@ -59,9 +59,10 @@ const int& TilesOnMap::getRemainingDurability() const
 	return this->remainingDurability;
 }
 
-void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile)
+void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, EquipmentData* equipmentData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile)
 {
 	this->graphicsData = graphicsData;
+	this->equipmentData = equipmentData;
 	this->storageArea = nullptr;
 	this->nameOfTxtOfTile = nameOfTxt;
 	
@@ -72,12 +73,13 @@ void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, TextureNames name
 
 }
 
-void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera)
+void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera, sf::FloatRect BlockadeRect)
 {
 	this->cameraSpriteOfTile = new CameraSprite;
 	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfTile)->texture);
 	this->cameraSpriteOfTile->getSprite()->setOrigin(origin.x, origin.y);
 	this->cameraSpriteOfTile->distance = offsetYcamera;
+	this->cameraSpriteOfTile->getSprite()->setTextureRect((sf::IntRect)BlockadeRect);
 }
 
 void TilesOnMap::initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect)

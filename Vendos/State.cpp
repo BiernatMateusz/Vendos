@@ -119,21 +119,24 @@ void State::initTileManagement()
 	this->tileManagement = new TilesManagement(this->graphicsData, this->equipmentData, &this->Tile);
 }
 
-void State::LoadBackground(sf::Vector2f&& position, std::string&& NameOfTxt)
+void State::LoadBackground(sf::Vector2f&& position, TextureNames NameOfTxt)
 {
 	if (this->graphicsData->backGroundMapped != nullptr) delete this->graphicsData->backGroundMapped;
 	
 	this->graphicsData->backGroundMapped = new CameraSprite();
-	this->graphicsData->backGroundMapped->setSpriteTexture(*this->graphicsData->TexturesMap->at(NameOfTxt));
+	this->graphicsData->backGroundMapped->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(NameOfTxt)->texture);
 	this->graphicsData->backGroundMapped->setDistance(this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height);
 
-	//Setting origins
-	if (NameOfTxt == "Mapka")
-	{
-		this->graphicsData->backGroundMapped->getSprite()->setOrigin(0, this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height);
-	}
-	this->graphicsData->backGroundMapped->getSprite()->setPosition(position.x, position.y);
+	this->graphicsData->backGroundMapped->getSprite()->setOrigin(0, this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height);
+	
+	this->graphicsData->backGroundMapped->getSprite()->setPosition(position.x, position.y+ this->graphicsData->backGroundMapped->getSprite()->getGlobalBounds().height);
 
+
+}
+
+void State::LoadBackground(TextureNames NameOfTxt)
+{
+	LoadBackground({ 0,0 }, NameOfTxt);
 }
 
 void State::updateTilesSprite()

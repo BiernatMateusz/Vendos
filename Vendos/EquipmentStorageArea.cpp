@@ -13,9 +13,9 @@ EquipmentStorageArea::EquipmentStorageArea(
 	sf::Vector2i FirstItemSquares,
 	std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
 	std::initializer_list<sf::Vector2i> PlacesOfOnlyPickableSpots,
-	std::string nameOfBackground) 
+	TextureNames name)
 	: 
-	Workstation(graphicsData, equipmentData, nameOfBackground)
+	Workstation(graphicsData, equipmentData, name)
 {
 	this->items = new std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>;
 	resizeVector();

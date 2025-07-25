@@ -5,6 +5,7 @@ StateSpawnPlace::StateSpawnPlace(GraphicsData* graphicsData, std::stack<State*>*
 {
 	this->equipmentData = new EquipmentData;
 	this->ItemsOnTheGround = new ThrownItems(graphicsData, equipmentData, &Tile);
+	this->entityFactory.init(graphicsData, this->equipmentData);
 
 	initPlayer();
 	initGraphics();
@@ -13,13 +14,14 @@ StateSpawnPlace::StateSpawnPlace(GraphicsData* graphicsData, std::stack<State*>*
 
 void StateSpawnPlace::initPlayer()
 {
-	this->entiesPointer->push_back(new EntityPlayer({ 0,0 }, "Abigail", this->graphicsData, &Tile, this->equipmentData, ItemsOnTheGround, &CollisionTilesVec));
-	this->entityPlayer = this->entiesPointer->back();
+	this->entityPlayer = entityFactory.createEntity(EntityNames::Player, this->ItemsOnTheGround, &this->Tile, &this->CollisionTilesVec);
+	this->entiesPointer->push_back(entityPlayer);
+	
 }
 
 void StateSpawnPlace::initGraphics()
 {
-	LoadBackground({ 0,2596 }, "Mapka");
+	LoadBackground(TextureNames::Mapka);
 
 	initTileVector();
 	initTileManagement();
@@ -75,7 +77,7 @@ void StateSpawnPlace::update(const float& dt, const std::map<std::string, button
 		updateTilesSprite();
 
 	if (this->equipmentData->needToUpdateCameraAllSpr)
-		Camer->updateAllSpritesVecMapped(equipmentData);
+		this->Camer->updateAllSpritesVecMapped(equipmentData);
 
 
 	this->updateKeybinds(dt, AllKeys);
@@ -103,7 +105,7 @@ void StateSpawnPlace::playerMovement(const float& dt, const std::map<std::string
 	this->movementData.direction = "";
 
 	if (this->equipmentData->isEqOpened == 0)
-		this->entityPlayer->movement(dt, 115, this->movementData, AllKeys);
+		this->entityPlayer->playerMovement(dt, 115, this->movementData, AllKeys);
 
 	this->entityPlayer->Animation(dt, std::move(this->movementData.direction));
 

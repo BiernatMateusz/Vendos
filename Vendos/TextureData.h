@@ -71,6 +71,11 @@ enum class ItemNames
 
 };
 
+enum class EntityNames
+{
+	Player
+};
+
 enum class StorageAreas { Empty, Chest, Crafting, Furnace };
 enum class tileType { emptyField, crop, axableField, pickaxableField, hoedField, wateredField, emptyBlockade, chestField, player };
 

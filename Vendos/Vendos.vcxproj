@@ -25,6 +25,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Crafting.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityConstructor.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="EquipmentAreas.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Crafting.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityConstructor.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="EquipmentAreas.h" />
@@ -179,6 +181,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Mateusz\SFML-2.5.1\include;C:\Users\matib\Desktop\SFML-2.5.1\include;C:\Users\matib\source\repos\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -197,6 +200,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Mateusz\SFML-2.5.1\include;C:\Users\matib\Desktop\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

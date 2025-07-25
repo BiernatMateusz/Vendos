@@ -8,10 +8,10 @@ class Workstation
 private:
 public:
 	Workstation() {};
-	Workstation(GraphicsData* graphicsData, EquipmentData* equipmentData, std::string nameOfTxt);
+	Workstation(GraphicsData* graphicsData, EquipmentData* equipmentData, TextureNames name);
 	~Workstation();
 
-	void initBackground(std::string name);
+	void initBackground(TextureNames name);
 
 	virtual void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys) {};
 	void render();

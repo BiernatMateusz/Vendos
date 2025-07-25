@@ -6,11 +6,9 @@ void Collision::updateCollisionTiles(std::vector<std::vector<TilesOnMap*>>* tile
 
     for (auto& row:*tile)
         for (auto& elem : row)
-        {
             if (elem!=nullptr)
-                if (elem->blokade == 1)
+                if (elem->blokade == true)
                     collisionTiles->push_back(elem->collisionBox);
-        }
 }
 
 bool Collision::checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMove, std::vector<sf::FloatRect*>* CollisionTiles)
@@ -30,7 +28,5 @@ bool Collision::checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMov
     if (result == std::end(*CollisionTiles))
         return false; //no collision
     else 
-    { 
         return true; //collision
-    } 
 }

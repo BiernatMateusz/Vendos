@@ -1,7 +1,7 @@
 #include "Crafting.h"
 
 Crafting::Crafting(GraphicsData* graphicsData, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
-	: EquipmentStorageArea(graphicsData, equipmentData, { 3,3 }, { 3,4 }, {}, { {7,5} }, "BackgroundCrafting")
+	: EquipmentStorageArea(graphicsData, equipmentData, { 3,3 }, { 3,4 }, {}, { {7,5} }, TextureNames::BackgroundCrafting)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;

@@ -1,12 +1,13 @@
 #include "Workstation.h"
 
-Workstation::Workstation(GraphicsData* graphicsData, EquipmentData* equipmentData, std::string nameOfTxt)
+Workstation::Workstation(GraphicsData* graphicsData, EquipmentData* equipmentData, TextureNames name)
 {
+
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
 	this->backgroundItems = new std::vector<sf::Sprite*>;
 
-	initBackground(nameOfTxt);
+	initBackground(name);
 }
 
 Workstation::~Workstation()
@@ -17,11 +18,11 @@ Workstation::~Workstation()
 		delete this->backgroundItems;
 }
 
-void Workstation::initBackground(std::string name)
+void Workstation::initBackground(TextureNames name)
 {
 	this->background = new sf::Sprite;
-	this->background->setTexture(*this->graphicsData->TextureDataMap->at(name)->texture);
-	this->background->setOrigin(0, this->graphicsData->TextureDataMap->at(name)->texture->getSize().y-this->equipmentData->SizeOfItems);
+	this->background->setTexture(*this->graphicsData->TextureDataMapN->at(name)->texture);
+	this->background->setOrigin(0, this->graphicsData->TextureDataMapN->at(name)->texture->getSize().y-this->equipmentData->SizeOfItems);
 	this->background->setPosition(this->equipmentData->FirstItemPositionEq);
 }
 

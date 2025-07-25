@@ -11,6 +11,7 @@
 #include "ThrownItems.h"
 #include "Collision.h"
 #include "TilesManagement.h"
+#include "EntityConstructor.h"
 
 class State
 {
@@ -47,9 +48,8 @@ public:
 	void frameCounterF(const float& dt);
 
 	//Graphics function
-	void LoadBackground(sf::Vector2f&& position, std::string&& NameOfTxt);
-
-	
+	void LoadBackground(sf::Vector2f&& position, TextureNames NameOfTxt);
+	void LoadBackground(TextureNames NameOfTxt);
 
 private:
 	bool quit;
@@ -79,6 +79,7 @@ protected:
 	Camera* Camer;
 
 	//Entities
+	EntityConstructor entityFactory{};
 	//Player
 	Entity* entityPlayer;
 	//All entities

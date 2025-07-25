@@ -8,10 +8,9 @@ bool operator>(const sf::Sprite &x,const sf::Sprite &y)
 //Constructors
 Camera::Camera(GraphicsData *graphicsData)
 {
-	
 	initGraphicsBasics(graphicsData);
 	
-	if (graphicsData->EntitiesSprite->size() > 0)
+	if (!graphicsData->EntitiesSprite->empty())
 	{
 		this->Player = *graphicsData->EntitiesSprite->begin();
 		this->CenterOfMap = Player->getPosition();
@@ -27,25 +26,27 @@ Camera::~Camera()
 
 }
 
+void Camera::initPlayer(CameraSprite* cameraSprite)
+{
+	;// this->Player = cameraSprite;
+}
 
 void Camera::initGraphicsBasics(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
 	this->BackGround = graphicsData->backGroundMapped->getSprite();
-	this->Window = graphicsData->window;
 }
 
 void Camera::cameraSpriteJoin()
 {
-	if (graphicsData->EntitiesSpriteMapped->size() > 0)
+	if (!graphicsData->EntitiesSpriteMapped->empty())
 		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->EntitiesSpriteMapped), std::end(*graphicsData->EntitiesSpriteMapped));
 
-	if (graphicsData->TilesSpriteMapped->size() > 0)
+	if (!graphicsData->TilesSpriteMapped->empty())
 		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->TilesSpriteMapped), std::end(*graphicsData->TilesSpriteMapped));
 
-	if (graphicsData->ItemsThrownSpriteMapped->size() > 0)
+	if (!graphicsData->ItemsThrownSpriteMapped->empty())
 		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->ItemsThrownSpriteMapped), std::end(*graphicsData->ItemsThrownSpriteMapped));
-
 
 	this->AllSpritesMapped.erase
 	(
@@ -54,10 +55,9 @@ void Camera::cameraSpriteJoin()
 			this->AllSpritesMapped.end(),
 			[&](auto& AllSpritesMapped)
 			{
-				if (AllSpritesMapped == nullptr) return true;
-				else return false;
+				return (AllSpritesMapped == nullptr) ? true : false;
 			}
-		), AllSpritesMapped.end()
+		), this->AllSpritesMapped.end()
 	);
 
 	this->AllSpritesMapped.shrink_to_fit();
@@ -74,8 +74,7 @@ void Camera::updateAllSpritesVecMapped(EquipmentData* equipmentData)
 
 	sortVectorMapped();
 
-	equipmentData->needToUpdateCameraAllSpr = 0;
-
+	equipmentData->needToUpdateCameraAllSpr = false;
 
 }
 
@@ -106,10 +105,10 @@ void Camera::render(sf::RenderWindow* window)
 	
 }
 
-void Camera::moveObjects_1stExcluded(sf::Sprite* Excluded, const float& dt, sf::Vector2f speed)
+void Camera::moveObjects_PlayerExcluded(CameraSprite* Excluded, const float& dt, sf::Vector2f speed)
 {
 	this->graphicsData->backGroundMapped->sprite->move(dt * speed.x, dt * speed.y);
 	for (auto *elem : this->AllSpritesMapped)
-		if (elem->sprite != Excluded)
+		if (elem != Excluded)
 			elem->sprite->move(dt * speed.x, dt * speed.y);
 }
