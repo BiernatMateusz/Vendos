@@ -99,10 +99,8 @@ void Camera::render(sf::RenderWindow* window)
 	window->draw(*this->BackGround);
 
 	for (auto &elem : AllSpritesMapped)
-	{
-		window->draw(*elem->sprite);
-	}
-	
+		window->draw(*elem->sprite);	
+
 }
 
 void Camera::moveObjects_PlayerExcluded(CameraSprite* Excluded, const float& dt, sf::Vector2f speed)

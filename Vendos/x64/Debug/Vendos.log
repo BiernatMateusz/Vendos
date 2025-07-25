@@ -1,8 +1,78 @@
-﻿  EntityConstructor.cpp
+﻿  EntityPlayer.cpp
+  TilesOnMap.cpp
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(39,3): warning C4390: ";": znaleziono kontrolowaną pustą instrukcję; czy to było zamierzone?
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,67): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,67): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,67): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,67): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,67): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,57): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,57): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,57): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,57): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\TilesOnMap.cpp(80,57): warning C4244:         ]
 C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(38,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
-  (kompilowanie pliku źródłowego „EntityConstructor.cpp”)
+  (kompilowanie pliku źródłowego „EntityPlayer.cpp”)
   
 C:\Users\mbiernat\source\repos\Vendos\Vendos\ThrowedItem.h(39,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
-  (kompilowanie pliku źródłowego „EntityConstructor.cpp”)
+  (kompilowanie pliku źródłowego „EntityPlayer.cpp”)
   
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(28,15): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(30,23): warning C4244: "inicjowanie": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(39,22): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(50,17): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(49,17): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(48,22): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(47,23): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,230): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         with
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:             T=int
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         and
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         [
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:             T=float
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(196,206): warning C4244:         ]
+C:\Users\mbiernat\source\repos\Vendos\Vendos\EntityPlayer.cpp(188,1): warning C4715: "EntityPlayer::checkIfBackGroundMoveable”: niewszystkie ścieżki kodu zwracają wartość
   Vendos.vcxproj -> C:\Users\mbiernat\source\repos\Vendos\x64\Debug\Vendos.exe

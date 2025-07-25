@@ -14,7 +14,6 @@ protected:
     Equipment* equipmentPtr{};
     //Camera
     Camera* camer{};
-    sf::FloatRect* textureRect{};
 
     ThrownItems* ItemsOnTheGround{};
 
@@ -32,6 +31,7 @@ protected:
     Collision collisionManagement{};
     std::vector<sf::FloatRect*>* CollisionTilesVec{};
     std::vector<std::vector<TilesOnMap*>>* Tile{};
+
 public:
     EntityPlayer() {};
     ~EntityPlayer();

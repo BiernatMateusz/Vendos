@@ -2,7 +2,7 @@
 #define Structuresh
 
 #include <string_view>
-
+#include <optional>
 #include "mouseButton.h"
 
 #include "GraphicsData.h"

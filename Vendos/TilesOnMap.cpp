@@ -73,13 +73,18 @@ void TilesOnMap::initTileBasicData(GraphicsData* graphicsData, EquipmentData* eq
 
 }
 
-void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera, sf::FloatRect BlockadeRect)
+void TilesOnMap::initTileGraphicData(sf::Vector2i origin, float offsetYcamera, sf::FloatRect TextRect)
 {
 	this->cameraSpriteOfTile = new CameraSprite;
 	this->cameraSpriteOfTile->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfTile)->texture);
 	this->cameraSpriteOfTile->getSprite()->setOrigin(origin.x, origin.y);
 	this->cameraSpriteOfTile->distance = offsetYcamera;
-	this->cameraSpriteOfTile->getSprite()->setTextureRect((sf::IntRect)BlockadeRect);
+
+	if (TextRect != sf::FloatRect(0, 0, 0, 0))
+	{
+		this->cameraSpriteOfTile->getSprite()->setTextureRect((sf::IntRect)TextRect);
+		this->txtRect = TextRect;
+	}
 }
 
 void TilesOnMap::initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect)

@@ -19,14 +19,12 @@ protected:
 
 public:
 	Entity(GraphicsData* graphicsData);
-	Entity(sf::Vector2f position, std::string NameOfTxt, GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>* tile, std::vector<sf::FloatRect*>* collisionTilesVec, EquipmentData* equipmentData);
 	~Entity();
 
-	void initTexture(std::string NameOfTxt, sf::Vector2f&& position);
 	void setTextData();
 	
 	void initCamera(Camera* Camer);
-	void initBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector<sf::FloatRect*>* collisionTilesVec);
+	void initEntityBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector<sf::FloatRect*>* collisionTilesVec);
 	void initStartingPositionOfEntity();
 };
 

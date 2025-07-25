@@ -53,7 +53,7 @@ public:
 		TextureNames nameOfBackground);
 
 	void initTileBasicData(GraphicsData* graphicsData, EquipmentData* equipmentData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile);
-	void initTileGraphicData(sf::Vector2i origin, float offsetYcamera, sf::FloatRect BlockadeRect);
+	void initTileGraphicData(sf::Vector2i origin, float offsetYcamera, sf::FloatRect TextRect);
 	void initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect);
 	void initPosition(sf::Vector2i position2i);
 

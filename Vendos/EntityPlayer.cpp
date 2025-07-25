@@ -44,10 +44,10 @@ void EntityPlayer::Animation(const float& dt, std::string&& direction)
 	(
 		sf::IntRect
 		(
-			this->textureRect->left + this->textureRect->width * WhichAnimation,
-			this->textureRect->top + 78 * (int)this->graphicsData->lastDirectionOfPlayerEnum,
-			this->textureRect->width, 
-			this->textureRect->height
+			this->txtRect.left + this->txtRect.width * WhichAnimation,
+			this->txtRect.top + 78 * (int)this->graphicsData->lastDirectionOfPlayerEnum,
+			this->txtRect.width, 
+			this->txtRect.height
 		)
 	);
 }
@@ -133,8 +133,8 @@ void EntityPlayer::playerMovement(const float& dt, float&& speed, MovementData& 
 
 void EntityPlayer::getCenterOfScreen()
 {
-	this->centerOfGame.x = (float)this->graphicsData->window->getSize().x / 2 - this->textureRect->width / 2;
-	this->centerOfGame.y = (float)this->graphicsData->window->getSize().y / 2 - this->textureRect->height / 2;
+	this->centerOfGame.x = (float)this->graphicsData->window->getSize().x / 2 - this->txtRect.width / 2;
+	this->centerOfGame.y = (float)this->graphicsData->window->getSize().y / 2 - this->txtRect.height / 2;
 	
 }
 
