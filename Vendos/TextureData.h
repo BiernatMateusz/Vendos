@@ -42,7 +42,10 @@ enum class TextureNames
 	ramka1,
 	BackgroundCrafting,
 	BackgroundChest,
-	BackgroundFurnace
+	BackgroundFurnace,
+	craftingResult,
+	craftingResultProgress,
+	None
 };
 
 //list of every item (tileable only are items too)
@@ -67,8 +70,14 @@ enum class ItemNames
 	CopperEq,
 	IronEq,
 	ChestEq,
-	FurnaceEq
+	FurnaceEq,
+	None
 
+};
+
+enum class EntityNames
+{
+	Player
 };
 
 enum class StorageAreas { Empty, Chest, Crafting, Furnace };
@@ -105,15 +114,6 @@ struct TextureData
 
 	StorageAreas storageArea{};
 
-	std::vector<std::vector<bool>>blocksOccupied;
-	void initBlocksOccupied(std::string nameOfTxt)
-	{
-		if (nameOfTxt == "Mapka")
-		{
-			std::vector<std::vector<bool>> twoDVector(this->texture->getSize().x / 44, std::vector<bool>(this->texture->getSize().y / 44, false));
-			blocksOccupied = twoDVector;
-		}
-	}
 
 };
 

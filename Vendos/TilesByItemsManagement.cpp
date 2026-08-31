@@ -1,14 +1,14 @@
 #include "TilesByItemsManagement.h"
+#include "ItemStorage.h"
 
-TilesByItemsManagement::TilesByItemsManagement(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq)
+TilesByItemsManagement::TilesByItemsManagement(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storage)
 	: TilesManagement(graphicsData, equipmentData, Tile)
 {
 	this->factoryOfItems.init(graphicsData, equipmentData);
-	this->factoryOfTiles.init(graphicsData, equipmentData);
-	this->eq = eq;
+	this->storage = storage;
 }
 
-void TilesByItemsManagement::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	this->itemUsed=getItemUsed();
 
@@ -27,39 +27,17 @@ void TilesByItemsManagement::update(const float& dt, const std::map<std::string,
 			setTimeoutWhileActionTrue();
 		}
 	
-	
-	//co sie dzieje jak ³apka pusta?
-
-
-	//LISTA W texturedata.H -> TAM I TU UPDEJTOWAC
-
-	//0 - terrain like fields - to use by hoe
-	//1 - crops, seeds - to pickup by hand/scythe - destroyed by pickaxe, axe, shovel, hoe
-	//2 - wooden things - axable
-	//3 - rocky things - pickable
-	//4 - pickupable by hand like flowers, small wooden pieces, rocks
-	//5 - hoed tiles - able to make croops here (no water)
-	//6 - watered - able to make croops here and it will grow on here
-	//7 - pure blockade
-	//8 - chests - left->destroy right->open
-	//9 - player
-
-	
-		; //is action is not happening its possible to do action
-
-	//std::cout << whichTileIsClicked(AllKeys).x<<" "<< whichTileIsClicked(AllKeys).y<<"\n";
-
 }
 
-void TilesByItemsManagement::ToolDropItem(const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::ToolDropItem(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	if (checkIfTileTypeMatchingToolType())
 		if (this->Tile->at(coordsOfTileClicked.x).at(coordsOfTileClicked.y)->getRemainingDurability()>0)
 		{
-			this->graphicsData->itemDroppedVec->push_back(new itemDroppedFromTile());
-			this->graphicsData->itemDroppedVec->back()->itemID = tileClicked->idOfBlocksThatDropsFromTile.at(0); //which tile?
-			this->graphicsData->itemDroppedVec->back()->tileCords = coordsOfTileClicked;
-			this->graphicsData->itemDroppedVec->back()->ammountOfItem = tileClicked->ammountOfItemsDroppedFromTile.at(0);
+			this->graphicsData->itemDroppedVec.push_back(new itemDroppedFromTile());
+			this->graphicsData->itemDroppedVec.back()->itemID = tileClicked->idOfBlocksThatDropsFromTile.at(0); //which tile?
+			this->graphicsData->itemDroppedVec.back()->tileCords = coordsOfTileClicked;
+			this->graphicsData->itemDroppedVec.back()->ammountOfItem = tileClicked->ammountOfItemsDroppedFromTile.at(0);
 
 			takingResistanceDown(this->coordsOfTileClicked, this->itemUsed);
 		}
@@ -67,44 +45,48 @@ void TilesByItemsManagement::ToolDropItem(const std::map<std::string, button*>& 
 	
 }
 
-void TilesByItemsManagement::ToolReplaceBlock(const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::ToolReplaceBlock(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	if (checkIfTileTypeMatchingToolType())
 	{
 		initTile(this->coordsOfTileClicked, this->itemUsed->getItemName());
 
-		this->equipmentData->needToUpdateTilesSpriteVec = 1;
-		this->equipmentData->needToUpdateCameraAllSpr = 1;
+		this->equipmentData->needToUpdateTilesSpriteVec = true;
+		this->equipmentData->needToUpdateCameraAllSpr = true;
 	}
 }
 
-void TilesByItemsManagement::ToolPickItemFromTile(const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::ToolPickItemFromTile(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	std::cout << "pickaction\n";
 	;
 }
 
-void TilesByItemsManagement::ToolPlaceItem(const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::ToolPlaceItem(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	std::cout << "placeAction\n";
-	initTile(coordsOfTileClicked, this->itemUsed->getItemName());
-	this->itemUsed->substrFromThisItem(1);
+
+	if (checkIfEmpty(coordsOfTileClicked))
+	{
+		initTile(coordsOfTileClicked, this->itemUsed->getItemName());
+		this->itemUsed->substrFromThisItem(1);
+	}
 }
 
-void TilesByItemsManagement::HandAction(const std::map<std::string, button*>& AllKeys)
+void TilesByItemsManagement::HandAction(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	std::cout << "handactione\n";
 	;
 }
 
-bool TilesByItemsManagement::checkIfActionTriggered(const std::map<std::string, button*>& AllKeys)
+bool TilesByItemsManagement::checkIfActionTriggered(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	return AllKeys.at("LeftMouse")->isButtonPressed()? true:false;
+	return AllKeys.at(inputAction::LMouse)->isButtonPressed()? true:false;
 }
 
 bool TilesByItemsManagement::checkIfActionIsPossible()
 {
-	return (not(timeoutWhileActionIsHappening) and this->equipmentData->isEqOpened == 0 and this->itemUsed != nullptr) ? true:false;
+	return (not(timeoutWhileActionIsHappening) and equipmentData->uiState == EquipmentUIState::Closed and this->itemUsed != nullptr) ? true:false;
 }
 
 void TilesByItemsManagement::actionTimeManagement(const float& dt)
@@ -168,12 +150,12 @@ bool TilesByItemsManagement::checkIfTileTypeMatchingToolType()
 
 item* TilesByItemsManagement::getItemUsed()
 {
-	return this->eq->at(this->numberOfSlotOnBottomBar).at(0).second->getItemPtr();
+	return this->storage->getSlotRef(this->numberOfSlotOnBottomBar, 0).get();
 }
 
-TilesOnMap* TilesByItemsManagement::getTileUsed(const std::map<std::string, button*>& AllKeys)
+TilesOnMap* TilesByItemsManagement::getTileUsed(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	return this->tileClicked = this->Tile->at(AllKeys.at("LeftMouse")->mouseTileGet().x)[AllKeys.at("LeftMouse")->mouseTileGet().y];
+	return this->tileClicked = this->Tile->at(AllKeys.at(inputAction::LMouse)->mouseTileGet().x)[AllKeys.at(inputAction::LMouse)->mouseTileGet().y].get();
 }
 
 void TilesByItemsManagement::chooseFunction()

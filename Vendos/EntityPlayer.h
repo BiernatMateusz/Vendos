@@ -1,31 +1,58 @@
 #ifndef ENTITYPLAYER_H
 #define ENTITYPLAYER_H
 
-
-#include "Entity.h"
 #include "Equipment.h"
+#include "Camera.h"
+#include "ThrownItems.h"
+#include "Collision.h"
 
-class EntityPlayer :
-    public Entity
+class EntityPlayer : public SpriteAndBlockadeOnMap
 {
 private:
-
+   
 protected:
-    Equipment* equipmentPtr;
+    Equipment* equipmentPtr{};
+    //Camera
+    Camera* camer{};
+
+    ThrownItems* ItemsOnTheGround{};
+
+    sf::Vector2f centerOfSprite{};
+    float speed{};
+    float time{};
+    int lastDir{};
+
+    bool actionPossible{ true };
+
+    //direction
+    directionOfMovement directionEnum = directionOfMovement::nomov;
+
+    //Collision
+    Collision collisionManagement{};
+    std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec;
+    std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile{};
+
 public:
-    EntityPlayer(sf::Vector2f position, std::string NameOfTxt, GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>* Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround, std::vector<sf::FloatRect*>* CollisionTilesVec);
+    EntityPlayer(std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec);
     ~EntityPlayer();
 
-    void setStartingPositionOfPlayer();
-    void update(const float& dt, const std::map<std::string, button*>& AllKeys);
+   
+    void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
     void render();
     void Animation(const float& dt, std::string&& direction);
-    void movement(const float& dt, float&& speed,MovementData& movData, 
-        const std::map<std::string, button*>& AllKeys);
-    void getCenterOfScreen();
+    void playerMovement(const float& dt, float&& speed,MovementData& movData, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+    void getCenterOfTxt();
 
-    void initPlayer();
-    void initEquipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>*Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
+    void initStartingPositionOfEntity(sf::Vector2f position);
+    void initPlayer(sf::Vector2f position);
+    void initItemsOnTheGround(ThrownItems* ItemsOnTheGround);
+    void initEquipment();
+
+    bool checkIfBackGroundMoveable();
+    bool CheckingPossibleMove(const float& dt, float& speed);
+
+    void moveEntity(const float& dt, float speedX, float speedY);
+    void moveEntitesWithoutThis(const float& dt, float speedX, float speedY);
 
 };
 

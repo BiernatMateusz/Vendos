@@ -11,29 +11,32 @@
 #include "ThrownItems.h"
 #include "Collision.h"
 #include "TilesManagement.h"
+#include "EntityConstructor.h"
+
+#include "StateMachine.h"
 
 class State
 {
 
 public:
 	//Constructors
-	State(GraphicsData* graphicsData, std::stack<State*>* Stat);
+	State(GraphicsData* graphicsData, StateMachine* stateMachine);
 
 	//Destructor
-	virtual ~State();
+	virtual ~State() = default;
 
 	//Update and render functions
-	virtual void update(const float& dt, const std::map<std::string, button*> &AllKeys) = 0;
+	virtual void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>&AllKeys) = 0;
 	virtual void render() = 0;
 
 	void updateTilesSprite();
 
-	virtual void updateKeybinds(const float& dt, const std::map<std::string, button*>& AllKeys) = 0;
+	virtual void updateKeybinds(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys) = 0;
 
 	//Ending state
 	const bool& getQuit() const;
 	void setQuit();
-	virtual void checkForQuit(const std::map<std::string, button*>& AllKeys);
+	virtual void checkForQuit(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	virtual void endState() = 0;
 
 	//Init functions
@@ -42,14 +45,12 @@ public:
 	virtual void initGraphics() = 0;
 
 	//Functions
-	virtual bool checkExactPosition(int x, int offsetX, int y, int offsetY, const std::map<std::string, button*>& AllKeys);
 	sf::Vector2i getPlayerTile();
 	void frameCounterF(const float& dt);
 
 	//Graphics function
-	void LoadBackground(sf::Vector2f&& position, std::string&& NameOfTxt);
-
-	
+	void LoadBackground(sf::Vector2f&& position, TextureNames NameOfTxt);
+	void LoadBackground(TextureNames NameOfTxt);
 
 private:
 	bool quit;
@@ -60,29 +61,34 @@ protected:
 	GraphicsData* graphicsData;
 
 	//States
-	std::stack<State*> *stat;
+	StateMachine* stateMachine;
+
 
 	Collision collisionManagement{};
-	std::vector<sf::FloatRect*>CollisionTilesVec{};
+	std::vector<std::reference_wrapper<sf::FloatRect>> CollisionTilesVec;
 
 	//Tiles
-	std::vector<std::vector<TilesOnMap*>>Tile;
+	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>Tile;
 
 	//Items thrown
-	ThrownItems* ItemsOnTheGround;
+	std::unique_ptr<ThrownItems> ItemsOnTheGround;
 
 	//Equipment
-	EquipmentData* equipmentData{};
-	TilesManagement* tileManagement{};
+	std::unique_ptr<EquipmentData> equipmentData;
+	std::unique_ptr<TilesManagement> tileManagement;
 
 	//Camera
-	Camera* Camer;
+	std::unique_ptr<Camera>Camer;
+
+	//Player
+	Entity* entityPlayer{};
 
 	//Entities
-	//Player
-	Entity* entityPlayer;
+	EntityConstructor entityFactory{};
+	
 	//All entities
-	std::vector<Entity*>* entiesPointer;
+	std::vector<std::unique_ptr<Entity>>  entitiesPointer;
+
 
 	float frameCounter{};
 	float timeCounterForFPS{};

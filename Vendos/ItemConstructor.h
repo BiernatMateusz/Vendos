@@ -1,12 +1,8 @@
 #ifndef ITEM_CONSTRUCTOR_H
 #define ITEM_CONSTRUCTOR_H
 
-
 #include "item.h"
 #include "StructuresOfData.h"
-#include "EquipmentStorageAreaMenagement.h"
-
-
 
 class ItemConstructor
 {
@@ -14,16 +10,15 @@ private:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 
-	item* newItemToReturn{};
-	EquipmentStorageAreaMenagement storageCreator;
+	std::unique_ptr<item> newItemToReturn;
 
 public:
 	void init(GraphicsData* graphicsData, EquipmentData* equipmentData);
-	item* createItem(int itemID, int ammount);
+	std::unique_ptr<item> createItem(int itemID, int ammount);
 
-	item* createItem(ItemNames nameOfItem);
-	item* createItem(ItemNames nameOfItem, int ammount);
-	item* createItem(ItemNames nameOfItem, sf::Vector2i position2i);
+	std::unique_ptr<item> createItem(ItemNames nameOfItem);
+	std::unique_ptr<item> createItem(ItemNames nameOfItem, int ammount);
+	std::unique_ptr<item> createItem(ItemNames nameOfItem, sf::Vector2i position2i);
 
 };
 

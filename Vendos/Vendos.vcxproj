@@ -23,28 +23,37 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraSprite.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Crafting.cpp" />
+    <ClCompile Include="CraftingItems.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="EntityConstructor.cpp" />
     <ClCompile Include="EntityPlayer.cpp" />
     <ClCompile Include="Equipment.cpp" />
     <ClCompile Include="EquipmentAreas.cpp" />
     <ClCompile Include="EquipmentAreasMenagement.cpp" />
+    <ClCompile Include="EquipmentInputControler.cpp" />
     <ClCompile Include="EquipmentStorageArea.cpp" />
-    <ClCompile Include="EquipmentStorageAreaMenagement.cpp" />
+    <ClCompile Include="Furnace.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="HoveringWithMouse.cpp" />
+    <ClCompile Include="inputAction.cpp" />
     <ClCompile Include="item.cpp" />
-    <ClCompile Include="itemAndItsPosition.cpp" />
+    <ClCompile Include="PlayerStorage.cpp" />
+    <ClCompile Include="Recipe.cpp" />
+    <ClCompile Include="slot.cpp" />
     <ClCompile Include="ItemConstructor.cpp" />
+    <ClCompile Include="ItemStorage.cpp" />
     <ClCompile Include="itemTool.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="mouseButton.cpp" />
+    <ClCompile Include="mouseButtonWheel.cpp" />
+    <ClCompile Include="SpriteAndBlockadeOnMap.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="StateMenu.cpp" />
     <ClCompile Include="StateSpawnPlace.cpp" />
+    <ClCompile Include="StateStack.cpp" />
     <ClCompile Include="ThrowedItem.cpp" />
     <ClCompile Include="ThrownItems.cpp" />
-    <ClCompile Include="TileConstructor.cpp" />
     <ClCompile Include="TilesByItemsManagement.cpp" />
     <ClCompile Include="TilesOnMap.cpp" />
     <ClCompile Include="TilesManagement.cpp" />
@@ -56,24 +65,34 @@
     <ClInclude Include="CameraSprite.h" />
     <ClInclude Include="Changelog.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="Crafting.h" />
+    <ClInclude Include="CraftingItems.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityConstructor.h" />
     <ClInclude Include="EntityPlayer.h" />
     <ClInclude Include="Equipment.h" />
     <ClInclude Include="EquipmentAreas.h" />
     <ClInclude Include="EquipmentAreasMenagement.h" />
     <ClInclude Include="EquipmentData.h" />
+    <ClInclude Include="EquipmentInputControler.h" />
     <ClInclude Include="EquipmentStorageArea.h" />
-    <ClInclude Include="EquipmentStorageAreaMenagement.h" />
+    <ClInclude Include="Furnace.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GraphicsData.h" />
     <ClInclude Include="HoveringWithMouse.h" />
+    <ClInclude Include="inputAction.h" />
     <ClInclude Include="item.h" />
-    <ClInclude Include="itemAndItsPosition.h" />
+    <ClInclude Include="PlayerStorage.h" />
+    <ClInclude Include="Recipe.h" />
+    <ClInclude Include="slot.h" />
     <ClInclude Include="ItemConstructor.h" />
     <ClInclude Include="itemsData.h" />
+    <ClInclude Include="ItemStorage.h" />
     <ClInclude Include="itemTool.h" />
     <ClInclude Include="mouseButton.h" />
+    <ClInclude Include="mouseButtonWheel.h" />
+    <ClInclude Include="SpriteAndBlockadeOnMap.h" />
+    <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="StateStack.h" />
     <ClInclude Include="StructuresOfData.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMenu.h" />
@@ -81,7 +100,6 @@
     <ClInclude Include="TextureData.h" />
     <ClInclude Include="ThrowedItem.h" />
     <ClInclude Include="ThrownItems.h" />
-    <ClInclude Include="TileConstructor.h" />
     <ClInclude Include="TilesByItemsManagement.h" />
     <ClInclude Include="TilesOnMap.h" />
     <ClInclude Include="TilesManagement.h" />
@@ -111,8 +129,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -182,7 +201,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Mateusz\SFML-2.5.1\include;C:\Users\matib\Desktop\SFML-2.5.1\include;C:\Users\matib\source\repos\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -200,7 +220,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Mateusz\SFML-2.5.1\include;C:\Users\matib\Desktop\SFML-2.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

@@ -11,9 +11,12 @@
 #include <algorithm>
 #include <ctime> 
 #include <random> 
+#include <unordered_map>
 
 #include "CameraSprite.h"
 #include "TextureData.h"
+
+class ThrownItems;
 
 struct RandomEngine
 {
@@ -28,39 +31,29 @@ struct itemDroppedFromTile
 	int ammountOfItem{};
 };
 
-enum directionOfMovement { bot, right, top, left, nomov };
+enum class directionOfMovement { bot, right, top, left, nomov };
 
 struct GraphicsData
 {
 	sf::RenderWindow* window{};
-	std::vector<sf::Texture*>* GraphicsTxtVec{};
-	std::map<std::string, sf::Texture*>* TexturesMap{};
-	std::map<std::string, TextureData*>* TextureDataMap{};
-	std::map<TextureNames, TextureData*>* TextureDataMapN{};
+	std::map<TextureNames, TextureData*> TexturesData{};
 
 	sf::Font font{};
 
-	sf::Sprite* backGround{};
-	sf::Sprite* player{};
-
-	std::vector<sf::Sprite*>* EntitiesSprite{};
-	std::vector<sf::Sprite*>* TilesSprite{};
-	std::vector<sf::Sprite*>* ItemsThrownSprite{};
+	CameraSprite* player = nullptr; //Not ownership
 
 	//test
-	CameraSprite* backGroundMapped{};
-	std::vector<CameraSprite*>* EntitiesSpriteMapped{};
-	std::vector<CameraSprite*>* TilesSpriteMapped{};
-	std::vector<CameraSprite*>* ItemsThrownSpriteMapped{};
+	CameraSprite backGroundMapped{};
+	std::vector<CameraSprite*> EntitiesSpriteMapped{};
+	std::vector<CameraSprite*> TilesSpriteMapped{};
+	ThrownItems* thrownItems;
 	//test
 
-	std::vector< sf::Sprite*>* AllExcludedSpritesPointer{};
+	sf::Vector2f CenterOfMap;
 
-	sf::Vector2f* CenterOfMap;
+	directionOfMovement lastDirectionOfPlayerEnum = directionOfMovement::bot;
 
-	directionOfMovement lastDirectionOfPlayerEnum = bot;
-
-	std::vector<itemDroppedFromTile*>* itemDroppedVec{};
+	std::vector<itemDroppedFromTile*> itemDroppedVec{};
 
 	const int tileSize{ 44 };
 

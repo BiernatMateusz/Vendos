@@ -14,6 +14,10 @@
 #include "TilesOnMap.h"
 #include "itemTool.h"
 
+
+enum class typeOfSlot { PickAndPlace, Pick, Place, None };
+
+
 class item
 	:	public TilesOnMap,
 		public itemTool
@@ -26,7 +30,7 @@ private:
 
 	ItemNames itemName{};
 	int itemID{};
-
+	typeOfSlot slotType{typeOfSlot::None};
 	TypeOfAction typeOfAction{ TypeOfAction::Pick };
 
 	sf::Text numberOfItems{};
@@ -73,19 +77,28 @@ public:
 	bool checkIfAddable();
 	bool hasTimePassed(float& timePassed);
 	
-	
-	
+	void setType(typeOfSlot type);
+	const typeOfSlot  getType();
+
 	bool isNullItemsInStack();
 	bool isMaxItemsInStack();
 
+
+	//Functions from slotInStorages:
+	void setPositionInStorage(sf::Vector2f pos);
+
+	sf::Vector2f getPosition() const;
+
+	void drawItem();
+	
+	
 	//Variables
 	
 	float distance{};
 
-	CameraSprite* cameraSpriteOfItem{};
+	CameraSprite cameraSpriteOfItem{};
 
 	//GETTERS
-	const int& getBreakingDamage() const;
 	const ItemNames& getItemName() const;
 	const TypeOfAction& getTypeOfAction() const;
 	const int& getItemID() const;

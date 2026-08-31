@@ -1,4 +1,5 @@
 #include "EquipmentAreasMenagement.h"
+#include "Workstation.h"
 
 EquipmentAreasMenagement::EquipmentAreasMenagement()
 {
@@ -12,114 +13,131 @@ EquipmentAreasMenagement::EquipmentAreasMenagement(GraphicsData* graphicsData, E
 	this->equipmentData = equipmentData;
 }
 
-bool EquipmentAreasMenagement::assignItemToAreaFromTiles(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch)
-{
-	std::pair<bool, itemAndItsPosition*> slotOfItemToDelete;
-	slotOfItemToDelete.first = true;
-	slotOfItemToDelete.second = new itemAndItsPosition();
-	slotOfItemToDelete.second->setItemPtr(item);
-
-	if (assignItemToAreaInEquipment(slotOfItemToDelete, itemsArea, orderOfSearch))
-	{
-		slotOfItemToDelete.second = nullptr;
-		return true;
-	}
-
-	slotOfItemToDelete.second = nullptr;
-	this->equipmentData->IDofItemsWhichCantBeTaken.insert(item->getItemID());
-
-	return false;
-}
 
 
-
-bool EquipmentAreasMenagement::assignItemToAreaInEquipment(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch)
+std::unique_ptr<item> EquipmentAreasMenagement::assignItemToChosenArea(std::unique_ptr<item> slotOfItemToDelete, ItemStorage& storage, std::vector<int> orderOfSearch)
 {
 	//look into all itemsArea for the same itemID which is not MAX
 	//if found and not max -> place as much as possible and go for next slot (if item still not emptied)
 
-	for (int i = 0; i<orderOfSearch.size();++i)
-		for (int j = 0; j < itemsArea->size(); ++j)
-			if (ifSameID(slotOfItemToDelete, itemsArea->at(j).at(orderOfSearch[i])))
-				if (not(itemsArea->at(j).at(orderOfSearch[i]).second->getItemPtr()->addItemsReturn1IfOverMax(slotOfItemToDelete.second->getItemPtr())))
-				{
-					i = orderOfSearch.size();
-					j = itemsArea->size();
+	//Check if slot is usable
 
-					slotOfItemToDelete.second->getItemPtr()->setNumberOfItems(0);
-					return true; //<-- przetestowaæ czy po dodaniu tego wszystko jest nadal gitem
-				}
+	auto size = storage.size();
+
+	for (int i = 0; i < orderOfSearch.size(); ++i)
+		for (int j = 0; j < size.x; ++j)
+			if (ifSameID(slotOfItemToDelete.get(), storage.getSlotRef(j, orderOfSearch[i]).get()))
+				if (storage.getSlotRef(j, orderOfSearch[i]).getType() == typeOfSlot::PickAndPlace and storage.isUsable(j, orderOfSearch[i]))
+					if (not(storage.getSlotRef(j, orderOfSearch[i]).get()->addItemsReturn1IfOverMax(slotOfItemToDelete.get())))
+					{
+						i = orderOfSearch.size();
+						j = size.x;
+
+						slotOfItemToDelete.get()->setNumberOfItems(0);
+						return nullptr; //<-- przetestowaæ czy po dodaniu tego wszystko jest nadal gitem
+					}
 
 
 	//if there was no matching item look for first empty slots or there is still something to put
-	
 
-	if (slotOfItemToDelete.second->getItemPtr()->getNumberOfItems() != 0)
+	if (slotOfItemToDelete->getNumberOfItems() != 0)
 		for (int i = 0; i < orderOfSearch.size(); ++i)
-			for (int j = 0; j < itemsArea->size(); ++j)
-				if (ifEmptySpot(itemsArea->at(j).at(orderOfSearch[i])))
+			for (int j = 0; j < size.x; ++j)
+				if (ifEmptySpot(storage.getSlotRef(j, orderOfSearch[i])))
 				{
+					if (storage.getSlotRef(j, orderOfSearch[i]).getType() == typeOfSlot::PickAndPlace and storage.isUsable(j, orderOfSearch[i]))
+					{
+						slotOfItemToDelete->cameraSpriteOfItem.getSprite().setOrigin(0, 0);
+						slotOfItemToDelete->cameraSpriteOfItem.getSprite().setScale(1, 1);
 
-					slotOfItemToDelete.second->getItemPtr()->cameraSpriteOfItem->getSprite()->setOrigin(0, 0);
-					slotOfItemToDelete.second->getItemPtr()->cameraSpriteOfItem->getSprite()->setScale(1, 1);
-					std::swap(slotOfItemToDelete.second->getItemPtrAdress(), itemsArea->at(j).at(orderOfSearch[i]).second->getItemPtrAdress());
+						storage.getSlotRef(j, orderOfSearch[i]).swapItems(std::move(slotOfItemToDelete));
 
-					int tmpi = i;
-					int tmpj = j;
+						int tmpi = orderOfSearch[i];
+						int tmpj = j;
 
-					i = orderOfSearch.size();
-					j = itemsArea->size();
+						i = orderOfSearch.size();
+						j = size.x;
 
-					if (!(itemsArea->at(tmpj).at(orderOfSearch[tmpi]).second->getItemPtr()->isNullItemsInStack()))
-						return true;
+						if (!(storage.getSlotRef(tmpj, tmpi).get()->isNullItemsInStack()))
+							return nullptr;
+					}
 				}
+						
 	
-	return false;
+	return slotOfItemToDelete;
 }
 
-bool EquipmentAreasMenagement::checkIfPossibleItemPlacement(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> lineOfSearches)
+bool EquipmentAreasMenagement::isThereItem(ItemStorage& storage, ItemNames itemName, int count)
 {
-	std::pair<bool, itemAndItsPosition*> slotOfItemToDelete;
-	slotOfItemToDelete.first = true;
-	slotOfItemToDelete.second = new itemAndItsPosition();
-	slotOfItemToDelete.second->setItemPtr(item);
+	auto size = storage.size();
+	int countedItems{};
 
-	for (int i = 0; i < lineOfSearches.size(); ++i)
-		for (int j = 0; j < itemsArea->size(); ++j)
-		{
-			if (ifEmptySpot(itemsArea->at(j).at(lineOfSearches[i])))
-			{
-				slotOfItemToDelete.second = nullptr;
-				return true;
-			}
-			if (ifSameID(slotOfItemToDelete, itemsArea->at(j).at(lineOfSearches[i])))
-				if (!(itemsArea->at(j).at(lineOfSearches[i]).second->getItemPtr()->isMaxItemsInStack())) //not tested
+	
+
+	for (int i = 0; i < size.y; ++i)
+		for (int j = 0; j < size.x; ++j)
+			if (storage.getSlotRef(j, i).get()!=nullptr)
+				if (storage.getSlotRef(j,i).get()->getItemName() == itemName)
 				{
-					slotOfItemToDelete.second = nullptr;
-					return true;
+					countedItems+= storage.getSlotRef(j, i).get()->getNumberOfItems();
+					if (countedItems >= count) return true;
 				}
-			
-		}
-	slotOfItemToDelete.second = nullptr;
+
 	return false;
 }
 
-bool EquipmentAreasMenagement::ifSameID(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::pair<bool, itemAndItsPosition*> slot)
+void EquipmentAreasMenagement::takeItems(ItemStorage& storage, ItemNames itemName, int count)
 {
-	if (slot.first == true and
-		slot.second->getItemPtr() != nullptr and
-		slot.second->getItemPtr() != slotOfItemToDelete.second->getItemPtr() and
-		slot.second->getItemPtr()->getItemID() == slotOfItemToDelete.second->getItemPtr()->getItemID())
+	auto size = storage.size();
+	
+	for (int i = size.y-1; i >= 0; --i)
+		for (int j = size.x-1; j >=0 ; --j)
+		{
+
+			auto slotRef = storage.getSlotRef(j, i).get();
+
+			if (storage.getSlotRef(j, i).get() != nullptr)
+			{
+				if (slotRef->getItemName() == itemName)
+				{
+					int itemCount;
+					itemCount=slotRef->getNumberOfItems();
+					if (itemCount > count)
+					{
+						slotRef->substrFromThisItem(count);
+						return;
+					}
+					else if (itemCount == count)
+					{
+						slotRef->substrFromThisItem(count);
+						storage.setSlot(j, i, nullptr);
+						return;
+					}
+					else
+					{
+						slotRef->substrFromThisItem(itemCount);
+						storage.setSlot(j, i, nullptr);
+						count -= itemCount;
+					}
+				}
+			}
+		}
+}
+
+bool EquipmentAreasMenagement::ifSameID(item* slotOfItemToDelete, item* Slot)
+{
+	if (Slot != nullptr and
+		Slot != slotOfItemToDelete and
+		Slot->getItemID() == slotOfItemToDelete->getItemID())
 		return true;
 
 	return false;
 
 }
 
-bool EquipmentAreasMenagement::ifEmptySpot(std::pair<bool, itemAndItsPosition*> slot)
+bool EquipmentAreasMenagement::ifEmptySpot(slot& Slot)
 {
-	if (slot.first == true and
-		slot.second->getItemPtr() == nullptr)
+	if (Slot.get() == nullptr)
 		return true;
 
 	return false;

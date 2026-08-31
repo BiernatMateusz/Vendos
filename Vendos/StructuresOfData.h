@@ -2,12 +2,14 @@
 #define Structuresh
 
 #include <string_view>
-
+#include <optional>
 #include "mouseButton.h"
+#include "inputAction.h"
 
 #include "GraphicsData.h"
 #include "EquipmentData.h"
 #include "itemsData.h"
+
 
 	//0 - terrain like fields - to use by hoe
 	//1 - crops, seeds - to pickup by hand/scythe - destroyed by pickaxe, axe, shovel, hoe

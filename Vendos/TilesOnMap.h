@@ -2,36 +2,26 @@
 #define TILESONMAPH
 
 #include "StructuresOfData.h"
-
-//Add functions for creating destroying etc.
+#include "SpriteAndBlockadeOnMap.h"
 
 class EquipmentStorageArea;
 
-class TilesOnMap
+class TilesOnMap : public SpriteAndBlockadeOnMap
 {
 private:
-	GraphicsData* graphicsData{};
-
+	
+protected:
 	int ticksToNextAction{};
 	int maxDurability{ 100 };
-	int remainingDurability{100};
+	int remainingDurability{ 100 };
 	StorageAreas storageAreaType{};
-protected:
-	TextureNames nameOfTxtOfTile;
+
+	
 
 public:
 	TilesOnMap() {};
 	TilesOnMap(GraphicsData* graphicsData);
-	/*TilesOnMap(sf::Vector2i position2i, std::string NameOfTxt, GraphicsData* graphicsData);*/
-	~TilesOnMap();
-
-	//Blockade
-	bool blokade{}; //cant walk into
-	sf::Vector2i sizeOfBlockade{};
-	sf::Vector2f blockadeOffset{};
-	sf::FloatRect* collisionBox{};
-
-	CameraSprite* cameraSpriteOfTile{};
+	virtual ~TilesOnMap() = default;
 	
 	EquipmentStorageArea* storageArea{};
 	
@@ -39,21 +29,30 @@ public:
 	std::vector<int>idOfBlocksThatDropsFromTile{};
 	std::vector<int>ammountOfItemsDroppedFromTile{};
 
-	void updateCollisionBoxPos();
 
 	//Functions
 	void update(const float& dt);
-	tileType getTypeOfTile();
-	const int& getTicksToNextAction() const;
+
+	void initTileStorageArea(GraphicsData* graphicsData,
+		EquipmentData* equipmentData,
+		sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares,
+		std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
+		std::initializer_list<sf::Vector2i>PlacesOfOnlyPickableSpots,
+		TextureNames nameOfBackground,
+		ItemNames nameOfItem,
+		std::initializer_list<int>order);
+
+	void initTileBasicData(GraphicsData* graphicsData, EquipmentData* equipmentData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile);
+	
+	void initPosition(sf::Vector2i position2i);
+
 	const int& getMaxDurability() const;
 	const int& getRemainingDurability() const;
 
-	void initTileBasicData(GraphicsData* graphicsData, TextureNames nameOfTxt, tileType TypeOfTile, std::vector<int>IDOfBlocksThatDropsFromTile, std::vector<int>AmmountOfItemsDroppedFromTile);
-	void initTileGraphicData(sf::Vector2i origin, float offsetYcamera);
-	void initTileBlockadeData(sf::Vector2i SizeOfBlockade, sf::Vector2f BlockadeOffset, sf::FloatRect BlockadeRect);
-	void initPosition(sf::Vector2i position2i);
-
 	void decreaseTicksToDisappear(int valueToDecrease);
+	void updateCollisionBoxPos();
+
+
 };
 
 #endif

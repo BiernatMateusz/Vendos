@@ -1,200 +1,184 @@
 #include "Equipment.h"
 
-
 //Constructor
-Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>*Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
-	: EquipmentStorageArea(graphicsData, equipmentData,{ 9,3 }, { 0,0 }, {}, {}, "BackgroundCrafting")
+Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>*Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
-
+	this->Tile = Tile;
 	this->itemsOnTheGround = ItemsOnTheGround;
 
-	initEquipment();
+	this->inputController = std::make_unique<EquipmentInputControler>();
+
+	calculatePositionOfFirstItem();
+
+	initPlayerStorage();
+	initPlayerCrafting();
+
+	this->eqAreas = std::make_unique<EquipmentAreas>(this->graphicsData, this->equipmentData, this->playerStorage.get(), nullptr, ItemsOnTheGround);
+	this->tilesByItemManagement = std::make_unique<TilesByItemsManagement>(this->graphicsData, this->equipmentData, this->Tile, this->playerStorage.get());
 	
-	this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), nullptr, ItemsOnTheGround);
-
-	this->Tile = Tile;
-
-	this->tilesByItemManagement = new TilesByItemsManagement(this->graphicsData, this->equipmentData, this->Tile, this->getItemsArea());
-
-	this->itemsOnTheGround->initEqPtr(this->getItemsArea());
+	this->itemsOnTheGround->initEqPtr(this->playerStorage.get());
+	
 }
 
-
-void Equipment::updateKeybinds(const std::map<std::string, button*>& AllKeys)
+void Equipment::initPlayerStorage()
 {
-	//E key
-	openingEquipment(AllKeys);
-
-	//Dealing with chests
-	openingChest(AllKeys);
-	
-	//1-9(0) keys
-	changingSelectedItem(AllKeys);
+	this->playerStorage = std::make_unique<PlayerStorage>(graphicsData, equipmentData);
 }
 
-void Equipment::initEquipment()
+void Equipment::initPlayerCrafting()
 {
-	factoryOfItems.init(this->graphicsData, this->equipmentData);
-
-	getItemsArea()->at(0).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	10));
-	getItemsArea()->at(0).at(2).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodEq,		10));
-	getItemsArea()->at(0).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
-	getItemsArea()->at(1).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
-	getItemsArea()->at(2).at(1).second->setItemPtr(factoryOfItems.createItem(ItemNames::StoneEq,	995));
-	getItemsArea()->at(2).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenAxe,	1));
-	getItemsArea()->at(3).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenPickaxe,		1));
-	getItemsArea()->at(4).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::ChestEq,	1));
-	getItemsArea()->at(6).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenHoe,	1));
-	getItemsArea()->at(7).at(0).second->setItemPtr(factoryOfItems.createItem(ItemNames::WoodenWateringCan,	1));
-
-	calculatePositionOfFirstItemEqAndChest();
+	this->playerCrafting = std::make_unique<CraftingItems>(graphicsData, equipmentData, this->playerStorage.get(), eqAreas.get());
 }
 
-void Equipment::updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys)
+void Equipment::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	this->tilesByItemManagement->update(dt, AllKeys);
 	
-	if (secondEq != nullptr)
-		secondEq->updateStorageArea(dt, AllKeys);
+	this->itemsOnTheGround->update(dt, this->playerStorage.get()); //DONE
+	this->inputController->update(AllKeys);	//DONE
+
+	if (inputController->wantsToggleEq())
+		handleToggleInventory();			//DONE
+
+	if (inputController->wantsOpenChest())
+		tryOpenChest();						//DONE
 	
-	this->eqAreas->update(AllKeys);
+	this->tilesByItemManagement->update(dt, AllKeys); //Functionality wasnt tested - need update
 	
-	this->itemsOnTheGround->update(dt);
+	updateActiveStorages(AllKeys);
 	
-	this->updateKeybinds(AllKeys); 
+	this->playerCrafting->update(dt, AllKeys);
+	
+	updateBottomBar();
+	
 }
 
 void Equipment::render()
 {
-	if (this->equipmentData->openedWorkstation != nullptr)
-		this->equipmentData->openedWorkstation->render();
-	
-		this->eqAreas->render();
-		
+	switch (this->equipmentData->uiState)
+	{
+	case EquipmentUIState::Closed:
+		playerStorage->renderBottomBar();
+		return;
+
+	case EquipmentUIState::OpenedCrafting:
+		eqAreas->render();
+		playerCrafting->renderStorage();
+		eqAreas->renderItemHeld();
+		break;
+
+	case EquipmentUIState::OpenedWithSecond:
+		eqAreas->render();
+		eqAreas->renderItemHeld();
+		break;
+	}
 }
 
 //Functions
-void Equipment::openingEquipment(const std::map<std::string, button*>& AllKeys)
+
+void Equipment::setState(EquipmentUIState newState, EquipmentStorageArea* secondItemStorage)
 {
-	this->ableToClose = 0;
-	this->ableToOpen = 0;
+	if (equipmentData->uiState == newState)
+		return;
 
-	if (AllKeys.at("E")->oneSignalButtonPressed())
+	this->equipmentData->uiState = newState;
+
+	switch (newState)
 	{
-		if (this->equipmentData->isEqOpened)
-			this->ableToClose = true;
-		else this->ableToOpen = true;
-	}
-
-	if (this->ableToOpen)
-	{
-		this->equipmentData->isEqOpened = true;
-		delete this->eqAreas;
-		this->crafting = new Crafting(this->graphicsData, this->equipmentData, this->itemsOnTheGround);
-		this->equipmentData->openedWorkstation = this->crafting;
-		this->eqAreas= new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), this->crafting->getItemsArea(), this->itemsOnTheGround);
-		this->secondEq = this->crafting;
-	}
-
-	if (this->ableToClose and this->eqAreas->isAbleToCloseEq()) //prevents from holding an item and closing chest at the same time 
-	{
-		this->equipmentData->isEqOpened = false;
-		this->equipmentData->isChestOpened = false;
-		this->equipmentData->openedWorkstation = nullptr;
-		delete this->eqAreas;
-
-		if (this->crafting != nullptr)
-		{
-			delete this->crafting;
-			this->crafting = nullptr;
-		}
-
-		this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), nullptr, this->itemsOnTheGround);
+	case EquipmentUIState::Closed:
+		this->eqAreas->forceReleaseGrabbedItem();
+		this->eqAreas->setStorages(playerStorage.get(), nullptr);
 		this->secondEq = nullptr;
+		break;
+
+	case EquipmentUIState::OpenedCrafting:
+		this->eqAreas->setStorages(playerStorage.get(), playerCrafting.get());
+		secondEq = playerCrafting.get();
+		break;
+
+	case EquipmentUIState::OpenedWithSecond:
+		eqAreas->setStorages(playerStorage.get(), secondItemStorage);
+		secondEq = secondItemStorage;
+		break;
+
 	}
-
 }
 
-void Equipment::openingChest(const std::map<std::string, button*>& AllKeys)
+void Equipment::handleToggleInventory()
 {
-	if (!this->equipmentData->isEqOpened)
-		if (AllKeys.at("RightMouse")->oneSignalButtonPressed()) //NEED TO CHECK IF ITS ON THE TILE MAP -> >=0 <=50/70
-		{
-			this->OpenedWorkstationAreaCords = AllKeys.at("RightMouse")->mouseTileGet();
-
-			if ((*Tile)[OpenedWorkstationAreaCords.x][OpenedWorkstationAreaCords.y] != nullptr)
-			{
-				if ((*Tile)[OpenedWorkstationAreaCords.x][OpenedWorkstationAreaCords.y]->typeOfTile == tileType::chestField)
-				{
-					ableToOpen = true;
-					this->equipmentData->openedWorkstation = this->Tile->at(OpenedWorkstationAreaCords.x).at(OpenedWorkstationAreaCords.y)->storageArea;
-				}
-
-				if (this->ableToOpen)
-				{
-					this->equipmentData->isEqOpened = true;
-					this->equipmentData->isChestOpened = true;
-					this->eqAreas = new EquipmentAreas(this->graphicsData, this->equipmentData, this->getItemsArea(), this->equipmentData->openedWorkstation->getItemsArea(), this->itemsOnTheGround);
-					
-					this->secondEq = this->equipmentData->openedWorkstation;
-
-				}
-
-			}
-		}
+	switch (equipmentData->uiState)
+	{
+	case EquipmentUIState::Closed:
+		setState(EquipmentUIState::OpenedCrafting);
+		break;
+	case EquipmentUIState::OpenedCrafting:
+		setState(EquipmentUIState::Closed);
+		break;
+	case EquipmentUIState::OpenedWithSecond:
+		setState(EquipmentUIState::Closed);
+		break;
+	default:
+		std::cout << "Cos nie tak w handleToggleInventory:Equipment\n";
+	}
 }
 
-void Equipment::calculatePositionOfFirstItemEqAndChest()
+void Equipment::tryOpenChest()
+{
+	if (equipmentData->uiState != EquipmentUIState::Closed)
+		return;
+
+	if (!inputController->clickedTile().has_value())
+		return;
+
+	auto c = inputController->clickedTile().value();
+
+	auto& tile = (*Tile)[c.x][c.y];
+	if (!tile || tile->typeOfTile != tileType::chestField)
+		return;
+
+	setState(EquipmentUIState::OpenedWithSecond,tile->storageArea);
+}
+
+void Equipment::calculatePositionOfFirstItem()
 {
 	sf::Vector2f MapBorder{};
-
+	
 	MapBorder = { (float)this->graphicsData->window->getSize().x,(float)this->graphicsData->window->getSize().y };
 	
 	this->equipmentData->FirstItemPositionEq = {
 		(MapBorder.x / 2) - (this->equipmentData->sizeOfEq.x / 2 * this->equipmentData->SizeOfItems),
 		MapBorder.y - this->equipmentData->Y_Offset_Bar_From_Border };
-
+	
 }
 
-void Equipment::changingSelectedItem(const std::map<std::string, button*>& AllKeys)
+void Equipment::updateBottomBar()
 {
-	int mem = this->equipmentData->whichItemSelected;
+	int slot = inputController->selectedSlot();
+	if (slot != -1)
+	{
+		int mem = equipmentData->whichItemSelected;
+		equipmentData->whichItemSelected = slot;
 
-	if (AllKeys.at("Num1")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 0;
+		if (mem != slot)
+			tilesByItemManagement->resetTimeoutWhileActionTrue();
 
-	if (AllKeys.at("Num2")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 1;
+		tilesByItemManagement->setNumberOfSlotOnBottomBar(slot);
+	}
+}
 
-	if (AllKeys.at("Num3")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 2;
+void Equipment::updateActiveStorages(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
+{
+	if (this->equipmentData->uiState != EquipmentUIState::Closed)
+	{
+		this->playerStorage->updateActiveStorage(AllKeys);
 
-	if (AllKeys.at("Num4")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 3;
+		if (secondEq != nullptr)
+			secondEq->updateActiveStorage(AllKeys);
 
-	if (AllKeys.at("Num5")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 4;
+		this->eqAreas->update(AllKeys);							//this is doing all - moving items stacking etc.
 
-	if (AllKeys.at("Num6")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 5;
-
-	if (AllKeys.at("Num7")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 6;
-
-	if (AllKeys.at("Num8")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 7;
-
-	if (AllKeys.at("Num9")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 8;
-
-	if (AllKeys.at("Num0")->oneSignalButtonPressed())
-		this->equipmentData->whichItemSelected = 9;
-
-	if (mem != this->equipmentData->whichItemSelected)
-		this->tilesByItemManagement->resetTimeoutWhileActionTrue();
-
-	this->tilesByItemManagement->setNumberOfSlotOnBottomBar(this->equipmentData->whichItemSelected); //to rework
-	
+	}
+	else
+		this->eqAreas->updateWhileClosed();
 }

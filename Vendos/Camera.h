@@ -29,22 +29,23 @@ public:
 	
 	void render(sf::RenderWindow* window);
 
-	void moveObjects_1stExcluded(sf::Sprite* Excluded, const float& dt, sf::Vector2f speed);
+	void moveObjects_PlayerExcluded(CameraSprite& Excluded, const float& dt, sf::Vector2f speed);
+
+	void initPlayer(CameraSprite cameraSprite);
+
+
 
 private:
 	//Variables
 	GraphicsData* graphicsData;
-	sf::RenderWindow* Window;
 	std::vector< CameraSprite*> AllSpritesMapped;
-
-
-	sf::Sprite* Player;
-	sf::Vector2f CenterOfMap;
-	sf::Sprite* BackGround;
 
 	//Functions
 	void initGraphicsBasics(GraphicsData* graphicsData);
 	void cameraSpriteJoin();
+
+	void appendThrownItems();
+	
 
 };
 

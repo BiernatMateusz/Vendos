@@ -1,12 +1,17 @@
 #include "mouseButton.h"
 
 
+mouseButton::mouseButton()
+{
+	;
+}
+
 mouseButton::mouseButton(sf::Mouse::Button MouseButton)
 {
 	this->MouseButton = MouseButton;
 }
 
-void mouseButton::update(sf::RenderWindow* window, sf::Sprite* backGround)
+void mouseButton::update(sf::RenderWindow* window, CameraSprite backGround)
 {
 	if (sf::Mouse::isButtonPressed(this->MouseButton))
 		this->isPressed = 1;
@@ -27,23 +32,23 @@ void mouseButton::update(sf::RenderWindow* window, sf::Sprite* backGround)
 	setMouseTileActual(window, backGround);
 }
 
-void mouseButton::setMouseTile(sf::RenderWindow* window, sf::Sprite* BackGround)
+void mouseButton::setMouseTile(sf::RenderWindow* window, CameraSprite BackGround)
 {
 	setTileCoveredByMouse(window, BackGround, this->mouseTile);
 }
 
-void mouseButton::setMouseTileActual(sf::RenderWindow* window, sf::Sprite* BackGround)
+void mouseButton::setMouseTileActual(sf::RenderWindow* window, CameraSprite BackGround)
 {
 	setTileCoveredByMouse(window, BackGround, this->mouseTileActual);
 }
 
-void mouseButton::setTileCoveredByMouse(sf::RenderWindow* window, sf::Sprite* BackGround, sf::Vector2i& MouseTileVariable)
+void mouseButton::setTileCoveredByMouse(sf::RenderWindow* window, CameraSprite BackGround, sf::Vector2i& MouseTileVariable)
 {
 	if (checkIfInScreen(window))
-		if (BackGround != nullptr)
+		if (BackGround.isActive())
 		{
-			int x = ((int)BackGround->getGlobalBounds().height - (int)BackGround->getPosition().y);
-			MouseTileVariable = { (this->mousePos.x - (int)BackGround->getPosition().x) / 44,((mousePos.y + (x)) / 44) };
+			int x = ((int)BackGround.getSprite().getGlobalBounds().height - (int)BackGround.getSprite().getPosition().y);
+			MouseTileVariable = { (this->mousePos.x - (int)BackGround.getSprite().getPosition().x) / 44,((mousePos.y + (x)) / 44) };
 		}
 } 
 

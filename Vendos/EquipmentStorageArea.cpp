@@ -1,9 +1,9 @@
 #include "EquipmentStorageArea.h"
-#include "itemAndItsPosition.h"
+
 
 EquipmentStorageArea::EquipmentStorageArea()
 {
-	this->items = new std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>;
+	;
 }
 
 EquipmentStorageArea::EquipmentStorageArea(
@@ -13,59 +13,76 @@ EquipmentStorageArea::EquipmentStorageArea(
 	sf::Vector2i FirstItemSquares,
 	std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots,
 	std::initializer_list<sf::Vector2i> PlacesOfOnlyPickableSpots,
-	std::string nameOfBackground) 
+	TextureNames name,
+	std::initializer_list<int>order)
 	: 
-	Workstation(graphicsData, equipmentData, nameOfBackground)
+	Workstation(graphicsData, equipmentData, name, order)
 {
-	this->items = new std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>;
+
 	resizeVector();
 	makeUsableSpots(SizeOfMainVec, FirstItemSquares, PlacesOfPickAndPlaceInRandomSpots, PlacesOfOnlyPickableSpots);
-	setItemTypes(PlacesOfOnlyPickableSpots, typeOfItemArea::Pick);
 }
 
-EquipmentStorageArea::~EquipmentStorageArea()
-{
-	for (auto& row : *items)
-		for (auto& elem : row)
-			delete elem.second;
-	items->clear();
-}
-
-void EquipmentStorageArea::resizeVector()
-{
-	this->items->resize(this->sizeOfArea.x);
-	for (auto &elem : *items)
-	{
-		elem.resize(this->sizeOfArea.y);
-		
-		for (auto& row : elem)
-			row = std::make_pair(false, new itemAndItsPosition());
-
-	}
-}
 
 void EquipmentStorageArea::makeUsableSpots(sf::Vector2i SizeOfMainVec, sf::Vector2i FirstItemSquares, std::initializer_list<sf::Vector2i> PlacesOfPickAndPlaceInRandomSpots, std::initializer_list<sf::Vector2i> PlacesOfOnlyPickableSpots)
 {
-	for (int i=FirstItemSquares.x; i<SizeOfMainVec.x+ FirstItemSquares.x; i++)
-		for (int j = FirstItemSquares.y; j < SizeOfMainVec.y+ FirstItemSquares.y; j++)
-			items->at(i).at(j).first = true;
+	setFirstLayer_Y(FirstItemSquares.y);
 
+	for (int i = FirstItemSquares.x; i < SizeOfMainVec.x + FirstItemSquares.x; i++)
+		for (int j = FirstItemSquares.y; j < SizeOfMainVec.y + FirstItemSquares.y; j++)
+		{
+			setUsable(i, j);
+			setType(i, j, typeOfSlot::PickAndPlace);
+		}
 
 	for (auto& elem : PlacesOfPickAndPlaceInRandomSpots)
-		items->at(elem.x).at(elem.y).first = true;
+	{
+		setUsable(elem.x, elem.y);
+		setType(elem.x, elem.y, typeOfSlot::PickAndPlace);
+	}
 
 	for (auto& elem : PlacesOfOnlyPickableSpots)
-		items->at(elem.x).at(elem.y).first = true;
+	{
+		setUsable(elem.x, elem.y);
+		setType(elem.x, elem.y, typeOfSlot::Pick);
+	}
 
 }
 
-void EquipmentStorageArea::setItemTypes(std::initializer_list<sf::Vector2i> Places, typeOfItemArea itemType)
+void EquipmentStorageArea::updateActiveStorage(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	for (auto& elem : Places)
-		items->at(elem.x).at(elem.y).second->setType(itemType);
+	updatePositionOfItems();
 }
 
-std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* EquipmentStorageArea::getItemsArea()
+void EquipmentStorageArea::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	return this->items;
+	;
+}
+
+void EquipmentStorageArea::updatePositionOfItems()
+{
+	for (int y = 0; y < size().y; y++)
+		for (int x = 0; x < size().x; x++)
+			if (this->isUsable(x, y))
+				if (this->getSlotRef(x,y).get() != nullptr)
+					this->getSlotRef(x, y).get()->setPositionInStorage({ (x * this->equipmentData->SizeOfItems) + this->equipmentData->FirstItemPositionEq.x,this->equipmentData->FirstItemPositionEq.y - (y * this->equipmentData->SizeOfItems) });
+			 
+}
+
+void EquipmentStorageArea::render()
+{
+	for (int y = 0; y < size().y; ++y)
+	{
+		for (int x = 0; x < size().x; ++x)
+		{
+			if (!isUsable(x, y))
+				continue;
+
+			drawBackground(x, y, false);
+
+			if (this->getSlotRef(x, y).get())
+				this->getSlotRef(x, y).get()->drawItem();
+		
+		}
+	}
 }

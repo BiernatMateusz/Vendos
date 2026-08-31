@@ -1,83 +1,39 @@
 #include "CameraSprite.h"
+#include <iostream>
 
-CameraSprite::CameraSprite()
+void CameraSprite::setPosition(sf::Vector2f pos)
 {
-	this->sprite = new sf::Sprite;
-	this->distance=0;
+	this->sprite.setPosition(pos);
 }
 
-CameraSprite::CameraSprite(bool empty)
+void CameraSprite::setOrigin(sf::Vector2f origin)
 {
-	this->sprite = nullptr;
-	this->distance = 0;
+	this->sprite.setOrigin(origin);
 }
 
-CameraSprite::CameraSprite(sf::Sprite* sprite, float distance)
+void CameraSprite::setTexture(const sf::Texture& txt)
 {
-	this->sprite = sprite;
-	this->distance = distance;
+	this->sprite.setTexture(txt);
+	this->active = true;
 }
 
-CameraSprite::CameraSprite(const CameraSprite* model)
+void CameraSprite::setTexture(const sf::Texture& txt, bool reset)
 {
-	this->sprite = new sf::Sprite;
-	*this->sprite = *(model->sprite);
-	this->distance = model->distance;
-	
+	this->sprite.setTexture(txt, reset);
+	this->active = true;
 }
 
-CameraSprite::CameraSprite(CameraSprite&& model)
-{
-	this->sprite = model.sprite;
-	this->distance = model.distance;
-	model.sprite = nullptr;
-}
-
-CameraSprite::~CameraSprite()
-{
-	delete this->sprite;
-}
-
-CameraSprite& CameraSprite::operator=(const CameraSprite& model)
-{
-	if (this != &model)
-	{
-		this->sprite = new sf::Sprite;
-		*this->sprite = *(model.sprite);
-		this->distance = model.distance;
-		return *this;
-	}
-}
-
-CameraSprite& CameraSprite::operator=(CameraSprite&& model)
-{
-	if (this != &model)
-	{
-		delete this->sprite;
-		this->sprite = model.sprite;
-		this->distance = model.distance;
-		
-		model.sprite = nullptr;
-		return *this;
-	}
-}
-
-void CameraSprite::setSpriteTexture(const sf::Texture& txt)
-{
-	this->sprite->setTexture(txt);
-}
-
-sf::Sprite* CameraSprite::getSprite()
+sf::Sprite& CameraSprite::getSprite()
 {
 	return this->sprite;
 }
 
-void CameraSprite::setSprite(sf::Sprite* sprite)
+const sf::Sprite& CameraSprite::getSprite() const
 {
-	this->sprite = sprite;
+	return this->sprite;
 }
 
-float CameraSprite::getDistance()
+float CameraSprite::getDistance() const
 {
 	return distance;
 }

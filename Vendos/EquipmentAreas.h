@@ -13,87 +13,72 @@ private:
 	GraphicsData* graphicsData{};
 	EquipmentData* equipmentData{};
 
-	sf::Sprite* BackGroundSquare{};
-	sf::Sprite* BackGroundSquareUsed{};
+	std::vector<ItemStorage*> visibleStorages;
+	ItemStorage* hoveredStorage;
 
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsFirstArea{};
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsSecondArea{};
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* AllitemsArea{};
-
-	sf::Vector2i sizeOfArea{};
+	sf::Vector2i sizeOfArea{9,10};
 
 	ItemConstructor factoryOfItems;
 	ThrownItems* itemsOnTheGround{};
 
-	int linesToDraw{};
-
-	void updateKeybinds(const std::map<std::string, button*>& AllKeys);
-	void whichLinesOfEqOpen();
+	void updateKeybinds(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 
 	sf::Vector2f realPosOfItems_0_0{};
 	void initRealPosOfItems_0_0();
 
+	void setHoveredStorage();
+
 	sf::Vector2i SquareHovered{};
-	void getHoveredSquareStatus(const std::map<std::string, button*>& AllKeys);
+	void getHoveredSquareStatus(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+
+	ItemStorage* getOtherStorage(ItemStorage* current);
 
 	bool isInWorkArea{};
 	void checkIfIsInWorkArea();
 
 	bool itemTakenThisFrame{};
-	item* itemGrabbed{};
+	slot itemGrabbed{};
 
-	void updatePositionsOfItems(const std::map<std::string, button*>& AllKeys);
+
+	void updatePositionsOfItems(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 
 	void deleteItemIfAmmount_0();
 
-	void takingItemToTheHand(const std::map<std::string, button*>& AllKeys);
-	void putOffItemFromHand(const std::map<std::string, button*>& AllKeys);
-	void takeOneItemToHand(const std::map<std::string, button*>& AllKeys);
-	void takeHalfOfItemsToHand(const std::map<std::string, button*>& AllKeys);
-	void placeOneMoreItem(const std::map<std::string, button*>& AllKeys);
-	void searchForPlaceForWholeStack(const std::map<std::string, button*>& AllKeys);
+	void takingItemToTheHand(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void putOffItemFromHand(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void takeOneItemToHand(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void takeHalfOfItemsToHand(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void placeOneMoreItem(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void searchForPlaceForWholeStack();
 
-	std::vector<int> decideWhichOrder(int);
-
-	void stackItems_TrueIfRestEqual0(item** ItemFrom, item** ItemTo);
-	void throwItem(item* item, bool isThrowdAllStack);
-
-	std::vector<int> makeVectorOfUsedRows();
-	std::vector<int> shrinkVectorToOnlyPlacableRows(std::vector<int>vec, int hoveredRow);
-	std::vector<int> makeSortedFromHighestVecBiggerThatHoveredRow(std::vector<int>vec, int hoveredRow);
+	void addSlots(slot&from, slot& to);
+	void throwItem(slot& item, bool isThrowdAllStack);
 
 public:
 
 	
-	EquipmentAreas() {};
-
-	EquipmentAreas(
-		GraphicsData* graphicsData,
-		EquipmentData* equipmentData);
+	EquipmentAreas()=default;
 
 	EquipmentAreas(
 		GraphicsData* graphicsData, 
 		EquipmentData* equipmentData, 
-		std::vector < std::vector<std::pair <bool,itemAndItsPosition*>>>* itemsFirstArea, 
-		std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsSecondArea,
+		ItemStorage* itemsFirstArea, 
+		ItemStorage* itemsSecondArea,
 		ThrownItems* ItemsOnTheGround);
 	
 	~EquipmentAreas();
 
-	void getAllItemsVecSize();
-	void resizeAllItemsAreaVec();
-	void connectBothAreas();
+	void setStorages(ItemStorage* firstStorage, ItemStorage* secondStorage);
 
 	bool isAbleToCloseEq();
+	void forceReleaseGrabbedItem();
 
-	void update(const std::map<std::string, button*>& AllKeys);
+	bool tryDeleteItems(ItemNames itemName, int count);
+
+	void update(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void updateWhileClosed();
 	void render();
-
-	void disconectBothArea();
-protected:
-	std::vector<itemAndItsPosition*>allItemsArea{}; 
-	
-
+	void renderItemHeld();
 
 };
 

@@ -1,19 +1,17 @@
 #include "Collision.h"
 
-void Collision::updateCollisionTiles(std::vector<std::vector<TilesOnMap*>>* tile, std::vector<sf::FloatRect*>* collisionTiles)
+void Collision::updateCollisionTiles(std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec)
 {
-    collisionTiles->clear();
+    CollisionTilesVec.clear();
 
     for (auto& row:*tile)
         for (auto& elem : row)
-        {
             if (elem!=nullptr)
-                if (elem->blokade == 1)
-                    collisionTiles->push_back(elem->collisionBox);
-        }
+                if (elem->isBlockade() == true)
+                    CollisionTilesVec.push_back(elem->getCollisionBox());
 }
 
-bool Collision::checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMove, std::vector<sf::FloatRect*>* CollisionTiles)
+bool Collision::checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMove, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec)
 {
     this->tmpObj = *spriteRectToMove;
     this->tmpObj.left += move.x;
@@ -23,14 +21,12 @@ bool Collision::checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMov
 
     //I should check only close objects, not everyone
 
-    auto result = std::find_if(std::begin(*CollisionTiles), std::end(*CollisionTiles), [&](auto Tile) {return tmpObj.intersects(*Tile, tmpFR); });
+    auto result = std::find_if(std::begin(CollisionTilesVec), std::end(CollisionTilesVec), [&](auto Tile) {return tmpObj.intersects(Tile, tmpFR); });
     
 
     //RETURN
-    if (result == std::end(*CollisionTiles))
+    if (result == std::end(CollisionTilesVec))
         return false; //no collision
     else 
-    { 
         return true; //collision
-    } 
 }

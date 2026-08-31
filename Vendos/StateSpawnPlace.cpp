@@ -1,38 +1,42 @@
 #include "StateSpawnPlace.h"
 
-StateSpawnPlace::StateSpawnPlace(GraphicsData* graphicsData, std::stack<State*>* Stat)
-	: State(graphicsData, Stat)
-{
-	this->equipmentData = new EquipmentData;
-	this->ItemsOnTheGround = new ThrownItems(graphicsData, equipmentData, &Tile);
 
+StateSpawnPlace::StateSpawnPlace(GraphicsData* graphicsData, StateMachine* stateMachine)
+	: State(graphicsData, stateMachine)
+{
+	
+	this->equipmentData = std::make_unique<EquipmentData>();
+	this->ItemsOnTheGround = std::make_unique<ThrownItems>(graphicsData, equipmentData.get(), &Tile);
+	this->entityFactory.init(graphicsData, this->equipmentData.get());
+	
 	initPlayer();
 	initGraphics();
-
+	
 }
 
 void StateSpawnPlace::initPlayer()
 {
-	this->entiesPointer->push_back(new EntityPlayer({ 0,0 }, "Abigail", this->graphicsData, &Tile, this->equipmentData, ItemsOnTheGround, &CollisionTilesVec));
-	this->entityPlayer = this->entiesPointer->back();
+	auto player = entityFactory.createEntity(EntityNames::Player, this->ItemsOnTheGround.get(), &this->Tile, this->CollisionTilesVec);
+	
+	this->entityPlayer = player.get();
+	this->entitiesPointer.push_back(std::move(player));
+	
 }
 
 void StateSpawnPlace::initGraphics()
 {
-	LoadBackground({ 0,2596 }, "Mapka");
-
+	LoadBackground(TextureNames::Mapka);
+	
 	initTileVector();
 	initTileManagement();
-
+	
 	makeInvisibleBarrierAroundTheMap(); //need to optimize it by creating tiles without texture 
-
 	mapGeneration();
-
 	updateTilesSprite();
 
-	this->Camer = new Camera(this->graphicsData);
-	this->entityPlayer->initCamera(Camer);
-	collisionManagement.updateCollisionTiles(&Tile, &CollisionTilesVec);
+	this->Camer = std::make_unique<Camera>(this->graphicsData);
+	this->entityPlayer->initCamera(Camer.get());
+	collisionManagement.updateCollisionTiles(&Tile, CollisionTilesVec);
 }
 
 void StateSpawnPlace::makeInvisibleBarrierAroundTheMap()
@@ -46,49 +50,45 @@ void StateSpawnPlace::makeInvisibleBarrierAroundTheMap()
 		tileManagement->initTile({ 72,i }, ItemNames::EmptyTile);
 		tileManagement->initTile({ 73,i }, ItemNames::EmptyTile);
 	}
+	
 	for (int i = 0; i < Tile.size() - 1; i++)
 	{
 		for (int j = 0; j <= 4; j++)
 			tileManagement->initTile({ i,j }, ItemNames::EmptyTile);
-
+		
 		tileManagement->initTile({ i,58 }, ItemNames::EmptyTile);
 	}
-
 	tileManagement->initTile({ 3,5 }, ItemNames::EmptyTile);
 }
 
-
-
-StateSpawnPlace::~StateSpawnPlace()
+void StateSpawnPlace::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	;
-}
-
-void StateSpawnPlace::update(const float& dt, const std::map<std::string, button*>& AllKeys)
-{
-	for (auto* elem : *this->entiesPointer)
+	for (auto& elem : this->entitiesPointer)
 		elem->update(dt, AllKeys);
 
-	this->tileManagement->update(dt, AllKeys);
+	if (this->equipmentData->uiState == EquipmentUIState::Closed)
+		this->tileManagement->update(dt, AllKeys);
 
 	if (this->equipmentData->needToUpdateTilesSpriteVec)
 		updateTilesSprite();
 
 	if (this->equipmentData->needToUpdateCameraAllSpr)
-		Camer->updateAllSpritesVecMapped(equipmentData);
+		this->Camer->updateAllSpritesVecMapped(equipmentData.get());
 
 
 	this->updateKeybinds(dt, AllKeys);
 
-	this->collisionManagement.updateCollisionTiles(&Tile, &CollisionTilesVec);
+	this->collisionManagement.updateCollisionTiles(&Tile, CollisionTilesVec);
 
 	//frameCounterF(dt);
 }
 
-void StateSpawnPlace::updateKeybinds(const float& dt, const std::map<std::string, button*>& AllKeys)
+void StateSpawnPlace::updateKeybinds(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	this->checkForQuit(AllKeys);
-	this->playerMovement(dt, AllKeys);
+
+	if (this->equipmentData->uiState == EquipmentUIState::Closed)
+		this->playerMovement(dt, AllKeys);
 }
 
 void StateSpawnPlace::endState()
@@ -97,13 +97,13 @@ void StateSpawnPlace::endState()
 }
 
 
-void StateSpawnPlace::playerMovement(const float& dt, const std::map<std::string, button*>& AllKeys)
+void StateSpawnPlace::playerMovement(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	//Reseting value to "nothing"
 	this->movementData.direction = "";
 
 	if (this->equipmentData->isEqOpened == 0)
-		this->entityPlayer->movement(dt, 115, this->movementData, AllKeys);
+		this->entityPlayer->playerMovement(dt, 115, this->movementData, AllKeys);
 
 	this->entityPlayer->Animation(dt, std::move(this->movementData.direction));
 
@@ -144,8 +144,8 @@ void StateSpawnPlace::mapGeneration()
 
 			}
 
-	delete this->Tile[getPlayerTile().x][getPlayerTile().y];  
-	this->Tile[getPlayerTile().x][getPlayerTile().y] = nullptr;
+	this->tileManagement->removeTile({ getPlayerTile().x,getPlayerTile().y }); 
+	
 	//prevents from spawning in block
 
 }
@@ -155,11 +155,12 @@ void StateSpawnPlace::mapGeneration()
 void StateSpawnPlace::render()
 {
 	
-	Camer->render(this->graphicsData->window);
+	this->Camer->render(this->graphicsData->window); //Do poprawy - spadek FPS
 	
-	for (auto* elem : *this->entiesPointer)
+	for (auto& elem : this->entitiesPointer)
 		elem->render();
-	
-	if (this->equipmentData->isEqOpened == 0)
+
+	if (this->equipmentData->uiState == EquipmentUIState::Closed)
 		this->tileManagement->render();
+
 }

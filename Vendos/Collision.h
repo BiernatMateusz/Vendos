@@ -10,8 +10,8 @@ private:
 	sf::FloatRect tmpObj{};
 	int licznik{};
 public:
-	void updateCollisionTiles(std::vector<std::vector<TilesOnMap*>>*tile, std::vector<sf::FloatRect*>* collisionTiles);
-	bool checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMove, std::vector<sf::FloatRect*>* CollisionTiles);
+	void updateCollisionTiles(std::vector<std::vector<std::unique_ptr<TilesOnMap>>>*tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec);
+	bool checkCollision(sf::Vector2f move, sf::FloatRect* spriteRectToMove, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec);
 };
 
 #endif

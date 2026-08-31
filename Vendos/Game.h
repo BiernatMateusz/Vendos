@@ -5,7 +5,10 @@
 #include "StateMenu.h"
 #include "StateSpawnPlace.h"
 #include <stack>
-#include "button.h"
+
+#include "inputAction.h"
+#include <unordered_map>
+#include "StateStack.h"
 
 //To add new textures u have to go to: ==== initTextures ==== and add new textures ---- game.cpp
 
@@ -27,39 +30,48 @@ public:
 	void render();
 	void endApp();
 
+	//Frame counter
+	void frameCounting();
+
 	//Init functions
-	void initStates();
 	void initTextures();
 	void initGraphicsData();
-	
+
 
 	//Graphics functions 
-	void LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, int itemID);
-	void LoadNewGraphic(const std::string& name, TextureNames nameOfTxt, sf::Vector2i blockadeSize, sf::Vector2i origin,
-		sf::Vector2f blockadeOffset, bool blockade, tileType typeOfTile ,StorageAreas storageArea, int itemID, float offsetForCamera,
-		sf::FloatRect textRect, sf::FloatRect blockadeRect, 
-		std::vector<int>idOfItemsDroppedFromTile, std::vector<int>ammountOfDroppedItems);
+	void LoadNewGraphic(const std::string& name, TextureNames nameOfTxt);
+
+	sf::RenderWindow* getWindow() const;
+	GraphicsData* getGraphicsData() const;
 
 protected:
 
 
 private:
+	//FRAME COUNTER FOR TESTS
+	sf::Clock clock;
+	int frames = 0;
+	float timer = 0;
+	/////////////////////////
+
+
 	//variables
-	sf::RenderWindow* window;
+	std::unique_ptr<sf::RenderWindow> window;
 	int WindowLenght{ 1200 }, WindowHight{ 1000 };
 	sf::Event sfEvent;
 
 	sf::Clock dtClock;
-	std::map<std::string, button*>AllKeys;
+	
+	std::unordered_map<inputAction, std::unique_ptr<button>>AllKeys;
 
 	//Graphics data structure
-	GraphicsData* graphicsData;
+	std::unique_ptr<GraphicsData> graphicsData;
 
 	//Time
 	float dt;
 
 	//States
-	std::stack<State*>states;
+	std::unique_ptr<StateMachine> stateMachine;
 
 	//init
 	void initializeWindow();

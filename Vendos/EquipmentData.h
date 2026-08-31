@@ -7,7 +7,8 @@
 
 #include <set>
 
-enum class typeOfItemArea { PickAndPlace, Pick, Place };
+
+enum class EquipmentUIState {Closed, OpenedCrafting, OpenedWithSecond};
 
 class EquipmentStorageArea;
 
@@ -32,7 +33,7 @@ struct EquipmentData
 	bool isEqOpened{};
 	bool isChestOpened{};
 
-	EquipmentStorageArea* openedWorkstation{};
+	EquipmentUIState uiState = EquipmentUIState::Closed;
 
 	bool needToUpdateCrafting{};
 	bool needToUpdateChest{};

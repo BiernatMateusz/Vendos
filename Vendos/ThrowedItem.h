@@ -5,33 +5,35 @@
 
 #define M_PI 3.14159265358979323846
 
+class ItemStorage;
+
 class ThrowedItem :
 	public EquipmentAreasMenagement
 {
 public:
-	ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq, item* item, std::vector<ThrowedItem*>* ItemsThrownVec);
-	ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq, item* item, std::vector<ThrowedItem*>* ItemsThrownVec, sf::Vector2i TileCords);
+	ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storage, std::unique_ptr<item> item);
+	ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storag, std::unique_ptr<item> item, sf::Vector2i TileCords);
 
-	void update(const float& dt);
+	void update(const float& dt, bool canBePicked);
 
-	bool checkIfCatched();
+	bool isCatched();
 
 	void getAndChangeDestinationOfItem(sf::Vector2f MoveValues);
-	item* getItem();
-
-	void setCatchedState(bool catched);
+	std::unique_ptr<item>& getItem();
+	void setItem(std::unique_ptr<item>&item);
+	std::unique_ptr<item>take();
 	
 private:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq{};
-	std::vector<ThrowedItem*>* ItemsThrownVec{};
-	std::vector<std::vector<TilesOnMap*>>* tile;
+	ItemStorage* storage;
+	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* tile;
 
 	std::string direction{};
 	directionOfMovement directionEnum;
 
-	item* Item;
+	std::unique_ptr<item> Item;
+
 	const int range{ 100 };
 	const double gravity{ 200 };
 	const float v0 = 200;
@@ -56,9 +58,6 @@ private:
 	sf::Vector2f SpeedOfFlyingItem{};
 	sf::Vector2f distanceToGo{ 0,0 };
 
-	std::vector<int>TmpAddableList{};
-	std::vector<int>TmpUnAddableList{};
-
 	sf::Vector2f calculatedDistanceToMove{};
 	float timePassedWhileOnGround{};
 	const float timeWhileUnableToCatch{ 3 };
@@ -72,7 +71,6 @@ private:
 	void setDistanceToMoveBasedOnDirection();
 	bool checkDistanceItemToPlayer();
 	
-	void makeUnpickableItemsList(std::vector<int>orderOfSearch);
 	void itemMovementTowardsDestination(const float& dt);
 	void accumulateTimeOfItemOnGround(const float& dt);
 
@@ -81,10 +79,10 @@ private:
 	void setItemParametersFromPlayer();
 	void setItemParametersFromTile(sf::Vector2i tileCord);
 
-	void compareAddableAndUnaddableList();
-
 	void itemMovementThrewnFromPlayer(const float& dt);
 	void itemMovementThrewnFromNonPlayer(const float& dt);
+
+	
 };
 
 #endif // !THROWEDITEM_H

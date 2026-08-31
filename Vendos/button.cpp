@@ -15,7 +15,7 @@ button::~button()
 
 }
 
-void button::update(sf::RenderWindow* window, sf::Sprite* Background)
+void button::update(sf::RenderWindow* window, CameraSprite Background)
 {
 	//Press state
 	//Keyboard
@@ -72,6 +72,26 @@ const sf::Vector2i& button::mouseTileActualGet() const
 bool button::checkIfInBoxArea(sf::Vector2f point, sf::Vector2f Area)
 {
 	return false;
+}
+
+void button::setWheelScrollUp(bool state)
+{
+	;
+}
+
+void button::setWheelScrollDown(bool state)
+{
+	;
+}
+
+const bool& button::isWheelScrolledUp() const
+{
+	return 0;
+}
+
+const bool& button::isWheelScrolledDown() const
+{
+	return 0;
 }
 
 void button::setStates()

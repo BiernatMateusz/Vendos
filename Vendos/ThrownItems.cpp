@@ -1,137 +1,130 @@
 #include "ThrownItems.h"
+#include "ItemStorage.h"
+#include "EquipmentStorageArea.h"
 
-ThrownItems::ThrownItems(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile)
+ThrownItems::ThrownItems(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
 	this->tile = Tile;
-	this->ItemsThrownVec = new std::vector<ThrowedItem*>;
 	this->itemCreator.init(graphicsData, equipmentData);
+	this->graphicsData->thrownItems = this;
 }
 
-void ThrownItems::updateItemsThrownSpriteVec()
+void ThrownItems::update(const float& dt, EquipmentStorageArea* storageArea)
 {
-	this->graphicsData->ItemsThrownSpriteMapped->clear();
+	checkIfNewItemDropped();
 
-	for (auto *elem : *ItemsThrownVec)
-		this->graphicsData->ItemsThrownSpriteMapped->push_back(elem->getItem()->cameraSpriteOfItem);
+	createPickable_ID_ItemsList();
+
+	for (auto& elem : ItemsThrownVec)
+		elem->update(dt, checkIfPickPossible(*elem));
 	
-	
+
+	std::erase_if(ItemsThrownVec, [&](auto& item)
+		{
+			if (!item->isCatched())
+				return false;
+
+			std::unique_ptr<::item>tmpItemToMoveBack = item->assignItemToChosenArea(item->take(), *storageArea, storageArea->getOrderOfSearch());
+
+			if (!tmpItemToMoveBack)
+			{
+				this->equipmentData->needToUpdateCameraAllSpr = true;
+				return true;
+			}
+			else
+			{
+				item->setItem(tmpItemToMoveBack);
+			}
+
+			return false;
+		});
+
+}
+
+void ThrownItems::createPickable_ID_ItemsList()
+{
+	this->Pickable_ID_Items.clear();
+
+	bool foundEmpty = false;
+
+	if (this->storage)
+		for (int y = 0; y < this->storage->getOrderOfSearch().size() && !foundEmpty; y++)
+			for (int x = 0; x < storage->size().x; x++)
+			{
+				if (!storage->getSlotRef(x, y))
+				{
+					this->Pickable_ID_Items.clear();
+					foundEmpty = true;
+					break;
+				}
+				else if (storage->getSlotRef(x, y).get()->checkIfAddable())
+				{
+					this->Pickable_ID_Items.insert(storage->getSlotRef(x, y).get()->getItemID());
+				}
+
+			}
+}
 
 
-	this->equipmentData->needToUpdateCameraAllSpr = 1;
+
+const std::vector<std::unique_ptr<ThrowedItem>>& ThrownItems::getItems() const
+{
+	return ItemsThrownVec;
+}
+
+void ThrownItems::setUpdateCamera()
+{
+	this->equipmentData->needToUpdateCameraAllSpr = true;
 }
 
 void ThrownItems::updatePositionOfEach(const float& dt, float speedX, float speedY)
 {
-	for (auto* elem : *ItemsThrownVec)
+	for (auto& elem :ItemsThrownVec)
 	{
 		elem->getAndChangeDestinationOfItem({ dt * speedX,dt * speedY });
 	}
 }
 
-void ThrownItems::checkIfItemDropped()
+void ThrownItems::checkIfNewItemDropped()
 {
-
-	for (auto *elem: *this->graphicsData->itemDroppedVec)
+	for (auto* elem : this->graphicsData->itemDroppedVec)
 		insertItemDroppedFromTile(itemCreator.createItem(elem->itemID, elem->ammountOfItem), elem->tileCords);
-
-	for (auto* elem : *this->graphicsData->itemDroppedVec)
+	
+	for (auto* elem : this->graphicsData->itemDroppedVec)
 		delete elem;
 
-	this->graphicsData->itemDroppedVec->clear();
+	this->graphicsData->itemDroppedVec.clear();
 
 }
 
-void ThrownItems::initEqPtr(std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq)
+bool ThrownItems::checkIfPickPossible(ThrowedItem& throwedItem)
 {
-	this->eq = eq;
+	return Pickable_ID_Items.empty() or Pickable_ID_Items.find(throwedItem.getItem()->getItemID()) != Pickable_ID_Items.end();
 }
 
-void ThrownItems::insertItemDroppedFromPlayer(item* itemToAdd)
+void ThrownItems::initEqPtr(ItemStorage* storage)
 {
-	this->ItemsThrownVec->push_back(new ThrowedItem(this->graphicsData, this->equipmentData,this->tile, this->eq, itemToAdd, this->ItemsThrownVec));
-
-	updateItemsThrownSpriteVec();
-	
+	this->storage = storage;
 }
 
-void ThrownItems::insertItemDroppedFromTile(item* itemToAdd, sf::Vector2i tileCord)
+void ThrownItems::insertItemDroppedFromPlayer(std::unique_ptr<item> itemToAdd)
 {
-	this->ItemsThrownVec->push_back(new ThrowedItem(this->graphicsData, this->equipmentData, this->tile, this->eq, itemToAdd, this->ItemsThrownVec, tileCord));
-	updateItemsThrownSpriteVec();
+	this->ItemsThrownVec.push_back(std::make_unique<ThrowedItem>(this->graphicsData, this->equipmentData,this->tile, this->storage, std::move(itemToAdd)));
+	setUpdateCamera();
+}
+
+void ThrownItems::insertItemDroppedFromTile(std::unique_ptr<item> itemToAdd, sf::Vector2i tileCord)
+{
+	this->ItemsThrownVec.push_back(std::make_unique<ThrowedItem>(this->graphicsData, this->equipmentData, this->tile, this->storage, std::move(itemToAdd), tileCord));
+	setUpdateCamera();
 }
 
 void ThrownItems::setNumberOfItemsLastInVector(int value)
 {
-	this->ItemsThrownVec->back()->getItem()->setNumberOfItems(1);
+	this->ItemsThrownVec.back()->getItem()->setNumberOfItems(1);
 }
 
-void ThrownItems::update(const float& dt)
-{
-	checkIfItemDropped();
-
-	if (ItemsThrownVec->size() > 0)
-	{
-		this->ItemsThrownVec->erase
-		(
-			std::remove_if(
-				this->ItemsThrownVec->begin(),
-				this->ItemsThrownVec->end(),
-				[&](auto& ItemsThrownVec)
-				{
-					ItemsThrownVec->update(dt);
-
-					if (ItemsThrownVec->checkIfCatched())
-					{
-						if (ItemsThrownVec->assignItemToAreaFromTiles(ItemsThrownVec->getItem(), this->eq, OrderOfSearch))
-						{
-							this->SprToDeleteVec.push_back(ItemsThrownVec->getItem()->cameraSpriteOfItem->getSprite());
-							this->itemToDeleteFound = true;
-							return true;
-						}
-
-
-						else return false;
-					}
-					
-				}
-			), ItemsThrownVec->end()
-					);
-
-		this->ItemsThrownVec->shrink_to_fit();
-	}
-	
-
-	if (this->itemToDeleteFound)
-	{
-		for (auto* elem : SprToDeleteVec)
-		{
-			this->graphicsData->ItemsThrownSpriteMapped->erase
-			(
-				std::remove_if(this->graphicsData->ItemsThrownSpriteMapped->begin(),
-					this->graphicsData->ItemsThrownSpriteMapped->end(),
-					[&](auto* ItemsThrownSpriteMappedx)
-					{
-						if (ItemsThrownSpriteMappedx->sprite == elem)
-								return true;
-							else return false;
-					}
-				), this->graphicsData->ItemsThrownSpriteMapped->end()
-			);
-		}
-
-		this->graphicsData->ItemsThrownSpriteMapped->shrink_to_fit();
-
-		this->equipmentData->needToUpdateCameraAllSpr = true;
-
-		for (auto elem : SprToDeleteVec)
-			elem=nullptr;
-		SprToDeleteVec.clear();
-
-
-		this->itemToDeleteFound = false;
-	}
-}
 
 	

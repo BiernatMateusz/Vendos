@@ -4,43 +4,43 @@
 #include <iostream>
 #include "ThrowedItem.h"
 #include "itemConstructor.h"
-#include "itemAndItsPosition.h"
+#include "item.h"
+#include "EquipmentAreasMenagement.h"
 
-class ThrownItems
+class ThrownItems:public EquipmentAreasMenagement
 {
 private:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 	ItemConstructor itemCreator{};
-
 	
-	bool catchedItem{};
+	ItemStorage* storage;
 
-	std::vector<int> OrderOfSearch{ 0,2,1 };
-	
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq{};
-	std::vector<std::vector<TilesOnMap*>>* tile;
+	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* tile;
+	std::vector<std::unique_ptr<ThrowedItem>>ItemsThrownVec{};
 
-	std::vector<ThrowedItem*>* ItemsThrownVec{};
-	
-	std::vector<sf::Sprite*>SprToDeleteVec{};
-	sf::Sprite* SprToDelete{};
-	bool itemToDeleteFound{};
+	std::set<int>Pickable_ID_Items{};
+
+	void createPickable_ID_ItemsList();
+
 
 public:
 	//Constructors
-	ThrownItems(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile);
+	ThrownItems(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile);
 
-	void update(const float& dt);
-	void initEqPtr(std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq);
-	void insertItemDroppedFromPlayer(item* itemToAdd);
-	void insertItemDroppedFromTile(item* itemToAdd, sf::Vector2i tileCord);
+	const std::vector<std::unique_ptr<ThrowedItem>>& getItems() const;
+
+	void update(const float& dt, EquipmentStorageArea* storageArea);
+	void initEqPtr(ItemStorage* storage);
+	void insertItemDroppedFromPlayer(std::unique_ptr<item> itemToAdd);
+	void insertItemDroppedFromTile(std::unique_ptr<item> itemToAdd, sf::Vector2i tileCord);
 
 	void setNumberOfItemsLastInVector(int value);
 
-	void updateItemsThrownSpriteVec();
+	void setUpdateCamera();
 	void updatePositionOfEach(const float& dt, float speedX, float speedY);
-	void checkIfItemDropped();
+	void checkIfNewItemDropped();
+	bool checkIfPickPossible(ThrowedItem& throwedItem);
 };
 
 #endif 

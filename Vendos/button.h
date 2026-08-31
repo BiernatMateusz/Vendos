@@ -5,6 +5,7 @@
 #include "SFML/Window.hpp"
 #include "SFML/System.hpp"
 #include <iostream>
+#include "CameraSprite.h"
 
 class button
 {
@@ -18,7 +19,7 @@ public:
 	~button();
 
 	//Update button
-	virtual void update(sf::RenderWindow *window, sf::Sprite* Background);
+	virtual void update(sf::RenderWindow *window, CameraSprite Background);
 
 	//Returning states of button
 	const bool& isButtonPressed() const;
@@ -31,6 +32,13 @@ public:
 	virtual const sf::Vector2i& mouseTileActualGet() const;
 	virtual bool checkIfInBoxArea(sf::Vector2f point, sf::Vector2f Area);
 
+	virtual const bool& isWheelScrolledUp() const;
+	virtual const bool& isWheelScrolledDown() const;
+	virtual void setWheelScrollUp(bool state);
+	virtual void setWheelScrollDown(bool state);
+
+	
+
 protected:
 	void setStates();
 
@@ -38,6 +46,9 @@ protected:
 	bool isNotPressed{};
 	bool oneSignalPressed{};
 	bool oneSignalUnPressed{};
+
+	bool scrollUpTick{};
+	bool scrollDownTick{};
 
 	bool rampPress{};
 	bool rampUnPress{};

@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Debug\\ItemStorage.obj",
+            "outputs": [
+                "x64\\Debug\\ItemStorage.h.obj.dt.module.json",
+                "x64\\Debug\\ItemStorage.h.obj.dt.d.json"
+            ],
+            "requires": []
+        }
+    ]
+}

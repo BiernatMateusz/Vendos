@@ -1,13 +1,8 @@
 #include "EntityPlayer.h"
 
-EntityPlayer::EntityPlayer(sf::Vector2f position, std::string NameOfTxt, GraphicsData *graphicsData, std::vector<std::vector<TilesOnMap*>>* Tile, EquipmentData *equipmentData, ThrownItems* ItemsOnTheGround, std::vector<sf::FloatRect*>* CollisionTilesVec)
-	: Entity(position, NameOfTxt, graphicsData, Tile, CollisionTilesVec, equipmentData)
-{	
-	initPlayer();
-	this->ItemsOnTheGround = ItemsOnTheGround;
-	setStartingPositionOfPlayer();
-	initEquipment(graphicsData, Tile, equipmentData, ItemsOnTheGround);
-
+EntityPlayer::EntityPlayer(std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec) : CollisionTilesVec(CollisionTilesVec)
+{
+	;
 }
 
 EntityPlayer::~EntityPlayer()
@@ -15,16 +10,9 @@ EntityPlayer::~EntityPlayer()
 
 }
 
-void EntityPlayer::setStartingPositionOfPlayer()
+void EntityPlayer::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	getCenterOfScreen();
-
-	this->cameraSprite->getSprite()->setPosition(this->centerOfGame);
-}
-
-void EntityPlayer::update(const float& dt, const std::map<std::string, button*>& AllKeys)
-{
-	this->equipmentPtr->updateStorageArea(dt, AllKeys);
+	this->equipmentPtr->update(dt, AllKeys);
 }
 
 void EntityPlayer::render()
@@ -34,9 +22,9 @@ void EntityPlayer::render()
 
 void EntityPlayer::Animation(const float& dt, std::string&& direction)
 {
-	if (this->equipmentData->isEqOpened) directionEnum = nomov;
+	if (this->equipmentData->isEqOpened) directionEnum = directionOfMovement::nomov;
 
-	if (directionEnum==nomov)
+	if (directionEnum==directionOfMovement::nomov)
 	{
 		time = 0;
 	}
@@ -57,28 +45,28 @@ void EntityPlayer::Animation(const float& dt, std::string&& direction)
 	if (WhichAnimationN == 4)
 		WhichAnimationN = 0;
 
-	this->cameraSprite->getSprite()->setTextureRect
+	this->cameraSpriteOnMap.getSprite().setTextureRect
 	(
 		sf::IntRect
 		(
-			this->textureRect->left + this->textureRect->width * WhichAnimation,
-			this->textureRect->top + 78 * (int)this->graphicsData->lastDirectionOfPlayerEnum,
-			this->textureRect->width, 
-			this->textureRect->height
+			this->txtRect.left + this->txtRect.width * WhichAnimation,
+			this->txtRect.top + 78 * (int)this->graphicsData->lastDirectionOfPlayerEnum,
+			this->txtRect.width, 
+			this->txtRect.height
 		)
 	);
 }
 
-void EntityPlayer::movement(const float& dt, float&& speed, MovementData& movData, const std::map<std::string, button*>& AllKeys)
+void EntityPlayer::playerMovement(const float& dt, float&& speed, MovementData& movData, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	if (AllKeys.at("W")->isButtonPressed())
+	if (AllKeys.at(inputAction::MoveUp)->isButtonPressed())
 	{
-		this->directionEnum = top;
+		this->directionEnum = directionOfMovement::top;
 		this->lastDir = 2;
 		
 		if (CheckingPossibleMove(dt, speed))
 		{
-			if (checkIfBackGroundMoveable() and this->graphicsData->player->getPosition().y < this->graphicsData->CenterOfMap->y)
+			if (checkIfBackGroundMoveable() and this->graphicsData->player->getSprite().getPosition().y - this->centerOfSprite.y < this->graphicsData->CenterOfMap.y)
 			{
 				moveEntitesWithoutThis(dt, 0, speed);
 			}
@@ -88,16 +76,16 @@ void EntityPlayer::movement(const float& dt, float&& speed, MovementData& movDat
 
 
 		}
-		this->graphicsData->lastDirectionOfPlayerEnum = top;
+		this->graphicsData->lastDirectionOfPlayerEnum = directionOfMovement::top;
 	}
-	if (AllKeys.at("S")->isButtonPressed())
+	if (AllKeys.at(inputAction::MoveDown)->isButtonPressed())
 	{
-		this->directionEnum = bot;
+		this->directionEnum = directionOfMovement::bot;
 		this->lastDir = 0;
 
 		if (CheckingPossibleMove(dt, speed))
 		{
-			if (checkIfBackGroundMoveable() and this->graphicsData->player->getPosition().y > this->graphicsData->CenterOfMap->y)
+			if (checkIfBackGroundMoveable() and this->graphicsData->player->getSprite().getPosition().y - this->centerOfSprite.y > this->graphicsData->CenterOfMap.y)
 			{
 				moveEntitesWithoutThis(dt, 0, -speed);
 			}
@@ -105,16 +93,16 @@ void EntityPlayer::movement(const float& dt, float&& speed, MovementData& movDat
 
 			movData.moved = 1;
 		}
-		this->graphicsData->lastDirectionOfPlayerEnum = bot;
+		this->graphicsData->lastDirectionOfPlayerEnum = directionOfMovement::bot;
 	}
-	if (AllKeys.at("A")->isButtonPressed())
+	if (AllKeys.at(inputAction::MoveLeft)->isButtonPressed())
 	{
-		this->directionEnum = left;
+		this->directionEnum = directionOfMovement::left;
 		this->lastDir = 3;
 
 		if (CheckingPossibleMove(dt, speed))
 		{
-			if (checkIfBackGroundMoveable() and this->graphicsData->player->getPosition().x < this->graphicsData->CenterOfMap->x)
+			if (checkIfBackGroundMoveable() and this->graphicsData->player->getSprite().getPosition().x + this->centerOfSprite.x < this->graphicsData->CenterOfMap.x)
 			{
 				moveEntitesWithoutThis(dt, speed, 0);
 			}
@@ -123,16 +111,16 @@ void EntityPlayer::movement(const float& dt, float&& speed, MovementData& movDat
 			movData.moved = 1;
 
 		}
-		this->graphicsData->lastDirectionOfPlayerEnum = left;
+		this->graphicsData->lastDirectionOfPlayerEnum = directionOfMovement::left;
 	}
-	if (AllKeys.at("D")->isButtonPressed())
+	if (AllKeys.at(inputAction::MoveRight)->isButtonPressed())
 	{
-		this->directionEnum = right;
+		this->directionEnum = directionOfMovement::right;
 		this->lastDir = 1;
 
 		if (CheckingPossibleMove(dt, speed))
 		{
-			if (checkIfBackGroundMoveable() and this->graphicsData->player->getPosition().x > this->graphicsData->CenterOfMap->x)
+			if (checkIfBackGroundMoveable() and this->graphicsData->player->getSprite().getPosition().x + this->centerOfSprite.x > this->graphicsData->CenterOfMap.x)
 			{
 				moveEntitesWithoutThis(dt, -speed, 0);
 			}
@@ -141,33 +129,115 @@ void EntityPlayer::movement(const float& dt, float&& speed, MovementData& movDat
 			movData.moved = 1;
 
 		}
-		this->graphicsData->lastDirectionOfPlayerEnum = right;
+		this->graphicsData->lastDirectionOfPlayerEnum = directionOfMovement::right;
 	}
 
-	if (!AllKeys.at("W")->isButtonPressed() and !AllKeys.at("D")->isButtonPressed() and !AllKeys.at("S")->isButtonPressed() and !AllKeys.at("A")->isButtonPressed()) this->directionEnum = nomov;
+	if (!AllKeys.at(inputAction::MoveUp)->isButtonPressed() and !AllKeys.at(inputAction::MoveRight)->isButtonPressed() and !AllKeys.at(inputAction::MoveDown)->isButtonPressed() and !AllKeys.at(inputAction::MoveLeft)->isButtonPressed()) this->directionEnum = directionOfMovement::nomov;
 	
 }
 
-void EntityPlayer::getCenterOfScreen()
+void EntityPlayer::getCenterOfTxt()
 {
-	centerOfGame.x = (float)this->graphicsData->window->getSize().x / 2 - this->textureRect->width / 2;
-	centerOfGame.y = (float)this->graphicsData->window->getSize().y / 2 - this->textureRect->height / 2;
+	this->centerOfSprite.x = this->txtRect.width / 2;
+	this->centerOfSprite.y = this->txtRect.height / 2;
+	
 }
 
-void EntityPlayer::initPlayer()
+void EntityPlayer::initStartingPositionOfEntity(sf::Vector2f position)
 {
-	if (this->graphicsData->player != nullptr)
-		delete this->graphicsData->player;
-
-	this->graphicsData->player = this->cameraSprite->getSprite();
-	this->graphicsData->AllExcludedSpritesPointer->push_back(this->cameraSprite->getSprite());
+	getCenterOfTxt();
+	this->cameraSpriteOnMap.getSprite().setPosition({ position.x - this->centerOfSprite.x,position.y + this->centerOfSprite.y });
 }
 
-void EntityPlayer::initEquipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>* Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
+void EntityPlayer::initPlayer(sf::Vector2f position)
 {
-	this->equipmentPtr = new Equipment(graphicsData, Tile, equipmentData, ItemsOnTheGround);
+	this->graphicsData->player = &this->cameraSpriteOnMap;
+	
+	initStartingPositionOfEntity(position);
+	initEquipment();
+}
+
+void EntityPlayer::initItemsOnTheGround(ThrownItems* ItemsOnTheGround)
+{
+	this->ItemsOnTheGround = ItemsOnTheGround;
+}
+
+void EntityPlayer::initEquipment()
+{
+	this->equipmentPtr = new Equipment(this->graphicsData, this->Tile, this->equipmentData, this->ItemsOnTheGround);
+}
+
+bool EntityPlayer::checkIfBackGroundMoveable()
+{
+	if (directionEnum == directionOfMovement::left)
+	{
+		if (this->graphicsData->backGroundMapped.getSprite().getPosition().x >= 0)
+			return false;
+		else { return true; }
+	}
+	else if (directionEnum == directionOfMovement::right)
+	{
+		if (this->graphicsData->backGroundMapped.getSprite().getPosition().x <= this->graphicsData->window->getSize().x - this->graphicsData->backGroundMapped.getSprite().getGlobalBounds().width)
+			return false;
+		else { return true; }
+	}
+	else if (directionEnum == directionOfMovement::top)
+	{
+		if (this->graphicsData->backGroundMapped.getSprite().getPosition().y >= this->graphicsData->backGroundMapped.getSprite().getGlobalBounds().height)
+			return false;
+		else { return true; }
+	}
+	else if (directionEnum == directionOfMovement::bot)
+	{
+		if (this->graphicsData->backGroundMapped.getSprite().getPosition().y <= this->graphicsData->window->getSize().y)
+			return false;
+		else { return true; }
+	}
 }
 
 
 
+bool EntityPlayer::CheckingPossibleMove(const float& dt, float& speed)
+{
+	bool possible = 1;
 
+	sf::FloatRect tmpRect(this->cameraSpriteOnMap.getSprite().getPosition().x + this->blockadeOffset.x, this->cameraSpriteOnMap.getSprite().getPosition().y + this->blockadeOffset.y, this->sizeOfBlockade.x, this->sizeOfBlockade.y);
+
+	if (directionEnum == directionOfMovement::left)
+		possible = not(collisionManagement.checkCollision({ -dt * speed,0 }, &tmpRect, this->CollisionTilesVec));
+
+	if (directionEnum == directionOfMovement::right)
+		possible = not(collisionManagement.checkCollision({ dt * speed,0 }, &tmpRect, this->CollisionTilesVec));
+
+	if (directionEnum == directionOfMovement::top)
+		possible = not(collisionManagement.checkCollision({ 0,-dt * speed }, &tmpRect, this->CollisionTilesVec));
+
+	if (directionEnum == directionOfMovement::bot)
+		possible = not(collisionManagement.checkCollision({ 0,dt * speed }, &tmpRect, this->CollisionTilesVec));
+
+	return possible;
+}
+
+void EntityPlayer::moveEntity(const float& dt, float speedX, float speedY)
+{
+	this->cameraSpriteOnMap.getSprite().move(dt * speedX, dt * speedY);
+	this->collisionBox.left = this->cameraSpriteOnMap.getSprite().getPosition().x + this->blockadeOffset.x;
+	this->collisionBox.top = this->cameraSpriteOnMap.getSprite().getPosition().y + this->blockadeOffset.y;
+
+}
+
+void EntityPlayer::moveEntitesWithoutThis(const float& dt, float speedX, float speedY)
+{
+	this->camer->moveObjects_PlayerExcluded(this->cameraSpriteOnMap, dt, { speedX,speedY });
+
+	for (auto& row : *Tile)
+		for (auto& elem : row)
+		{
+			if (elem != nullptr)// and elem->getCollisionBox() != nullptr)
+				elem->updateCollisionBoxPos();
+		}
+
+	if (ItemsOnTheGround)
+		ItemsOnTheGround->updatePositionOfEach(dt, speedX, speedY);
+
+}

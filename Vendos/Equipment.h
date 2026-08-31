@@ -7,64 +7,58 @@
 
 #include "StructuresOfData.h"
 
-#include "ItemConstructor.h"
-
 #include "Camera.h"
 #include "ThrownItems.h"
 
 #include "TilesByItemsManagement.h"
 #include "EquipmentAreas.h"
 
-#include "Crafting.h"
+#include "CraftingItems.h"
+#include "PlayerStorage.h"
+#include "inputAction.h"
+#include "EquipmentInputControler.h"
 
-
-
-class Equipment :
-	public EquipmentStorageArea
+class Equipment
 {
 private:
-	//Variables
+	std::unique_ptr<PlayerStorage> playerStorage;
+	std::unique_ptr<CraftingItems> playerCrafting;
+
+	///////////////////////////////////////////Pointers not owned ///////////////////////////////////////////////////
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
-	std::vector<std::vector<TilesOnMap*>>* Tile;
-
-	TilesByItemsManagement* tilesByItemManagement;
-	Crafting* crafting;
-
-	//Second eq area holder
+	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile;
 	EquipmentStorageArea* secondEq{};
-
-	//ThrownItemsClass
 	ThrownItems* itemsOnTheGround{};
 
-	//Eq menagement
-	EquipmentAreas *eqAreas{};
 
-	bool ableToClose{};
-	bool ableToOpen{};
-	sf::Vector2i OpenedWorkstationAreaCords{};
+	///////////////////////////////////////////Pointers owned ///////////////////////////////////////////////////
+	std::unique_ptr<EquipmentAreas>eqAreas;
+	std::unique_ptr<TilesByItemsManagement>tilesByItemManagement;
+	std::unique_ptr<EquipmentInputControler>inputController;
 
+	//Private functions
+	void initPlayerStorage();
+	void initPlayerCrafting();
+	void calculatePositionOfFirstItem();
+	
+	void updateBottomBar();
+	void updateActiveStorages(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 
-	ItemConstructor factoryOfItems;
+	void setState(EquipmentUIState newState, EquipmentStorageArea* itemStorage = nullptr);
+	void handleToggleInventory();
+	void tryOpenChest();
 
-	//Additional functions
-	void updateKeybinds(const std::map<std::string, button*>& AllKeys);
-	void initEquipment();
-	void calculatePositionOfFirstItemEqAndChest();
-
-	void openingEquipment(const std::map<std::string, button*>& AllKeys);
-	void openingChest(const std::map<std::string, button*>& AllKeys);
-	void changingSelectedItem(const std::map<std::string, button*>& AllKeys);
 
 
 protected:
 
 public:
-	//Constructors/Destructors
-	Equipment(GraphicsData* graphicsData, std::vector<std::vector<TilesOnMap*>>* Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
+	//Constructors//Destructors
+	Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
 
-	//Functions
-	void updateStorageArea(const float& dt, const std::map<std::string, button*>& AllKeys);
+	//Public Functions
+	void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	void render();
 
 };

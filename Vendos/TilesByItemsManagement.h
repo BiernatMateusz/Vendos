@@ -3,25 +3,23 @@
 
 #include "TilesManagement.h"
 #include "ItemConstructor.h"
-#include "TileConstructor.h"
-#include "itemAndItsPosition.h"
+
+class ItemStorage;
 
 class TilesByItemsManagement : public TilesManagement
 {
 public:
-	TilesByItemsManagement(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq);
+	TilesByItemsManagement(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storage);
 	
-	void update(const float& dt, const std::map<std::string, button*>& AllKeys);
+	void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	
 	void setNumberOfSlotOnBottomBar(const int &number);
 	int getNumberOfSlotOnBottomBar();
 	void resetTimeoutWhileActionTrue();
 
 private:
-	std::vector<std::vector<item*>>* Eq{};
-	std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq{};
+	ItemStorage* storage;
 	ItemConstructor factoryOfItems;
-	TileConstructor factoryOfTiles;
 	int numberOfSlotOnBottomBar{};
 	item* itemUsed{};
 
@@ -30,24 +28,24 @@ private:
 
 	float timePassedWhileAction{};
 
-	void (TilesByItemsManagement::* ToolAction)(const std::map<std::string, button*>& AllKeys);
+	void (TilesByItemsManagement::* ToolAction)(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	
 	bool timeoutWhileActionIsHappening{};
 
 	bool checkIfTileTypeMatchingToolType();
 
 	item* getItemUsed();
-	TilesOnMap* getTileUsed(const std::map<std::string, button*>& AllKeys);
+	TilesOnMap* getTileUsed(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 
 	void chooseFunction();
 
-	void ToolReplaceBlock(const std::map<std::string, button*>& AllKeys);
-	void ToolDropItem(const std::map<std::string, button*>& AllKeys);
-	void ToolPickItemFromTile(const std::map<std::string, button*>& AllKeys);
-	void ToolPlaceItem(const std::map<std::string, button*>& AllKeys);
-	void HandAction(const std::map<std::string, button*>& AllKeys);
+	void ToolReplaceBlock(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void ToolDropItem(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void ToolPickItemFromTile(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void ToolPlaceItem(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
+	void HandAction(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 
-	bool checkIfActionTriggered(const std::map<std::string, button*>& AllKeys);
+	bool checkIfActionTriggered(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	bool checkIfActionIsPossible();
 	
 	void actionTimeManagement(const float& dt);

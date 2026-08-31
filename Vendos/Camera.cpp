@@ -1,4 +1,6 @@
 #include "Camera.h"
+#include "ThrownItems.h"
+
 //Operators
 bool operator>(const sf::Sprite &x,const sf::Sprite &y)
 {
@@ -8,15 +10,7 @@ bool operator>(const sf::Sprite &x,const sf::Sprite &y)
 //Constructors
 Camera::Camera(GraphicsData *graphicsData)
 {
-	
 	initGraphicsBasics(graphicsData);
-	
-	if (graphicsData->EntitiesSprite->size() > 0)
-	{
-		this->Player = *graphicsData->EntitiesSprite->begin();
-		this->CenterOfMap = Player->getPosition();
-		graphicsData->CenterOfMap = &this->CenterOfMap;
-	}
 
 	cameraSpriteJoin();
 	sortVectorMapped();
@@ -27,41 +21,48 @@ Camera::~Camera()
 
 }
 
+void Camera::initPlayer(CameraSprite cameraSprite)
+{
+	;// this->Player = cameraSprite;
+}
 
 void Camera::initGraphicsBasics(GraphicsData* graphicsData)
 {
 	this->graphicsData = graphicsData;
-	this->BackGround = graphicsData->backGroundMapped->getSprite();
-	this->Window = graphicsData->window;
 }
 
 void Camera::cameraSpriteJoin()
 {
-	if (graphicsData->EntitiesSpriteMapped->size() > 0)
-		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->EntitiesSpriteMapped), std::end(*graphicsData->EntitiesSpriteMapped));
+	AllSpritesMapped.clear();
 
-	if (graphicsData->TilesSpriteMapped->size() > 0)
-		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->TilesSpriteMapped), std::end(*graphicsData->TilesSpriteMapped));
-
-	if (graphicsData->ItemsThrownSpriteMapped->size() > 0)
-		AllSpritesMapped.insert(std::end(AllSpritesMapped), std::begin(*graphicsData->ItemsThrownSpriteMapped), std::end(*graphicsData->ItemsThrownSpriteMapped));
-
-
-	this->AllSpritesMapped.erase
-	(
-		std::remove_if(
-			this->AllSpritesMapped.begin(),
-			this->AllSpritesMapped.end(),
-			[&](auto& AllSpritesMapped)
+	auto appendPtrs = [this](const std::vector<CameraSprite*>& vec)
+		{
+			for (CameraSprite* sprite : vec)
 			{
-				if (AllSpritesMapped == nullptr) return true;
-				else return false;
+				if (sprite && sprite->isActive())
+					AllSpritesMapped.push_back(sprite);
 			}
-		), AllSpritesMapped.end()
-	);
+		};
 
-	this->AllSpritesMapped.shrink_to_fit();
+	appendPtrs(graphicsData->EntitiesSpriteMapped);
+	appendPtrs(graphicsData->TilesSpriteMapped);
+	appendThrownItems();
 			
+}
+
+void Camera::appendThrownItems()
+{
+	if (graphicsData->thrownItems)
+		for (auto& item : graphicsData->thrownItems->getItems())
+		{
+			if (item && item->getItem())
+			{
+				CameraSprite& spr = item->getItem()->cameraSpriteOfItem;
+
+				if (spr.isActive())
+					AllSpritesMapped.push_back(&spr);
+			}
+		}
 }
 
 //Functions
@@ -74,20 +75,19 @@ void Camera::updateAllSpritesVecMapped(EquipmentData* equipmentData)
 
 	sortVectorMapped();
 
-	equipmentData->needToUpdateCameraAllSpr = 0;
-
+	equipmentData->needToUpdateCameraAllSpr = false;
 
 }
 
 void Camera::sortVectorMapped()
 {
 	std::sort(std::begin(AllSpritesMapped), std::end(AllSpritesMapped),
-		[*this](CameraSprite*& y, CameraSprite*& x) -> bool
+		[](CameraSprite*& y, CameraSprite*& x) -> bool
 		{
-			if (y->sprite->getPosition().y + y->distance != x->sprite->getPosition().y + x->distance)
-				return y->sprite->getPosition().y + y->distance < x->sprite->getPosition().y + x->distance;
+			if (y->getSprite().getPosition().y + y->getDistance() != x->getSprite().getPosition().y + x->getDistance())
+				return y->getSprite().getPosition().y + y->getDistance() < x->getSprite().getPosition().y + x->getDistance();
 			else 
-				return y->sprite->getPosition().x < x->sprite->getPosition().x;
+				return y->getSprite().getPosition().x < x->getSprite().getPosition().x;
 		}
 	);
 	
@@ -96,20 +96,60 @@ void Camera::sortVectorMapped()
 
 void Camera::render(sf::RenderWindow* window)
 {
-	//Function enables us to draw background at the beggining then all sprites
-	window->draw(*this->BackGround);
+	window->draw(this->graphicsData->backGroundMapped.getSprite());
 
 	for (auto &elem : AllSpritesMapped)
-	{
-		window->draw(*elem->sprite);
-	}
-	
+		window->draw(elem->getSprite());
+
+	//window->draw(this->graphicsData->backGroundMapped.getSprite());
+
+	//std::unordered_map<const sf::Texture*, sf::VertexArray> batches;
+
+	//for (auto& elem : AllSpritesMapped)
+	//{
+	//	sf::Sprite& sprite = elem->getSprite();
+	//	const sf::Texture* texture = sprite.getTexture();
+	//	if (!texture) continue;
+
+	//	// pobierz batch dla tej tekstury
+	//	auto& batch = batches[texture];
+	//	batch.setPrimitiveType(sf::Quads);
+
+	//	std::size_t start = batch.getVertexCount();
+	//	batch.resize(start + 4);
+
+	//	sf::Vertex* quad = &batch[start];
+
+	//	sf::Vector2f pos = sprite.getPosition();
+	//	sf::FloatRect bounds = sprite.getGlobalBounds();
+	//	sf::IntRect uv = sprite.getTextureRect();
+
+	//	quad[0].position = { pos.x, pos.y };
+	//	quad[1].position = { pos.x + bounds.width, pos.y };
+	//	quad[2].position = { pos.x + bounds.width, pos.y + bounds.height };
+	//	quad[3].position = { pos.x, pos.y + bounds.height };
+
+	//	quad[0].texCoords = { (float)uv.left, (float)uv.top };
+	//	quad[1].texCoords = { (float)(uv.left + uv.width), (float)uv.top };
+	//	quad[2].texCoords = { (float)(uv.left + uv.width), (float)(uv.top + uv.height) };
+	//	quad[3].texCoords = { (float)uv.left, (float)(uv.top + uv.height) };
+	//}
+
+	//// render wszystkich batchy
+	//for (auto& [texture, batch] : batches)
+	//{
+	//	sf::RenderStates states;
+	//	states.texture = texture;
+
+	//	window->draw(batch, states);
+	//}
+
 }
 
-void Camera::moveObjects_1stExcluded(sf::Sprite* Excluded, const float& dt, sf::Vector2f speed)
+void Camera::moveObjects_PlayerExcluded(CameraSprite& Excluded, const float& dt, sf::Vector2f speed)
 {
-	this->graphicsData->backGroundMapped->sprite->move(dt * speed.x, dt * speed.y);
+	this->graphicsData->backGroundMapped.getSprite().move(dt * speed.x, dt * speed.y);
 	for (auto *elem : this->AllSpritesMapped)
-		if (elem->sprite != Excluded)
-			elem->sprite->move(dt * speed.x, dt * speed.y);
+		if (elem != &Excluded)
+			elem->getSprite().move(dt * speed.x, dt * speed.y);
 }

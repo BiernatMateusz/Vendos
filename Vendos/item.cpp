@@ -18,14 +18,9 @@ void item::updateAndRenderNumberOfItems()
 	this->numberOfItems.setFont(this->graphicsData->font);
 
 	this->numberOfItems.setPosition(
-		this->cameraSpriteOfItem->getSprite()->getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
-		this->cameraSpriteOfItem->getSprite()->getPosition().y + 62);
+		this->cameraSpriteOfItem.getSprite().getPosition().x + 80 - numberOfItems.getGlobalBounds().width,
+		this->cameraSpriteOfItem.getSprite().getPosition().y + 62);
 	this->graphicsData->window->draw(this->numberOfItems);
-}
-
-const int& item::getBreakingDamage() const
-{
-	return {};
 }
 
 const ItemNames& item::getItemName() const
@@ -58,9 +53,8 @@ void item::initItemBasicData(EquipmentData* equipmentData, TextureNames nameOfTx
 
 void item::initItemGraphicsData()
 {
-	this->cameraSpriteOfItem = new CameraSprite;
-	this->cameraSpriteOfItem->distance = this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfItem)->offsetForCamera;
-	this->cameraSpriteOfItem->setSpriteTexture(*this->graphicsData->TextureDataMapN->at(this->nameOfTxtOfItem)->texture);
+	this->cameraSpriteOfItem.setDistance(this->graphicsData->TexturesData.at(this->nameOfTxtOfItem)->offsetForCamera);
+	this->cameraSpriteOfItem.setTexture(*this->graphicsData->TexturesData.at(this->nameOfTxtOfItem)->texture);
 }
 
 void item::initItemIDandName(int ID, ItemNames itemName)
@@ -88,8 +82,7 @@ item& item::operator=(const item& model)
 
 item::~item()
 {
-	delete this->cameraSpriteOfItem;
-	this->cameraSpriteOfItem = nullptr;
+	;
 }
 
 int item::getNumberOfItems()
@@ -171,6 +164,16 @@ bool item::hasTimePassed(float& timePassed)
 	return (timePassed >=  this->timeOfItemUsage) ? true : false;
 }
 
+void item::setType(typeOfSlot type)
+{
+	this->slotType = type;
+}
+
+const typeOfSlot item::getType()
+{
+	return this->slotType;
+}
+
 void item::update(const float& dt, const std::map<std::string, button*>& AllKeys)
 {
 	updateKeybinds(dt, AllKeys);
@@ -178,7 +181,7 @@ void item::update(const float& dt, const std::map<std::string, button*>& AllKeys
 
 void item::render()
 {
-	this->graphicsData->window->draw(*this->cameraSpriteOfItem->getSprite());
+	this->graphicsData->window->draw(this->cameraSpriteOfItem.getSprite());
 
 	updateAndRenderNumberOfItems();
 }
@@ -191,4 +194,20 @@ bool item::isNullItemsInStack()
 bool item::isMaxItemsInStack()
 {
 	return (this->numberOfItemsInStack == maxStack) ? true : false;
+}
+
+//Function slotInStorages
+void item::setPositionInStorage(sf::Vector2f pos) 
+{
+	this->cameraSpriteOfItem.setPosition(pos);
+}
+
+sf::Vector2f item::getPosition() const
+{
+	return this->cameraSpriteOfItem.getSprite().getPosition();
+}
+
+void item::drawItem()
+{
+	render();
 }

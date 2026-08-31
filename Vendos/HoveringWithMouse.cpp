@@ -1,6 +1,6 @@
 #include "HoveringWithMouse.h"
 
-HoveringWithMouse::HoveringWithMouse(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile)
+HoveringWithMouse::HoveringWithMouse(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
@@ -11,7 +11,7 @@ HoveringWithMouse::HoveringWithMouse(GraphicsData* graphicsData, EquipmentData* 
 	this->numberOfItems.setStyle(sf::Text::Bold);
 }
 
-void HoveringWithMouse::update(const float& dt, const std::map<std::string, button*>& AllKeys)
+void HoveringWithMouse::update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	coordsOfActualTile = this->getActualTileCords(AllKeys);
 	updateAndRenderTileText(AllKeys);
@@ -24,14 +24,14 @@ void HoveringWithMouse::render()
 		this->graphicsData->window->draw(this->numberOfItems);
 }
 
-sf::Vector2i HoveringWithMouse::getActualTileCords(const std::map<std::string, button*>& AllKeys)
+sf::Vector2i HoveringWithMouse::getActualTileCords(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
-	return { AllKeys.at("LeftMouse")->mouseTileActualGet().x,AllKeys.at("LeftMouse")->mouseTileActualGet().y };
+	return { AllKeys.at(inputAction::LMouse)->mouseTileActualGet().x,AllKeys.at(inputAction::LMouse)->mouseTileActualGet().y };
 }
 
 void HoveringWithMouse::updateDisplayedTxt()
 {
-	tileHovered = this->Tile->at(this->coordsOfActualTile.x).at(this->coordsOfActualTile.y);
+	tileHovered = this->Tile->at(this->coordsOfActualTile.x).at(this->coordsOfActualTile.y).get();
 	
 	if (tileHovered != nullptr)
 		this->displayedTxt = std::to_string(tileHovered->getRemainingDurability()) + "/" + std::to_string(tileHovered->getMaxDurability());
@@ -39,7 +39,7 @@ void HoveringWithMouse::updateDisplayedTxt()
 		this->displayedTxt = "";
 }
 
-void HoveringWithMouse::updateAndRenderTileText(const std::map<std::string, button*>& AllKeys)
+void HoveringWithMouse::updateAndRenderTileText(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys)
 {
 	updateDisplayedTxt();
 
@@ -49,7 +49,7 @@ void HoveringWithMouse::updateAndRenderTileText(const std::map<std::string, butt
 	this->numberOfItems.setFont(this->graphicsData->font);
 
 	this->numberOfItems.setPosition(
-		AllKeys.at("LeftMouse")->mousePosGet().x+15, //- numberOfItems.getGlobalBounds().width
-		AllKeys.at("LeftMouse")->mousePosGet().y+15);
+		AllKeys.at(inputAction::LMouse)->mousePosGet().x+15, //- numberOfItems.getGlobalBounds().width
+		AllKeys.at(inputAction::LMouse)->mousePosGet().y+15);
 	
 }

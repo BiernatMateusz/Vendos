@@ -1,38 +1,33 @@
 #include "ThrowedItem.h"
+#include "ItemStorage.h"
 
 //Constructors
-ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq, item* item, std::vector<ThrowedItem*>* ItemsThrownVec)
+ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storage, std::unique_ptr<item> item)
 : EquipmentAreasMenagement(graphicsData, equipmentData)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
-	this->eq = eq;
+	this->storage = storage;
 	this->tile = Tile;
-	this->Item = item;
-	this->ItemsThrownVec = ItemsThrownVec;
+	this->Item = std::move(item);
 	this->directionEnum = this->graphicsData->lastDirectionOfPlayerEnum;
 
 	setItemParametersFromPlayer();
 	setItemDestination();
 
-	this->graphicsData->ItemsThrownSpriteMapped->push_back(new CameraSprite);
-	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSpriteOfItem;
 }
 
-ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<TilesOnMap*>>* Tile, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* eq, item* item, std::vector<ThrowedItem*>* ItemsThrownVec, sf::Vector2i TileCords)
+ThrowedItem::ThrowedItem(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, ItemStorage* storage, std::unique_ptr<item> item, sf::Vector2i TileCords)
 {
 	this->graphicsData = graphicsData;
 	this->equipmentData = equipmentData;
-	this->eq = eq;
+	this->storage = storage;
 	this->tile = Tile;
-	this->Item = item;
-	this->ItemsThrownVec = ItemsThrownVec;
+	this->Item = std::move(item);
 
 	setItemParametersFromTile(TileCords);
 	setItemDestinationFromTile();
 
-	this->graphicsData->ItemsThrownSpriteMapped->push_back(new CameraSprite);
-	this->graphicsData->ItemsThrownSpriteMapped->back() = Item->cameraSpriteOfItem;
 }
 
 //Constructor functions
@@ -40,22 +35,22 @@ void ThrowedItem::setItemDestination()
 {
 	this->distanceMaxValue = this->distanceMaxValueBase;
 
-	if (this->directionEnum == right)
+	if (this->directionEnum == directionOfMovement::right)
 		this->distanceToGo = { this->distanceMaxValue,0 };
-	else if (this->directionEnum == left)
+	else if (this->directionEnum == directionOfMovement::left)
 		this->distanceToGo = { -this->distanceMaxValue,0 };
-	else if (this->directionEnum == top)
+	else if (this->directionEnum == directionOfMovement::top)
 	{
 		this->distanceMaxValue -= this->offsetYofDroppedItemFromPlayer;			//Throwed item from player starts from offset which is visibly higher -> to make item go equaly far from every direction offset is needed
 		this->distanceToGo = { 0,-this->distanceMaxValue };
 	}
-	else if (this->directionEnum == bot)
+	else if (this->directionEnum == directionOfMovement::bot)
 	{
 		this->distanceMaxValue += this->offsetYofDroppedItemFromPlayer;
 		this->distanceToGo = { 0,this->distanceMaxValue };
 	}
 
-	this->destinationOfItem = { this->graphicsData->player->getPosition().x + this->distanceToGo.x, this->graphicsData->player->getPosition().y + this->distanceToGo.y };
+	this->destinationOfItem = { this->graphicsData->player->getSprite().getPosition().x + this->distanceToGo.x, this->graphicsData->player->getSprite().getPosition().y + this->distanceToGo.y};
 }
 
 void ThrowedItem::setItemDestinationFromTile()
@@ -79,29 +74,29 @@ void ThrowedItem::setItemParametersFromPlayer()
 {
 	this->droppedFromPlayer = true;
 
-	this->Item->cameraSpriteOfItem->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
-	this->Item->cameraSpriteOfItem->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
+	this->Item->cameraSpriteOfItem.getSprite().setScale(this->equipmentData->scaleOfThrownItems);
+	this->Item->cameraSpriteOfItem.getSprite().setOrigin(this->equipmentData->originOfItemsDropped);
 
-	this->Item->cameraSpriteOfItem->getSprite()->setPosition({this->graphicsData->player->getPosition().x,this->graphicsData->player->getPosition().y - offsetYofDroppedItemFromPlayer});
-	this->initialPosition = this->Item->cameraSpriteOfItem->getSprite()->getPosition();
+	this->Item->cameraSpriteOfItem.getSprite().setPosition({this->graphicsData->player->getSprite().getPosition().x,this->graphicsData->player->getSprite().getPosition().y - offsetYofDroppedItemFromPlayer});
+	this->initialPosition = this->Item->cameraSpriteOfItem.getSprite().getPosition();
 }
 
 void ThrowedItem::setItemParametersFromTile(sf::Vector2i tileCord)
 {
-	this->Item->cameraSpriteOfItem->getSprite()->setScale(this->equipmentData->scaleOfThrownItems);
-	this->Item->cameraSpriteOfItem->getSprite()->setOrigin(this->equipmentData->originOfItemsDropped);
+	this->Item->cameraSpriteOfItem.getSprite().setScale(this->equipmentData->scaleOfThrownItems);
+	this->Item->cameraSpriteOfItem.getSprite().setOrigin(this->equipmentData->originOfItemsDropped);
 
 	//to change below 
-	this->Item->cameraSpriteOfItem->getSprite()->setPosition(this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().x+this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->cameraSpriteOfTile->getSprite()->getPosition().y + this->graphicsData->tileSize );
-	this->initialPosition = this->Item->cameraSpriteOfItem->getSprite()->getPosition();
+	this->Item->cameraSpriteOfItem.getSprite().setPosition(this->tile->at(tileCord.x).at(tileCord.y)->getCameraSpriteOnMap().getSprite().getPosition().x + this->equipmentData->originOfItemsDropped.x, this->tile->at(tileCord.x).at(tileCord.y)->getCameraSpriteOnMap().getSprite().getPosition().y + this->graphicsData->tileSize);
+	this->initialPosition = this->Item->cameraSpriteOfItem.getSprite().getPosition();
 }
 
 //Update function
-void ThrowedItem::update(const float& dt)
+void ThrowedItem::update(const float& dt, bool canBePicked)
 {
 	accumulateTimeOfItemOnGround(dt);
 
-	if (not(destinationReached))
+	if (!destinationReached)
 		itemMovementTowardsDestination(dt);
 	else
 	{
@@ -111,33 +106,19 @@ void ThrowedItem::update(const float& dt)
 			destinationReachedONS = 1;
 		}
 	}
-
 	
 	if (this->timePassedWhileOnGround > this->timeWhileUnableToCatch)
-	{
-		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->getItemID()) == this->equipmentData->IDofItemsWhichCantBeTaken.end())
-			if (checkDistanceItemToPlayer())
-			{
-				SpeedOfFlyingItem.x = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.x * 1.5 / distance, this->distanceToPlayer.x);
-				SpeedOfFlyingItem.y = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.y * 1.5 / distance, this->distanceToPlayer.y);
+		if (canBePicked && checkDistanceItemToPlayer())
+		{
+			SpeedOfFlyingItem.x = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.x * 1.5 / distance, this->distanceToPlayer.x);
+			SpeedOfFlyingItem.y = -std::copysign(this->maxDistanceToCatchItem * dt * this->distanceToPlayer.y * 1.5 / distance, this->distanceToPlayer.y);
 
-				this->Item->cameraSpriteOfItem->getSprite()->move(SpeedOfFlyingItem);
-			}
-	}
-
-	makeUnpickableItemsList({0,2,1});
+			this->Item->cameraSpriteOfItem.getSprite().move(SpeedOfFlyingItem);
+		}
 }
 
 //Function in update
-void ThrowedItem::compareAddableAndUnaddableList()
-{
-	for (auto elem : TmpUnAddableList)
-		if (std::end(this->TmpAddableList) == std::find(std::begin(this->TmpAddableList), std::end(this->TmpAddableList), elem ))
-			this->equipmentData->IDofItemsWhichCantBeTaken.insert(elem);
 
-	this->TmpUnAddableList.clear();
-	this->TmpAddableList.clear();
-}
 
 void ThrowedItem::calculateMoveDistanceItemFromPlayer()
 {
@@ -156,17 +137,17 @@ void ThrowedItem::setDistanceToMoveBasedOnDirection()
 	if (distanceFlied.y >= offsetYofDroppedItemFromPlayer)
 		calculatedDistanceToMove.y = 0;
 
-	if (this->directionEnum == left)
+	if (this->directionEnum == directionOfMovement::left)
 	{
 		calculatedDistanceToMove.x = -calculatedDistanceToMove.x;
 	}
-	else if (this->directionEnum == top)
+	else if (this->directionEnum == directionOfMovement::top)
 	{
 		calculatedDistanceToMove.y = -calculatedDistanceToMove.x;
 		calculatedDistanceToMove.x = 0;
 
 	}
-	else if (this->directionEnum == bot)
+	else if (this->directionEnum == directionOfMovement::bot)
 	{
 		calculatedDistanceToMove.y = calculatedDistanceToMove.x;
 		calculatedDistanceToMove.x = 0;
@@ -182,7 +163,9 @@ void ThrowedItem::itemMovementThrewnFromPlayer(const float& dt)
 	setDistanceToMoveBasedOnDirection();
 
 	if (distanceFlied.x >= distanceMaxValue)
+	{
 		destinationReached = true;
+	}
 }
 
 void ThrowedItem::itemMovementThrewnFromNonPlayer(const float& dt)
@@ -204,14 +187,14 @@ void ThrowedItem::getAndChangeDestinationOfItem(sf::Vector2f MoveValues)
 
 bool ThrowedItem::checkDistanceItemToPlayer()
 {
-	this->distanceToPlayer.x = this->Item->cameraSpriteOfItem->getSprite()->getPosition().x - this->graphicsData->player->getPosition().x;
-	this->distanceToPlayer.y = this->Item->cameraSpriteOfItem->getSprite()->getPosition().y - this->graphicsData->player->getPosition().y;
+	this->distanceToPlayer.x = this->Item->cameraSpriteOfItem.getSprite().getPosition().x - this->graphicsData->player->getSprite().getPosition().x;
+	this->distanceToPlayer.y = this->Item->cameraSpriteOfItem.getSprite().getPosition().y - this->graphicsData->player->getSprite().getPosition().y;
 
 	this->distance = sqrt(pow(distanceToPlayer.x, 2) + pow(distanceToPlayer.y, 2));
 
 	if (this->distance <= this->minDistanceToCatchItem)
 	{
-		catchedItem = 1;
+		catchedItem = true;
 		return false;
 	}
 
@@ -222,58 +205,37 @@ bool ThrowedItem::checkDistanceItemToPlayer()
 	return false;
 }
 
-void ThrowedItem::makeUnpickableItemsList(std::vector<int>orderOfSearch)
-{
-	for (int i=0;i<orderOfSearch.size();i++)
-		for (int j=0;j<eq->size();j++)
-			if (eq->at(j).at(i).second->getItemPtr() == nullptr)
-			{
-				this->equipmentData->IDofItemsWhichCantBeTaken.clear();
-				return;
-			}
-			else if (eq->at(j).at(i).second->getItemPtr()->checkIfAddable() == false)
-			{
-				this->TmpUnAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->getItemID());
-			}
-			else
-			{
-				this->TmpAddableList.push_back(eq->at(j).at(i).second->getItemPtr()->getItemID());
-			}
-
-	compareAddableAndUnaddableList();
-}
-
 //Functions
-item* ThrowedItem::getItem()
+std::unique_ptr<item>& ThrowedItem::getItem()
 {
-	return this->Item;
+	return Item;
 }
 
-void ThrowedItem::setCatchedState(bool catched)
+void ThrowedItem::setItem(std::unique_ptr<item>& item)
 {
-	this->catchedItem = catched;
+	this->Item = std::move(item);
 }
 
-bool ThrowedItem::checkIfCatched()
+std::unique_ptr<item> ThrowedItem::take()
 {
-	if (this->catchedItem)
-		if (this->equipmentData->IDofItemsWhichCantBeTaken.find(this->Item->getItemID()) != this->equipmentData->IDofItemsWhichCantBeTaken.end()) //zawsze puste hmm
-		{
-			this->catchedItem = 0;
-		}
-		
+	return std::move(this->Item);
+}
 
+bool ThrowedItem::isCatched()
+{
 	return this->catchedItem;
 }
 
 void ThrowedItem::itemMovementTowardsDestination(const float& dt)
 {
 	if (this->droppedFromPlayer)
+	{
 		itemMovementThrewnFromPlayer(dt);
+	}
 	else
 		itemMovementThrewnFromNonPlayer(dt);
 
-	this->Item->cameraSpriteOfItem->getSprite()->move(dt * this->calculatedDistanceToMove.x, dt * calculatedDistanceToMove.y);
+	this->Item->cameraSpriteOfItem.getSprite().move(dt * this->calculatedDistanceToMove.x, dt * calculatedDistanceToMove.y);
 }
 
 void ThrowedItem::accumulateTimeOfItemOnGround(const float& dt)

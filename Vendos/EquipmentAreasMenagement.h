@@ -5,7 +5,10 @@
 #include "StructuresOfData.h"
 #include "item.h"
 #include "TilesOnMap.h"
-#include "itemAndItsPosition.h"
+#include "slot.h"
+
+
+class ItemStorage;
 
 class EquipmentAreasMenagement
 {
@@ -13,18 +16,21 @@ public:
 	EquipmentAreasMenagement();
 	EquipmentAreasMenagement(GraphicsData* graphicsData, EquipmentData* equipmentData);
 
-	bool assignItemToAreaFromTiles(item* item, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch);
-	bool assignItemToAreaInEquipment(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::vector < std::vector<std::pair <bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> orderOfSearch);
+	//bool assignItemToAreaFromTiles(item* item, ItemStorage& storage, std::vector<int> orderOfSearch);
+	std::unique_ptr<item> assignItemToChosenArea(std::unique_ptr<item> slotOfItemToDelete, ItemStorage &storage, std::vector<int> orderOfSearch);
 
-	bool checkIfPossibleItemPlacement(item* item, std::vector<std::vector<std::pair<bool, itemAndItsPosition*>>>* itemsArea, std::vector<int> lineOfSearches);
+	//bool checkIfPossibleItemPlacement(item* item, ItemStorage& storage, std::vector<int> lineOfSearches);
+
+	bool isThereItem(ItemStorage& storage, ItemNames itemName, int count);
+	void takeItems(ItemStorage& storage, ItemNames itemName, int count);
 
 protected:
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
 
 private:
-	bool ifSameID(std::pair<bool, itemAndItsPosition*> slotOfItemToDelete, std::pair <bool, itemAndItsPosition*> slot);
-	bool ifEmptySpot(std::pair <bool, itemAndItsPosition*> slot);
+	bool ifSameID(item* slotOfItemToDelete, item* Slot);
+	bool ifEmptySpot(slot& slot);
 };
 
 #endif // !EQUIPMENTAREASMENAGEMENT
