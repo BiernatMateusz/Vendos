@@ -21,7 +21,7 @@ public:
 	void pushSpriteToMainEntitiesVector();
 	
 	void initCamera(Camera* Camer);
-	void initEntityBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec);
+	void initEntityBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec);
 
 };
 

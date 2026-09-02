@@ -6,7 +6,7 @@ void EntityConstructor::init(GraphicsData* graphicsData, EquipmentData* equipmen
 	this->equipmentData = equipmentData;
 }
 
-std::unique_ptr<Entity> EntityConstructor::createEntity(EntityNames entityType, ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile,
+std::unique_ptr<Entity> EntityConstructor::createEntity(EntityNames entityType, ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile,
 	std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec)
 {
 	auto entity = std::make_unique<Entity>(graphicsData, CollisionTilesVec);

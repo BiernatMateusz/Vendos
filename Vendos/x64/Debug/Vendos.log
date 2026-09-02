@@ -1,2 +1,343 @@
-﻿  TilesManagement.cpp
+﻿  button.cpp
+  Camera.cpp
+  CameraSprite.cpp
+  Collision.cpp
+  CraftingItems.cpp
+  Entity.cpp
+  EntityConstructor.cpp
+  EntityPlayer.cpp
+  Equipment.cpp
+  EquipmentAreas.cpp
+  EquipmentAreasMenagement.cpp
+  EquipmentInputControler.cpp
+  EquipmentStorageArea.cpp
+  Furnace.cpp
+  Game.cpp
+  HoveringWithMouse.cpp
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Camera.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Camera.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EquipmentAreas.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EquipmentAreas.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EntityConstructor.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EntityConstructor.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Furnace.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Furnace.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EntityPlayer.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „EntityPlayer.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Equipment.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Equipment.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Entity.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Entity.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\CraftingItems.cpp(46,68): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\CraftingItems.cpp(53,105): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\CraftingItems.cpp(133,85): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EquipmentAreasMenagement.cpp(33,29): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EquipmentAreasMenagement.cpp(58,29): warning C4267: "=": konwersja z "size_t" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\HoveringWithMouse.cpp(53,51): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\HoveringWithMouse.cpp(52,51): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Game.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Game.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(33,15): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(35,23): warning C4244: "inicjowanie": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(44,22): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(55,17): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(54,17): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(53,22): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(52,23): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,224): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:             T=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         and
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(204,200): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(54,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(59,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(64,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(69,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(89,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\button.cpp(94,1): warning C4172: zwracanie adresu lokalnej zmiennej lub tymczasowej 
+  inputAction.cpp
+  item.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244: "argument": konwersja z "_Ty" do "int", możliwa utrata danych
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:             _Ty=float
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         ]
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+      C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85):
+      kontekst tworzenia wystąpienia szablonu (najpierw najstarszy) to
+          C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\CraftingItems.cpp(363,23):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „Recipe &std::vector<Recipe,std::allocator<Recipe>>::emplace_back<int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&)” funkcji szablon
+              C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\CraftingItems.cpp(363,35):
+              zobacz pierwsze odwołanie do elementu „std::vector<Recipe,std::allocator<Recipe>>::emplace_back” w „CraftingItems::initRecipesVecNew”
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vector(927,24):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_one_at_back<int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&)” funkcji szablon
+          with
+          [
+              _Ty=Recipe
+          ]
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vector(847,20):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „_Ty &std::vector<_Ty,std::allocator<_Ty>>::_Emplace_back_with_unused_capacity<int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&)” funkcji szablon
+          with
+          [
+              _Ty=Recipe
+          ]
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vector(865,27):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(_Alloc &,_Objty *const ,int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&)” funkcji szablon
+          with
+          [
+              _Alloc=std::allocator<Recipe>,
+              _Ty=Recipe,
+              _Objty=Recipe
+          ]
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xmemory(730,14):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „_Ty *std::construct_at<_Objty,int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(_Ty *const ,int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&) noexcept(<expr>)” funkcji szablon
+          with
+          [
+              _Ty=Recipe,
+              _Objty=Recipe
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244: "argument": konwersja z "_Ty" do "float", możliwa utrata danych
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(636,85): warning C4244:         ]
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+  
+  PlayerStorage.cpp
+  Recipe.cpp
+  slot.cpp
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244: "argument": konwersja z "_Ty" do "int", możliwa utrata danych
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:             _Ty=float
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         ]
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+      C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94):
+      kontekst tworzenia wystąpienia szablonu (najpierw najstarszy) to
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\vector(865,27):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „void std::_Default_allocator_traits<_Alloc>::construct<_Ty,int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(_Alloc &,_Objty *const ,int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&)” funkcji szablon
+          with
+          [
+              _Alloc=std::allocator<Recipe>,
+              _Ty=Recipe,
+              _Objty=Recipe
+          ]
+          C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xmemory(730,14):
+          zobacz odwołanie do kompilowanego tworzenia wystąpienia „_Ty *std::construct_at<_Objty,int,int,std::unique_ptr<item,std::default_delete<item>>,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>>,ItemNames,std::vector<ItemNames,std::allocator<ItemNames>>&,float,std::vector<int,std::allocator<int>>&,RecipeStatus,GraphicsData*&>(_Ty *const ,int &&,int &&,std::unique_ptr<item,std::default_delete<item>> &&,std::vector<std::unique_ptr<item,std::default_delete<item>>,std::allocator<std::unique_ptr<item,std::default_delete<item>>>> &&,ItemNames &&,std::vector<ItemNames,std::allocator<ItemNames>> &,float &&,std::vector<int,std::allocator<int>> &,RecipeStatus &&,GraphicsData *&) noexcept(false)” funkcji szablon
+          with
+          [
+              _Ty=Recipe,
+              _Objty=Recipe
+          ]
+  
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244: "argument": konwersja z "_Ty" do "float", możliwa utrata danych
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         with
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         [
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:             _Ty=int
+C:\Program Files\Microsoft Visual Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\xutility(647,94): warning C4244:         ]
+  (kompilowanie pliku źródłowego „CraftingItems.cpp”)
+  
+  ItemConstructor.cpp
+  ItemStorage.cpp
+  itemTool.cpp
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\EntityPlayer.cpp(196,1): warning C4715: "EntityPlayer::checkIfBackGroundMoveable”: niewszystkie ścieżki kodu zwracają wartość
+  Main.cpp
+  mouseButton.cpp
+  mouseButtonWheel.cpp
+  SpriteAndBlockadeOnMap.cpp
+  State.cpp
+  StateMachine.cpp
+  StateMenu.cpp
+  StateSpawnPlace.cpp
+  StateStack.cpp
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „PlayerStorage.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „PlayerStorage.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Recipe.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Recipe.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Recipe.cpp(128,15): warning C4244: "inicjowanie": konwersja z "float" do "int", możliwa utrata danych
+  ThrowedItem.cpp
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\itemTool.cpp(26,30): warning C4305: "=": obcięcie z "double" do "float"
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\itemTool.cpp(31,30): warning C4305: "=": obcięcie z "double" do "float"
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „State.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „State.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Main.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „Main.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateMenu.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateMenu.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(54,8): warning C4244: "inicjowanie": konwersja z "T" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(54,8): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(54,8): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(54,8): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(54,8): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(57,8): warning C4244: "inicjowanie": konwersja z "T" do "int", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(57,8): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(57,8): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(57,8): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\State.cpp(57,8): warning C4244:         ]
+  ThrownItems.cpp
+  TilesByItemsManagement.cpp
+  TilesOnMap.cpp
+  TilesManagement.cpp
+  Workstation.cpp
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateSpawnPlace.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateSpawnPlace.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateStack.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „StateStack.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrowedItem.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrowedItem.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,92): warning C4244: "argument": konwersja z "float" do "_Ty", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,92): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,92): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,92): warning C4244:             _Ty=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,92): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,66): warning C4244: "argument": konwersja z "float" do "_Ty", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,66): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,66): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,66): warning C4244:             _Ty=int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(58,66): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(61,14): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(62,13): warning C4244: "=": konwersja z "int" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(113,26): warning C4244: "=": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(113,26): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(113,26): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(113,26): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(113,26): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(114,26): warning C4244: "=": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(114,26): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(114,26): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(114,26): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(114,26): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(126,78): warning C4244: "=": konwersja z "double" do "T", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(126,78): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(126,78): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(126,78): warning C4244:             T=float
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(126,78): warning C4244:         ]
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.cpp(193,23): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(40,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrownItems.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\ThrowedItem.h(41,45): warning C4244: "inicjowanie": konwersja z "double" do "const float", możliwa utrata danych
+  (kompilowanie pliku źródłowego „ThrownItems.cpp”)
+  
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Workstation.cpp(17,96): warning C4244: "argument": konwersja z "T" do "float", możliwa utrata danych
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Workstation.cpp(17,96): warning C4244:         with
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Workstation.cpp(17,96): warning C4244:         [
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Workstation.cpp(17,96): warning C4244:             T=unsigned int
+C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\Vendos\Workstation.cpp(17,96): warning C4244:         ]
   Vendos.vcxproj -> C:\Users\matib\source\repos\GITHUB\Programowanie\Vendos_vb7_ReworkTile\x64\Debug\Vendos.exe

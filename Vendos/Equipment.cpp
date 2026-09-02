@@ -1,12 +1,12 @@
 #include "Equipment.h"
 
 //Constructor
-Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>*Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
+Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>&Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround)
+	: Tile(Tile),
+	  graphicsData(graphicsData),
+	  equipmentData(equipmentData),
+	  itemsOnTheGround(ItemsOnTheGround)
 {
-	this->graphicsData = graphicsData;
-	this->equipmentData = equipmentData;
-	this->Tile = Tile;
-	this->itemsOnTheGround = ItemsOnTheGround;
 
 	this->inputController = std::make_unique<EquipmentInputControler>();
 
@@ -16,7 +16,7 @@ Equipment::Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::un
 	initPlayerCrafting();
 
 	this->eqAreas = std::make_unique<EquipmentAreas>(this->graphicsData, this->equipmentData, this->playerStorage.get(), nullptr, ItemsOnTheGround);
-	this->tilesByItemManagement = std::make_unique<TilesByItemsManagement>(this->graphicsData, this->equipmentData, this->Tile, this->playerStorage.get());
+	this->tilesByItemManagement = std::make_unique<TilesByItemsManagement>(this->graphicsData, this->equipmentData, &this->Tile, this->playerStorage.get());
 	
 	this->itemsOnTheGround->initEqPtr(this->playerStorage.get());
 	
@@ -133,7 +133,7 @@ void Equipment::tryOpenChest()
 
 	auto c = inputController->clickedTile().value();
 
-	auto& tile = (*Tile)[c.x][c.y];
+	auto& tile = Tile[c.x][c.y];
 	if (!tile || tile->typeOfTile != tileType::chestField)
 		return;
 

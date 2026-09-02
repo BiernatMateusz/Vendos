@@ -7,7 +7,7 @@ class TilesManagement
 {
 public:
 	TilesManagement(GraphicsData* graphicsData, EquipmentData* equipmentData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile);
-	std::unique_ptr<HoveringWithMouse> hoveringWithMouse{};
+	
 
 	void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 	void render();
@@ -26,7 +26,7 @@ protected:
 	sf::Vector2i getCordsOfClickedTile(const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
 private:
 	bool checkIfDestroyable(TilesOnMap* TileToCheck);
-	
+	std::unique_ptr<HoveringWithMouse> hoveringWithMouse{};
 	ItemConstructor itemFactory;
 
 };

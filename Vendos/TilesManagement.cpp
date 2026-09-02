@@ -45,6 +45,7 @@ void TilesManagement::initTile(sf::Vector2i position2i, ItemNames itemName)
 	
 }
 
+
 void TilesManagement::takingResistanceDown(sf::Vector2i coordsOfClickedTile, item* item)
 {
 	this->Tile->at(coordsOfClickedTile.x).at(coordsOfClickedTile.y)->decreaseTicksToDisappear(item->getBreakingDamage());
@@ -63,7 +64,7 @@ bool TilesManagement::checkIfDestroyable(TilesOnMap* TileToCheck)
 
 bool TilesManagement::checkIfEmpty(sf::Vector2i position2i)
 {
-	return this->Tile->at(position2i.x).at(position2i.y) == nullptr ? true : false;
+	return this->Tile->at(position2i.x).at(position2i.y) == nullptr;
 }
 
 void TilesManagement::removeTile(sf::Vector2i cordsXY)

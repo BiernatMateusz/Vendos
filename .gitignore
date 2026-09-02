@@ -3,3 +3,13 @@
 *.jfm
 .pdb
 *.pdb
+*.ipch
+x64/
+*.obj
+*.idb
+*.exe
+*.tlog
+*.recipe
+*.iobj
+*.ipdb
+*.log

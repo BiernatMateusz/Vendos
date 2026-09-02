@@ -18,7 +18,7 @@ public:
 	(	
 		EntityNames entityType, 
 		ThrownItems* ItemsOnTheGround, 
-		std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, 
+		std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile, 
 		std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec
 	);
 };

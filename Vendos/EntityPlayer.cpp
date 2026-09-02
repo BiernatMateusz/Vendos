@@ -164,7 +164,7 @@ void EntityPlayer::initItemsOnTheGround(ThrownItems* ItemsOnTheGround)
 
 void EntityPlayer::initEquipment()
 {
-	this->equipmentPtr = new Equipment(this->graphicsData, this->Tile, this->equipmentData, this->ItemsOnTheGround);
+	this->equipmentPtr = new Equipment(this->graphicsData, *this->Tile, this->equipmentData, this->ItemsOnTheGround);
 }
 
 bool EntityPlayer::checkIfBackGroundMoveable()

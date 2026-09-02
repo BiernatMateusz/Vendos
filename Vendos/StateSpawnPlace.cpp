@@ -16,7 +16,7 @@ StateSpawnPlace::StateSpawnPlace(GraphicsData* graphicsData, StateMachine* state
 
 void StateSpawnPlace::initPlayer()
 {
-	auto player = entityFactory.createEntity(EntityNames::Player, this->ItemsOnTheGround.get(), &this->Tile, this->CollisionTilesVec);
+	auto player = entityFactory.createEntity(EntityNames::Player, this->ItemsOnTheGround.get(), this->Tile, this->CollisionTilesVec);
 	
 	this->entityPlayer = player.get();
 	this->entitiesPointer.push_back(std::move(player));
@@ -144,9 +144,8 @@ void StateSpawnPlace::mapGeneration()
 
 			}
 
-	this->tileManagement->removeTile({ getPlayerTile().x,getPlayerTile().y }); 
-	
 	//prevents from spawning in block
+	this->tileManagement->removeTile({ getPlayerTile().x,getPlayerTile().y }); 
 
 }
 

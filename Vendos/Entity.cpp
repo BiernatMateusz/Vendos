@@ -20,10 +20,10 @@ void Entity::initCamera(Camera* Camer)
 	this->camer = Camer;
 }
 
-void Entity::initEntityBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec)
+void Entity::initEntityBasicData(ThrownItems* ItemsOnTheGround, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile, std::vector<std::reference_wrapper<sf::FloatRect>>& CollisionTilesVec)
 {
 	this->ItemsOnTheGround = ItemsOnTheGround;
-	this->Tile = Tile;
+	this->Tile = &Tile;
 	this->CollisionTilesVec = CollisionTilesVec;
 
 	pushSpriteToMainEntitiesVector();

@@ -27,7 +27,7 @@ private:
 	///////////////////////////////////////////Pointers not owned ///////////////////////////////////////////////////
 	GraphicsData* graphicsData;
 	EquipmentData* equipmentData;
-	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile;
+	std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile;
 	EquipmentStorageArea* secondEq{};
 	ThrownItems* itemsOnTheGround{};
 
@@ -55,7 +55,7 @@ protected:
 
 public:
 	//Constructors//Destructors
-	Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>* Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
+	Equipment(GraphicsData* graphicsData, std::vector<std::vector<std::unique_ptr<TilesOnMap>>>& Tile, EquipmentData* equipmentData, ThrownItems* ItemsOnTheGround);
 
 	//Public Functions
 	void update(const float& dt, const std::unordered_map<inputAction, std::unique_ptr<button>>& AllKeys);
